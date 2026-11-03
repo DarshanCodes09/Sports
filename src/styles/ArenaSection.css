@@ -1,0 +1,159 @@
+/* ==========================================================================
+   STRIVORA ARENA HOMEPAGE PROMOTIONAL SECTION
+   File: src/styles/ArenaSection.css
+   Responsive, clean layout with dark navy background and lime green highlights
+   ========================================================================== */
+
+.arena-promo-section {
+  background-color: #0d1322;
+  color: #ffffff;
+  padding: 3.5rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+}
+
+.arena-promo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Content */
+.arena-promo-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+}
+
+.arena-promo-tag {
+  color: #B8F36B;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.arena-promo-title {
+  color: #ffffff;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem 0;
+}
+
+.arena-promo-description {
+  color: #9ca3af;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.arena-promo-btn {
+  background-color: #B8F36B;
+  color: #0d1322;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.arena-promo-btn:hover {
+  background-color: #a4e852;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(184, 243, 107, 0.3);
+}
+
+.arena-promo-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* 4 Game Cards Grid */
+.arena-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.arena-promo-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.arena-promo-card:hover {
+  border-color: #B8F36B;
+  background-color: rgba(184, 243, 107, 0.04);
+  transform: translateY(-4px);
+}
+
+.arena-promo-card:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 3px;
+}
+
+.arena-promo-card-title {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.arena-promo-card-desc {
+  color: #9ca3af;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
+  flex-grow: 1;
+}
+
+.arena-promo-card-link {
+  color: #B8F36B;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: gap 0.2s ease;
+}
+
+.arena-promo-card:hover .arena-promo-card-link {
+  gap: 0.45rem;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .arena-promo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .arena-promo-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .arena-promo-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .arena-promo-btn {
+    width: 100%;
+  }
+}

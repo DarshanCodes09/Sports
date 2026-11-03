@@ -1,36 +1,18 @@
-// strivora/
-// ├── public/
-// │   ├── images/
-// │   ├── logos/
-// │   └── flags/
-// │
-// ├── src/
-// │   ├── assets/
-// │   ├── components/
-// │   │   ├── Navbar.jsx
-// │   │   ├── Footer.jsx
-// │   │   ├── SportIcon.jsx
-// │   │   ├── SearchBar.jsx
-// │   │   └── MatchScore.jsx
-// │   │
-// │   ├── pages/
-// │   │   ├── Home.jsx
-// │   │   ├── Explore.jsx
-// │   │   ├── Cricket.jsx
-// │   │   ├── Football.jsx
-// │   │   ├── Basketball.jsx
-// │   │   └── Volleyball.jsx
-// │   │
-// │   ├── data/
-// │   │   ├── sports.js
-// │   │   └── matches.js
-// │   │
-// │   ├── styles/
-// │   │   ├── global.css
-// │   │   ├── variables.css
-// │   │   └── animations.css
-// │   │
-// │   ├── App.jsx
-// │   └── main.jsx
-// │
-// └── package.json
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./app.jsx";
+import "./index.css";
+
+// Mount the React application to the root DOM element
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error("Root element not found in HTML!");
+}
+
