@@ -1,184 +1,222 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* ==========================================================================
+   STRIVORA APP & CORE LAYOUT STYLES
+   File: src/App.css
+   ========================================================================== */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+.strivora-app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  background-color: #0b1120;
 }
 
-#next-steps {
+.strivora-main {
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR
+   -------------------------------------------------------------------------- */
+.strivora-navbar {
+  background-color: #0d1322;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.strivora-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
+.strivora-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.strivora-logo-badge {
+  color: #B8F36B;
+}
+
+.strivora-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.strivora-nav-link {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  padding: 0.4rem 0.2rem;
+  position: relative;
+}
+
+.strivora-nav-link:hover,
+.strivora-nav-link.active {
+  color: #B8F36B;
+}
+
+.strivora-nav-link:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   HOMEPAGE HERO SECTION
+   -------------------------------------------------------------------------- */
+.home-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero {
+  padding: 4.5rem 1.5rem 3.5rem;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-hero-tag {
+  color: #B8F36B;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.home-hero-title {
+  color: #ffffff;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.home-hero-desc {
+  color: #94a3b8;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+}
+
+.home-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.home-btn-primary {
+  background-color: #B8F36B;
+  color: #0b1120;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  display: inline-block;
+}
+
+.home-btn-primary:hover {
+  background-color: #a4e852;
+  transform: translateY(-2px);
+}
+
+.home-btn-primary:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.home-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+}
+
+.home-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.home-btn-secondary:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.strivora-footer {
+  background-color: #0d1322;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 1.5rem;
+  margin-top: auto;
+}
+
+.strivora-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.strivora-footer-text {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.strivora-footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.strivora-footer-link {
+  color: #94a3b8;
+  font-size: 0.88rem;
+  transition: color 0.2s ease;
+}
+
+.strivora-footer-link:hover {
+  color: #B8F36B;
+}
+
+@media (max-width: 600px) {
+  .strivora-nav-container {
+    padding: 0.85rem 1rem;
   }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
+  .strivora-nav-links {
+    gap: 1rem;
   }
-
-  @media (max-width: 1024px) {
+  .strivora-footer-container {
     flex-direction: column;
     text-align: center;
   }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
-}

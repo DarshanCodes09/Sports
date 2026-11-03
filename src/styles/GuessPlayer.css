@@ -1,0 +1,687 @@
+/* ==========================================================================
+   STRIVORA GUESS THE PLAYER STYLES
+   File: src/styles/GuessPlayer.css
+   Clean, modern, responsive styling with dark navy and lime-green palette
+   ========================================================================== */
+
+.player-wrapper {
+  min-height: 100vh;
+  background-color: #0b1120;
+  color: #f8fafc;
+  padding: 3rem 1.5rem 5rem;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.player-container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   1. SETUP SCREEN
+   -------------------------------------------------------------------------- */
+.player-setup-card {
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-sizing: border-box;
+}
+
+.player-setup-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.player-badge {
+  color: #B8F36B;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.player-title {
+  color: #ffffff;
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem 0;
+}
+
+.player-subtitle {
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+.player-section-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #cbd5e1;
+  margin-bottom: 0.85rem;
+}
+
+.player-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.player-category-btn {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.player-category-btn:hover {
+  border-color: rgba(184, 243, 107, 0.4);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.player-category-btn:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 2px;
+}
+
+.player-category-btn.active {
+  border-color: #B8F36B;
+  background-color: rgba(184, 243, 107, 0.12);
+  color: #B8F36B;
+  font-weight: 700;
+}
+
+.player-rules-card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.player-rules-heading {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.player-rules-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.player-rule-bullet {
+  color: #B8F36B;
+  font-weight: 700;
+}
+
+.player-info-banner {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid #B8F36B;
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 2rem;
+}
+
+.player-info-banner.warning {
+  border-left-color: #ef4444;
+  color: #f87171;
+}
+
+.player-setup-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   2. GAMEPLAY SCREEN
+   -------------------------------------------------------------------------- */
+.player-play-card {
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-sizing: border-box;
+}
+
+.player-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.player-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player-tag {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.player-timer-pill {
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background-color: rgba(184, 243, 107, 0.12);
+  color: #B8F36B;
+  border: 1px solid rgba(184, 243, 107, 0.3);
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.player-timer-pill.urgent {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.player-progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.player-progress-bar-fill {
+  display: block;
+  height: 100%;
+  background-color: #B8F36B;
+  transition: width 0.3s ease;
+}
+
+/* Clues Container */
+.player-clues-section {
+  background-color: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.player-clues-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.player-clues-title {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.player-points-tag {
+  color: #B8F36B;
+  background-color: rgba(184, 243, 107, 0.12);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.player-clues-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.player-clue-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid #B8F36B;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #f8fafc;
+}
+
+.player-clue-num {
+  background-color: rgba(184, 243, 107, 0.2);
+  color: #B8F36B;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.player-reveal-btn {
+  background-color: transparent;
+  color: #94a3b8;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.player-reveal-btn:hover:not(:disabled) {
+  border-color: #B8F36B;
+  color: #B8F36B;
+  background-color: rgba(184, 243, 107, 0.04);
+}
+
+.player-reveal-btn:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 2px;
+}
+
+.player-reveal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 4 Options Grid */
+.player-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.player-option-btn {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1.15rem 1.25rem;
+  color: #f8fafc;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.player-option-btn:hover:not(:disabled) {
+  border-color: #B8F36B;
+  background-color: rgba(184, 243, 107, 0.05);
+}
+
+.player-option-btn:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 2px;
+}
+
+.player-option-btn:disabled {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.player-option-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Correct & Incorrect States */
+.player-option-btn.correct {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+}
+
+.player-option-btn.correct .player-option-letter {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.player-option-btn.incorrect {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #f87171 !important;
+}
+
+.player-option-btn.incorrect .player-option-letter {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Feedback Box */
+.player-feedback-box {
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  border: 1px solid transparent;
+}
+
+.player-feedback-box.correct {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.player-feedback-box.incorrect {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.player-feedback-box.timeout {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.player-feedback-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+}
+
+.player-feedback-box.correct .player-feedback-title {
+  color: #34d399;
+}
+
+.player-feedback-box.incorrect .player-feedback-title {
+  color: #f87171;
+}
+
+.player-feedback-box.timeout .player-feedback-title {
+  color: #fbbf24;
+}
+
+.player-feedback-text {
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.player-source-text {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.player-bottom-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   3. RESULTS SCREEN
+   -------------------------------------------------------------------------- */
+.player-results-card {
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.player-results-title {
+  color: #ffffff;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+}
+
+.player-results-meta {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.player-score-circle {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 2.5rem;
+  border-radius: 50%;
+  border: 3px solid #B8F36B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(184, 243, 107, 0.05);
+}
+
+.player-score-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #B8F36B;
+  line-height: 1;
+}
+
+.player-score-label {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.player-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 550px;
+  margin: 0 auto 2.5rem;
+}
+
+.player-stat-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.player-stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 0.35rem;
+}
+
+.player-stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.player-stat-value.correct {
+  color: #34d399;
+}
+
+.player-stat-value.incorrect {
+  color: #f87171;
+}
+
+.player-stat-value.unanswered {
+  color: #fbbf24;
+}
+
+.player-performance-badge {
+  display: inline-block;
+  background-color: rgba(184, 243, 107, 0.12);
+  color: #B8F36B;
+  border: 1px solid rgba(184, 243, 107, 0.3);
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.player-results-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTONS
+   -------------------------------------------------------------------------- */
+.player-btn-primary {
+  background-color: #B8F36B;
+  color: #0b1120;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.player-btn-primary:hover:not(:disabled) {
+  background-color: #a4e852;
+  transform: translateY(-2px);
+}
+
+.player-btn-primary:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.player-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.player-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.player-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.player-btn-secondary:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   5. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .player-wrapper {
+    padding: 2rem 1rem 3.5rem;
+  }
+
+  .player-setup-card,
+  .player-play-card,
+  .player-results-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .player-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .player-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .player-results-actions,
+  .player-setup-actions {
+    flex-direction: column;
+  }
+
+  .player-btn-primary,
+  .player-btn-secondary {
+    width: 100%;
+  }
+}
+
