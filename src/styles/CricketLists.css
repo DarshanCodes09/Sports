@@ -1,0 +1,32 @@
+.country-list,
+.player-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 20px;
+}
+
+.country-item,
+.player-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  text-align: left;
+  background: #151d2e;
+  color: white;
+  border: 1px solid #29354a;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.country-item:hover,
+.player-item:hover {
+  border-color: #a3e635;
+}
+
+.country-item span,
+.player-item span {
+  font-size: 12px;
+  color: #9ca3af;
+}

@@ -7,6 +7,10 @@ import GuessPlayer from "./pages/GuessPlayer.jsx";
 import StatsChallenge from "./pages/StatsChallenge.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
+import PlayerUniverse from "./pages/PlayerUniverse.jsx";
+import CountriesPage from "./pages/CountriesPage.jsx";
+import CountryPlayersPage from "./pages/CountryPlayersPage.jsx";
+import PlayerDetailsPage from "./pages/PlayerDetailsPage.jsx";
 import "./App.css";
 
 // Main STRIVORA App component with lightweight path routing
@@ -25,6 +29,17 @@ function App() {
 
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
+    if (currentPath === "/countries") return <CountriesPage />;
+
+    if (/^\/countries\/[^/]+\/players$/.test(currentPath)) {
+      return <CountryPlayersPage />;
+    }
+
+    if (currentPath === "/players") return <PlayerUniverse />;
+
+    if (/^\/players\/[^/]+$/.test(currentPath)) {
+      return <PlayerDetailsPage />;
+    }
     if (currentPath === "/arena/quiz") {
       return <Quiz />;
     }
