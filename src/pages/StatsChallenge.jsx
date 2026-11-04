@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { statistics } from "../data/statistics.js";
+import { saveGameResult } from "../utils/arenaStorage.js";
 import "../styles/StatsChallenge.css";
 
 // Shuffle array items randomly
@@ -112,6 +113,13 @@ function StatsChallenge() {
       setIsLocked(false);
       setTimeLeft(15);
     } else {
+      saveGameResult({
+        gameName: "Stats Challenge",
+        score,
+        correctCount,
+        wrongCount: incorrectCount + unansweredCount,
+        xpEarned: score * 10
+      });
       setGameState("results");
     }
   };

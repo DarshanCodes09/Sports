@@ -71,6 +71,38 @@
   border-radius: 4px;
 }
 
+/* Profile Button in Navbar */
+.strivora-nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.strivora-profile-btn {
+  color: #B8F36B;
+  border: 1px solid rgba(184, 243, 107, 0.4);
+  background-color: rgba(184, 243, 107, 0.08);
+  padding: 0.45rem 1.15rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.strivora-profile-btn:hover,
+.strivora-profile-btn.active {
+  background-color: #B8F36B;
+  color: #0b1120;
+  border-color: #B8F36B;
+}
+
+.strivora-profile-btn:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 3px;
+}
+
 /* Homepage Hero */
 .home-page {
   display: flex;
@@ -201,10 +233,18 @@
 @media (max-width: 600px) {
   .strivora-nav-container {
     padding: 0.85rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
   .strivora-nav-links {
-    gap: 1rem;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  .strivora-profile-btn {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
   }
 
   .strivora-footer-container {
