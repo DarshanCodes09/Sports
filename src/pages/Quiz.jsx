@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { quizQuestions } from "../data/questions.js";
+import { quizQuestions } from "../data/quizQuestions.js";
 import "../styles/Quiz.css";
 
-// Reusable Fisher-Yates algorithm for unbiased array shuffling
+// Shuffle array items randomly
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -14,48 +14,42 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Option letters for display (A, B, C, D)
 const OPTION_LETTERS = ["A", "B", "C", "D"];
+const SPORTS = ["Cricket", "Football", "Basketball", "Volleyball"];
+const DIFFICULTIES = ["Easy", "Medium", "Hard"];
 
 function Quiz() {
-  // Game setup state
   const [selectedSport, setSelectedSport] = useState("Cricket");
   const [selectedDifficulty, setSelectedDifficulty] = useState("Easy");
-  const [gameState, setGameState] = useState("setup"); // "setup" | "playing" | "results"
+  const [gameState, setGameState] = useState("setup");
 
-  // Gameplay state
   const [gameQuestions, setGameQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
 
-  // Score tracking state
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [unansweredCount, setUnansweredCount] = useState(0);
 
-  // Filter matching questions from questions.js
+  // Filter questions matching selected sport and difficulty
   const availableQuestions = quizQuestions.filter(
     (q) => q.sport === selectedSport && q.difficulty === selectedDifficulty
   );
 
-  // Starts a new randomized quiz session
+  // Start a new 10-question quiz
   const handleStartQuiz = () => {
     if (availableQuestions.length === 0) return;
 
-    // 1. Randomly shuffle the filtered question pool using Fisher-Yates
     const shuffledPool = shuffleArray(availableQuestions);
-
-    // 2. Select up to 10 questions and shuffle their 4 answer choices individually
-    const preparedQuestions = shuffledPool.slice(0, 10).map((question) => ({
+    const chosenQuestions = shuffledPool.slice(0, 10).map((question) => ({
       ...question,
       shuffledOptions: shuffleArray(question.options)
     }));
 
-    // Reset gameplay and score states
-    setGameQuestions(preparedQuestions);
+    setGameQuestions(chosenQuestions);
     setCurrentIndex(0);
     setSelectedAnswer(null);
     setIsLocked(false);
@@ -67,27 +61,24 @@ function Quiz() {
     setGameState("playing");
   };
 
-  // 15-second countdown timer effect
+  // 15-second countdown timer
   useEffect(() => {
-    // Only count down while actively playing and question is not locked
     if (gameState !== "playing" || isLocked) return;
 
-    // If time expires, lock the question and mark as unanswered
     if (timeLeft === 0) {
       setIsLocked(true);
       setUnansweredCount((prev) => prev + 1);
       return;
     }
 
-    const timerId = setInterval(() => {
+    const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
 
-    // Clean up timer on next tick, question change, or component unmount
-    return () => clearInterval(timerId);
+    return () => clearInterval(timer);
   }, [gameState, isLocked, timeLeft]);
 
-  // Handles user clicking an answer option
+  // Handle answer selection
   const handleSelectOption = (option) => {
     if (isLocked) return;
 
@@ -103,7 +94,7 @@ function Quiz() {
     }
   };
 
-  // Advance to next question or show results
+  // Move to next question or view results
   const handleNextQuestion = () => {
     if (currentIndex + 1 < gameQuestions.length) {
       setCurrentIndex((prev) => prev + 1);
@@ -115,20 +106,31 @@ function Quiz() {
     }
   };
 
-  // Return to setup screen
   const handlePlayAgain = () => {
     setGameState("setup");
   };
 
-  // Current active question
   const currentQuestion = gameQuestions[currentIndex];
+
+  let feedbackTitle = "";
+  let feedbackType = "";
+  if (currentQuestion && isLocked) {
+    if (selectedAnswer === currentQuestion.answer) {
+      feedbackTitle = "Correct Answer!";
+      feedbackType = "correct";
+    } else if (selectedAnswer === null) {
+      feedbackTitle = `Time's up! The correct answer is: ${currentQuestion.answer}`;
+      feedbackType = "timeout";
+    } else {
+      feedbackTitle = `Incorrect! The correct answer is: ${currentQuestion.answer}`;
+      feedbackType = "incorrect";
+    }
+  }
 
   return (
     <div className="quiz-wrapper">
       <div className="quiz-container">
-        {/* ================================================================
-            1. SETUP SCREEN
-            ================================================================ */}
+        {/* Setup Screen */}
         {gameState === "setup" && (
           <div className="quiz-setup-card">
             <header className="quiz-setup-header">
@@ -139,28 +141,23 @@ function Quiz() {
               </p>
             </header>
 
-            {/* Sport Selection */}
             <div className="quiz-section-label">Select Sport</div>
             <div className="quiz-options-group">
-              {["Cricket", "Football", "Basketball", "Volleyball"].map((sport) => (
+              {SPORTS.map((sport) => (
                 <button
                   key={sport}
                   type="button"
                   className={`quiz-choice-btn ${selectedSport === sport ? "active" : ""}`}
                   onClick={() => setSelectedSport(sport)}
                 >
-                  {sport === "Cricket" && "🏏"}
-                  {sport === "Football" && "⚽"}
-                  {sport === "Basketball" && "🏀"}
-                  {sport === "Volleyball" && "🏐"} {sport}
+                  {sport}
                 </button>
               ))}
             </div>
 
-            {/* Difficulty Selection */}
             <div className="quiz-section-label">Select Difficulty</div>
             <div className="quiz-options-group">
-              {["Easy", "Medium", "Hard"].map((difficulty) => (
+              {DIFFICULTIES.map((difficulty) => (
                 <button
                   key={difficulty}
                   type="button"
@@ -172,7 +169,6 @@ function Quiz() {
               ))}
             </div>
 
-            {/* Questions Availability Banner */}
             {availableQuestions.length > 0 ? (
               <div className="quiz-info-banner">
                 Ready! {availableQuestions.length} questions available for{" "}
@@ -184,10 +180,9 @@ function Quiz() {
               </div>
             )}
 
-            {/* Setup Actions */}
             <div className="quiz-setup-actions">
               <a href="/arena" className="quiz-btn-secondary">
-                &larr; Back to Arena
+                Back to Arena
               </a>
               <button
                 type="button"
@@ -195,18 +190,15 @@ function Quiz() {
                 onClick={handleStartQuiz}
                 disabled={availableQuestions.length === 0}
               >
-                Start Quiz &rarr;
+                Start Quiz
               </button>
             </div>
           </div>
         )}
 
-        {/* ================================================================
-            2. QUIZ SCREEN
-            ================================================================ */}
+        {/* Playing Screen */}
         {gameState === "playing" && currentQuestion && (
           <div className="quiz-play-card">
-            {/* Top Bar: Tags and Timer */}
             <div className="quiz-top-bar">
               <div className="quiz-meta-info">
                 <span className="quiz-tag">{selectedSport}</span>
@@ -216,11 +208,10 @@ function Quiz() {
                 </span>
               </div>
               <div className={`quiz-timer-pill ${timeLeft <= 5 ? "urgent" : ""}`}>
-                ⏱ {timeLeft}s
+                {timeLeft}s
               </div>
             </div>
 
-            {/* Progress Bar */}
             <div className="quiz-progress-bar-bg">
               <span
                 className="quiz-progress-bar-fill"
@@ -230,10 +221,8 @@ function Quiz() {
               ></span>
             </div>
 
-            {/* Question Text */}
             <h2 className="quiz-question-heading">{currentQuestion.question}</h2>
 
-            {/* Answer Options Grid */}
             <div className="quiz-answers-grid">
               {currentQuestion.shuffledOptions.map((option, index) => {
                 let statusClass = "";
@@ -262,30 +251,13 @@ function Quiz() {
               })}
             </div>
 
-            {/* Answer Feedback & Explanation */}
             {isLocked && (
-              <div
-                className={`quiz-feedback-box ${
-                  selectedAnswer === currentQuestion.answer
-                    ? "correct"
-                    : selectedAnswer === null
-                    ? "timeout"
-                    : "incorrect"
-                }`}
-              >
-                <div className="quiz-feedback-title">
-                  {selectedAnswer === currentQuestion.answer && "✓ Correct Answer!"}
-                  {selectedAnswer !== null &&
-                    selectedAnswer !== currentQuestion.answer &&
-                    `✗ Incorrect! The correct answer is: ${currentQuestion.answer}`}
-                  {selectedAnswer === null &&
-                    `⏰ Time's up! The correct answer is: ${currentQuestion.answer}`}
-                </div>
+              <div className={`quiz-feedback-box ${feedbackType}`}>
+                <div className="quiz-feedback-title">{feedbackTitle}</div>
                 <p className="quiz-feedback-text">{currentQuestion.explanation}</p>
               </div>
             )}
 
-            {/* Next Question / View Results Button */}
             {isLocked && (
               <div className="quiz-bottom-actions">
                 <button
@@ -294,31 +266,27 @@ function Quiz() {
                   onClick={handleNextQuestion}
                 >
                   {currentIndex + 1 < gameQuestions.length
-                    ? "Next Question →"
-                    : "View Results →"}
+                    ? "Next Question"
+                    : "View Results"}
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* ================================================================
-            3. RESULTS SCREEN
-            ================================================================ */}
+        {/* Results Screen */}
         {gameState === "results" && (
           <div className="quiz-results-card">
             <h1 className="quiz-results-title">Quiz Completed!</h1>
             <p className="quiz-results-meta">
-              Category: <strong>{selectedSport}</strong> &bull; Difficulty: <strong>{selectedDifficulty}</strong>
+              Category: <strong>{selectedSport}</strong> | Difficulty: <strong>{selectedDifficulty}</strong>
             </p>
 
-            {/* Final Score Circle */}
             <div className="quiz-score-circle">
               <span className="quiz-score-number">{score}</span>
               <span className="quiz-score-label">out of {gameQuestions.length}</span>
             </div>
 
-            {/* Detailed Stats Grid */}
             <div className="quiz-stats-grid">
               <div className="quiz-stat-card">
                 <div className="quiz-stat-label">Correct</div>
@@ -334,17 +302,16 @@ function Quiz() {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="quiz-results-actions">
               <button
                 type="button"
                 className="quiz-btn-primary"
                 onClick={handlePlayAgain}
               >
-                Play Again &#8635;
+                Play Again
               </button>
               <a href="/arena" className="quiz-btn-secondary">
-                Back to Arena &rarr;
+                Back to Arena
               </a>
             </div>
           </div>

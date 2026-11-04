@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { players } from "../data/players.js";
 import "../styles/GuessPlayer.css";
 
-// Reusable Fisher-Yates algorithm for unbiased array shuffling
+// Shuffle array items randomly
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -14,11 +14,18 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Option letters for display (A, B, C, D)
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
-// Points scale based on how many clues were revealed before guessing
-function getPointsForClueCount(clueCount) {
+const SPORTS = [
+  { label: "All Sports", value: "All" },
+  { label: "Cricket", value: "Cricket" },
+  { label: "Football", value: "Football" },
+  { label: "Basketball", value: "Basketball" },
+  { label: "Volleyball", value: "Volleyball" }
+];
+
+// Points awarded based on how few clues were needed
+function getPoints(clueCount) {
   if (clueCount === 1) return 100;
   if (clueCount === 2) return 75;
   if (clueCount === 3) return 50;
@@ -26,11 +33,9 @@ function getPointsForClueCount(clueCount) {
 }
 
 function GuessPlayer() {
-  // Game setup state
   const [selectedSport, setSelectedSport] = useState("All");
-  const [gameState, setGameState] = useState("setup"); // "setup" | "playing" | "results"
+  const [gameState, setGameState] = useState("setup");
 
-  // Gameplay state
   const [gameQuestions, setGameQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -38,33 +43,28 @@ function GuessPlayer() {
   const [timeLeft, setTimeLeft] = useState(20);
   const [revealedClueCount, setRevealedClueCount] = useState(1);
 
-  // Score tracking state
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [unansweredCount, setUnansweredCount] = useState(0);
 
-  // Filter available players by sport
-  const availablePlayers = (players || []).filter((p) => {
-    if (selectedSport === "All") return true;
-    return p.sport === selectedSport;
-  });
+  // Filter players by selected sport
+  const availablePlayers =
+    selectedSport === "All"
+      ? players
+      : players.filter((p) => p.sport === selectedSport);
 
-  // Start a fresh randomized Guess the Player game
+  // Start a new 10-player scouting challenge
   const handleStartGame = () => {
     if (availablePlayers.length === 0) return;
 
-    // 1. Shuffle player pool with Fisher-Yates
     const shuffledPool = shuffleArray(availablePlayers);
-
-    // 2. Select up to 10 players and shuffle their 4 answer choices
-    const preparedQuestions = shuffledPool.slice(0, 10).map((player) => ({
+    const chosenPlayers = shuffledPool.slice(0, 10).map((player) => ({
       ...player,
       shuffledOptions: shuffleArray(player.options)
     }));
 
-    // Reset gameplay and score states
-    setGameQuestions(preparedQuestions);
+    setGameQuestions(chosenPlayers);
     setCurrentIndex(0);
     setSelectedAnswer(null);
     setIsLocked(false);
@@ -77,27 +77,23 @@ function GuessPlayer() {
     setGameState("playing");
   };
 
-  // 20-second countdown timer effect
+  // 20-second countdown timer
   useEffect(() => {
-    // Only count down while actively playing and current question is not locked
     if (gameState !== "playing" || isLocked) return;
 
-    // If time expires, lock the question and mark as unanswered
     if (timeLeft === 0) {
       setIsLocked(true);
       setUnansweredCount((prev) => prev + 1);
       return;
     }
 
-    const timerId = setInterval(() => {
+    const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
 
-    // Clean up timer on tick, question change, or component unmount
-    return () => clearInterval(timerId);
+    return () => clearInterval(timer);
   }, [gameState, isLocked, timeLeft]);
 
-  // Current active player object
   const currentQuestion = gameQuestions[currentIndex];
 
   // Reveal next clue
@@ -108,7 +104,7 @@ function GuessPlayer() {
     }
   };
 
-  // Handles user clicking an answer option
+  // Handle answer selection
   const handleSelectOption = (option) => {
     if (isLocked) return;
 
@@ -116,15 +112,15 @@ function GuessPlayer() {
     setIsLocked(true);
 
     if (option === currentQuestion.answer) {
-      const pointsEarned = getPointsForClueCount(revealedClueCount);
-      setScore((prev) => prev + pointsEarned);
+      const points = getPoints(revealedClueCount);
+      setScore((prev) => prev + points);
       setCorrectCount((prev) => prev + 1);
     } else {
       setIncorrectCount((prev) => prev + 1);
     }
   };
 
-  // Advance to next player or show results
+  // Move to next player or view results
   const handleNextPlayer = () => {
     if (currentIndex + 1 < gameQuestions.length) {
       setCurrentIndex((prev) => prev + 1);
@@ -137,26 +133,38 @@ function GuessPlayer() {
     }
   };
 
-  // Return to setup screen
   const handlePlayAgain = () => {
     setGameState("setup");
   };
 
-  // Calculate performance rating for results screen
+  // Performance rating message for results screen
   const getPerformanceMessage = () => {
     if (gameQuestions.length === 0) return "";
     const percentage = (correctCount / gameQuestions.length) * 100;
-    if (percentage >= 80) return "🏆 Master Scout - Legendary Sports Knowledge!";
-    if (percentage >= 50) return "⭐ Pro Analyst - Impressive Player Recognition!";
-    return "🎯 Rookie Scout - Keep Practicing to Spot the Legends!";
+    if (percentage >= 80) return "Master Scout - Legendary Sports Knowledge!";
+    if (percentage >= 50) return "Pro Analyst - Impressive Player Recognition!";
+    return "Rookie Scout - Keep Practicing to Spot the Legends!";
   };
+
+  let feedbackTitle = "";
+  let feedbackType = "";
+  if (currentQuestion && isLocked) {
+    if (selectedAnswer === currentQuestion.answer) {
+      feedbackTitle = `Correct! You identified ${currentQuestion.answer} (+${getPoints(revealedClueCount)} pts)`;
+      feedbackType = "correct";
+    } else if (selectedAnswer === null) {
+      feedbackTitle = `Time's up! The mystery athlete was: ${currentQuestion.answer}`;
+      feedbackType = "timeout";
+    } else {
+      feedbackTitle = `Incorrect! The mystery athlete was: ${currentQuestion.answer}`;
+      feedbackType = "incorrect";
+    }
+  }
 
   return (
     <div className="player-wrapper">
       <div className="player-container">
-        {/* ================================================================
-            1. SETUP SCREEN
-            ================================================================ */}
+        {/* Setup Screen */}
         {gameState === "setup" && (
           <div className="player-setup-card">
             <header className="player-setup-header">
@@ -167,22 +175,13 @@ function GuessPlayer() {
               </p>
             </header>
 
-            {/* Sport Selection */}
             <div className="player-section-label">Select Category</div>
             <div className="player-categories-grid">
-              {[
-                { label: "All Sports", value: "All" },
-                { label: "🏏 Cricket", value: "Cricket" },
-                { label: "⚽ Football", value: "Football" },
-                { label: "🏀 Basketball", value: "Basketball" },
-                { label: "🏐 Volleyball", value: "Volleyball" }
-              ].map((sportItem) => (
+              {SPORTS.map((sportItem) => (
                 <button
                   key={sportItem.value}
                   type="button"
-                  className={`player-category-btn ${
-                    selectedSport === sportItem.value ? "active" : ""
-                  }`}
+                  className={`player-category-btn ${selectedSport === sportItem.value ? "active" : ""}`}
                   onClick={() => setSelectedSport(sportItem.value)}
                 >
                   {sportItem.label}
@@ -190,30 +189,28 @@ function GuessPlayer() {
               ))}
             </div>
 
-            {/* Rules Card */}
             <div className="player-rules-card">
-              <h2 className="player-rules-heading">📋 Scouting Rules & Scoring</h2>
+              <h2 className="player-rules-heading">Scouting Rules & Scoring</h2>
               <ul className="player-rules-list">
                 <li className="player-rules-item">
-                  <span className="player-rule-bullet">&#9679;</span>
+                  <span className="player-rule-bullet">-</span>
                   <span>Clues are revealed one by one (nationality, position, club, milestones).</span>
                 </li>
                 <li className="player-rules-item">
-                  <span className="player-rule-bullet">&#9679;</span>
-                  <span><strong>Fewer clues = Higher score:</strong> 1 clue (100 pts) &bull; 2 clues (75 pts) &bull; 3 clues (50 pts) &bull; 4 clues (25 pts).</span>
+                  <span className="player-rule-bullet">-</span>
+                  <span><strong>Fewer clues = Higher score:</strong> 1 clue (100 pts) | 2 clues (75 pts) | 3 clues (50 pts) | 4 clues (25 pts).</span>
                 </li>
                 <li className="player-rules-item">
-                  <span className="player-rule-bullet">&#9679;</span>
+                  <span className="player-rule-bullet">-</span>
                   <span>You have <strong>20 seconds</strong> per athlete to make your guess.</span>
                 </li>
                 <li className="player-rules-item">
-                  <span className="player-rule-bullet">&#9679;</span>
+                  <span className="player-rule-bullet">-</span>
                   <span>Players and answer choices are randomized every game.</span>
                 </li>
               </ul>
             </div>
 
-            {/* Availability Banner */}
             {availablePlayers.length > 0 ? (
               <div className="player-info-banner">
                 Ready! <strong>{availablePlayers.length} athletes</strong> available for{" "}
@@ -225,10 +222,9 @@ function GuessPlayer() {
               </div>
             )}
 
-            {/* Setup Actions */}
             <div className="player-setup-actions">
               <a href="/arena" className="player-btn-secondary">
-                &larr; Back to Arena
+                Back to Arena
               </a>
               <button
                 type="button"
@@ -236,18 +232,15 @@ function GuessPlayer() {
                 onClick={handleStartGame}
                 disabled={availablePlayers.length === 0}
               >
-                Start Game &rarr;
+                Start Game
               </button>
             </div>
           </div>
         )}
 
-        {/* ================================================================
-            2. PLAYING SCREEN
-            ================================================================ */}
+        {/* Playing Screen */}
         {gameState === "playing" && currentQuestion && (
           <div className="player-play-card">
-            {/* Top Bar: Progress and Timer */}
             <div className="player-top-bar">
               <div className="player-meta-info">
                 <span className="player-tag">{currentQuestion.sport}</span>
@@ -256,11 +249,10 @@ function GuessPlayer() {
                 </span>
               </div>
               <div className={`player-timer-pill ${timeLeft <= 5 ? "urgent" : ""}`}>
-                ⏱ {timeLeft}s
+                {timeLeft}s
               </div>
             </div>
 
-            {/* Progress Bar */}
             <div className="player-progress-bar-bg">
               <span
                 className="player-progress-bar-fill"
@@ -270,13 +262,12 @@ function GuessPlayer() {
               ></span>
             </div>
 
-            {/* Progressive Clues Section */}
             <div className="player-clues-section">
               <div className="player-clues-header">
-                <h2 className="player-clues-title">🕵️ Scouting Clues:</h2>
+                <h2 className="player-clues-title">Scouting Clues:</h2>
                 {!isLocked && (
                   <span className="player-points-tag">
-                    Worth: {getPointsForClueCount(revealedClueCount)} pts
+                    Worth: {getPoints(revealedClueCount)} pts
                   </span>
                 )}
               </div>
@@ -290,19 +281,17 @@ function GuessPlayer() {
                 ))}
               </div>
 
-              {/* Reveal Next Clue Button */}
               {!isLocked && revealedClueCount < currentQuestion.clues.length && (
                 <button
                   type="button"
                   className="player-reveal-btn"
                   onClick={handleRevealClue}
                 >
-                  🔍 Reveal Clue {revealedClueCount + 1} of {currentQuestion.clues.length}
+                  Reveal Clue {revealedClueCount + 1} of {currentQuestion.clues.length}
                 </button>
               )}
             </div>
 
-            {/* 4 Player Options Grid */}
             <div className="player-options-grid">
               {currentQuestion.shuffledOptions.map((option, index) => {
                 let statusClass = "";
@@ -331,28 +320,9 @@ function GuessPlayer() {
               })}
             </div>
 
-            {/* Answer Feedback Box */}
             {isLocked && (
-              <div
-                className={`player-feedback-box ${
-                  selectedAnswer === currentQuestion.answer
-                    ? "correct"
-                    : selectedAnswer === null
-                    ? "timeout"
-                    : "incorrect"
-                }`}
-              >
-                <div className="player-feedback-title">
-                  {selectedAnswer === currentQuestion.answer &&
-                    `✓ Correct! You identified ${currentQuestion.answer} (+${getPointsForClueCount(
-                      revealedClueCount
-                    )} pts)`}
-                  {selectedAnswer !== null &&
-                    selectedAnswer !== currentQuestion.answer &&
-                    `✗ Incorrect! The mystery athlete was: ${currentQuestion.answer}`}
-                  {selectedAnswer === null &&
-                    `⏰ Time's up! The mystery athlete was: ${currentQuestion.answer}`}
-                </div>
+              <div className={`player-feedback-box ${feedbackType}`}>
+                <div className="player-feedback-title">{feedbackTitle}</div>
                 <p className="player-feedback-text">
                   <strong>Career Profile:</strong> {currentQuestion.explanation} ({currentQuestion.role}, {currentQuestion.nationality})
                 </p>
@@ -364,7 +334,6 @@ function GuessPlayer() {
               </div>
             )}
 
-            {/* Next Player Button */}
             {isLocked && (
               <div className="player-bottom-actions">
                 <button
@@ -373,34 +342,29 @@ function GuessPlayer() {
                   onClick={handleNextPlayer}
                 >
                   {currentIndex + 1 < gameQuestions.length
-                    ? "Next Player →"
-                    : "View Results →"}
+                    ? "Next Player"
+                    : "View Results"}
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* ================================================================
-            3. RESULTS SCREEN
-            ================================================================ */}
+        {/* Results Screen */}
         {gameState === "results" && (
           <div className="player-results-card">
             <h1 className="player-results-title">Scouting Challenge Completed!</h1>
             <p className="player-results-meta">
-              Category: <strong>{selectedSport === "All" ? "All Sports" : selectedSport}</strong> &bull; Total Athletes: <strong>{gameQuestions.length}</strong>
+              Category: <strong>{selectedSport === "All" ? "All Sports" : selectedSport}</strong> | Total Athletes: <strong>{gameQuestions.length}</strong>
             </p>
 
-            {/* Total Points Score Circle */}
             <div className="player-score-circle">
               <span className="player-score-number">{score}</span>
               <span className="player-score-label">Total Points</span>
             </div>
 
-            {/* Performance Badge */}
             <div className="player-performance-badge">{getPerformanceMessage()}</div>
 
-            {/* Detailed Stats Grid */}
             <div className="player-stats-grid">
               <div className="player-stat-card">
                 <div className="player-stat-label">Correct Guesses</div>
@@ -416,17 +380,16 @@ function GuessPlayer() {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="player-results-actions">
               <button
                 type="button"
                 className="player-btn-primary"
                 onClick={handlePlayAgain}
               >
-                Play Again &#8635;
+                Play Again
               </button>
               <a href="/arena" className="player-btn-secondary">
-                Back to Arena &rarr;
+                Back to Arena
               </a>
             </div>
           </div>
