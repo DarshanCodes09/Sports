@@ -20,6 +20,14 @@ import FootballPlayersPage from "./pages/FootballPlayersPage.jsx";
 import FootballPlayerDetailsPage from "./pages/FootballPlayerDetailsPage.jsx";
 import FootballStandingsPage from "./pages/FootballStandingsPage.jsx";
 import FootballTeamDetailsPage from "./pages/FootballTeamDetailsPage.jsx";
+import BasketballCountriesPage from "./pages/BasketballCountriesPage.jsx";
+import BasketballTeamsPage from "./pages/BasketballTeamsPage.jsx";
+import BasketballLeaguesPage from "./pages/BasketballLeaguesPage.jsx";
+import BasketballLeagueDetailsPage from "./pages/BasketballLeagueDetailsPage.jsx";
+import BasketballStandingsPage from "./pages/BasketballStandingsPage.jsx";
+import BasketballPlayersPage from "./pages/BasketballPlayersPage.jsx";
+import BasketballPlayerDetailsPage from "./pages/BasketballPlayerDetailsPage.jsx";
+import BasketballTeamDetailsPage from "./pages/BasketballTeamDetailsPage.jsx";
 import "./App.css";
 
 // Main STRIVORA App component with lightweight path routing
@@ -38,7 +46,34 @@ function App() {
 
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
-    
+
+    if (currentPath === "/basketball/countries") {
+      return <BasketballCountriesPage />;
+    }
+    if (/^\/basketball\/teams\/.+/.test(currentPath)) {
+      return <BasketballTeamsPage />;
+    }
+    if (currentPath === "/basketball/leagues") {
+        return <BasketballLeaguesPage />;
+    }
+    if (currentPath.startsWith("/basketball/leagues/")) {
+      return <BasketballLeagueDetailsPage />;
+    }
+    if (currentPath.startsWith("/basketball/standings/")) {
+      return <BasketballStandingsPage />;
+    }
+    if (currentPath === "/basketball/players") {
+      return <BasketballPlayersPage />;
+    }
+    if (currentPath.startsWith("/basketball/player/")) {
+      return <BasketballPlayerDetailsPage />;
+    }
+    if (currentPath.startsWith("/basketball/league/")) {
+      return <BasketballLeagueDetailsPage />;
+    }
+    if (currentPath.startsWith("/basketball/team/")) {
+      return <BasketballTeamDetailsPage />;
+    }
     if (currentPath === "/countries") return <CountriesPage />;
     if (currentPath === "/football/countries") return <FootballCountriesPage />;
     if (currentPath === "/football/leagues") return <FootballLeaguesPage />;
