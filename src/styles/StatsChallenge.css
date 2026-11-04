@@ -1,8 +1,4 @@
-/* ==========================================================================
-   STRIVORA STATS CHALLENGE STYLES
-   File: src/styles/StatsChallenge.css
-   Clean, modern, responsive styling with dark navy and lime-green palette
-   ========================================================================== */
+/* Stats Challenge Styles */
 
 .stats-wrapper {
   min-height: 100vh;
@@ -18,9 +14,7 @@
   margin: 0 auto;
 }
 
-/* --------------------------------------------------------------------------
-   1. SETUP SCREEN
-   -------------------------------------------------------------------------- */
+/* 1. SETUP SCREEN */
 .stats-setup-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -171,9 +165,7 @@
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   2. PLAYING SCREEN
-   -------------------------------------------------------------------------- */
+/* 2. PLAYING SCREEN */
 .stats-play-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -400,9 +392,7 @@
   justify-content: flex-end;
 }
 
-/* --------------------------------------------------------------------------
-   3. RESULTS SCREEN
-   -------------------------------------------------------------------------- */
+/* 3. RESULTS SCREEN */
 .stats-results-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -503,9 +493,7 @@
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   4. BUTTONS
-   -------------------------------------------------------------------------- */
+/* 4. BUTTONS */
 .stats-btn-primary {
   background-color: #B8F36B;
   color: #0b1120;
@@ -565,9 +553,7 @@
   outline-offset: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   5. RESPONSIVE BREAKPOINTS
-   -------------------------------------------------------------------------- */
+/* 5. RESPONSIVE BREAKPOINTS */
 @media (max-width: 768px) {
   .stats-wrapper {
     padding: 2rem 1rem 3.5rem;
@@ -598,4 +584,3 @@
     width: 100%;
   }
 }
-

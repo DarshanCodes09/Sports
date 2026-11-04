@@ -1,7 +1,4 @@
-/* ==========================================================================
-   STRIVORA APP & CORE LAYOUT STYLES
-   File: src/App.css
-   ========================================================================== */
+/* App layout & core styles */
 
 .strivora-app {
   min-height: 100vh;
@@ -14,9 +11,7 @@
   flex: 1;
 }
 
-/* --------------------------------------------------------------------------
-   NAVBAR
-   -------------------------------------------------------------------------- */
+/* Navbar */
 .strivora-navbar {
   background-color: #0d1322;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -76,9 +71,7 @@
   border-radius: 4px;
 }
 
-/* --------------------------------------------------------------------------
-   HOMEPAGE HERO SECTION
-   -------------------------------------------------------------------------- */
+/* Homepage Hero */
 .home-page {
   display: flex;
   flex-direction: column;
@@ -167,9 +160,7 @@
   outline-offset: 3px;
 }
 
-/* --------------------------------------------------------------------------
-   FOOTER
-   -------------------------------------------------------------------------- */
+/* Footer */
 .strivora-footer {
   background-color: #0d1322;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -211,12 +202,13 @@
   .strivora-nav-container {
     padding: 0.85rem 1rem;
   }
+
   .strivora-nav-links {
     gap: 1rem;
   }
+
   .strivora-footer-container {
     flex-direction: column;
     text-align: center;
   }
 }
-

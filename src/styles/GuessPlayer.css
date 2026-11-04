@@ -1,8 +1,4 @@
-/* ==========================================================================
-   STRIVORA GUESS THE PLAYER STYLES
-   File: src/styles/GuessPlayer.css
-   Clean, modern, responsive styling with dark navy and lime-green palette
-   ========================================================================== */
+/* Guess the Player Styles */
 
 .player-wrapper {
   min-height: 100vh;
@@ -18,9 +14,7 @@
   margin: 0 auto;
 }
 
-/* --------------------------------------------------------------------------
-   1. SETUP SCREEN
-   -------------------------------------------------------------------------- */
+/* 1. SETUP SCREEN */
 .player-setup-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -171,9 +165,7 @@
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   2. GAMEPLAY SCREEN
-   -------------------------------------------------------------------------- */
+/* 2. GAMEPLAY SCREEN */
 .player-play-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -478,9 +470,7 @@
   justify-content: flex-end;
 }
 
-/* --------------------------------------------------------------------------
-   3. RESULTS SCREEN
-   -------------------------------------------------------------------------- */
+/* 3. RESULTS SCREEN */
 .player-results-card {
   background-color: #131b2e;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -589,9 +579,7 @@
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   4. BUTTONS
-   -------------------------------------------------------------------------- */
+/* 4. BUTTONS */
 .player-btn-primary {
   background-color: #B8F36B;
   color: #0b1120;
@@ -651,9 +639,7 @@
   outline-offset: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   5. RESPONSIVE BREAKPOINTS
-   -------------------------------------------------------------------------- */
+/* 5. RESPONSIVE BREAKPOINTS */
 @media (max-width: 768px) {
   .player-wrapper {
     padding: 2rem 1rem 3.5rem;
@@ -684,4 +670,3 @@
     width: 100%;
   }
 }
-
