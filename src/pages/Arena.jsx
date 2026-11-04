@@ -2,12 +2,10 @@ import React from "react";
 import { games } from "../data/games.js";
 import "../styles/Arena.css";
 
-// Main Sports Arena Hub page for STRIVORA
 function Arena() {
   return (
     <main className="arena-page">
       <div className="arena-page-container">
-        {/* Header Section */}
         <header className="arena-page-header">
           <p className="arena-page-label">STRIVORA GAMING ZONE</p>
           <h1 className="arena-page-title">WELCOME TO THE ARENA</h1>
@@ -16,10 +14,8 @@ function Arena() {
           </p>
         </header>
 
-        {/* Visual Divider between Header and Cards */}
         <hr className="arena-divider" />
 
-        {/* Games Grid or Empty Fallback */}
         {games && games.length > 0 ? (
           <section className="arena-games-grid" aria-label="STRIVORA Arena Games">
             {games.map((game) => (
@@ -35,7 +31,7 @@ function Arena() {
                 </div>
                 <div className="arena-card-footer">
                   <span className="arena-card-btn">
-                    {game.buttonText} &rarr;
+                    {game.buttonText}
                   </span>
                 </div>
               </a>
