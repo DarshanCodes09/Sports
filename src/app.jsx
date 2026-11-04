@@ -13,6 +13,13 @@ import CountryPlayersPage from "./pages/CountryPlayersPage.jsx";
 import PlayerDetailsPage from "./pages/PlayerDetailsPage.jsx";
 import LeaguesPage from "./pages/LeaguesPage.jsx";
 import LeagueTeamsPage from "./pages/LeagueTeamsPage.jsx";
+import FootballCountriesPage from "./pages/FootballCountriesPage.jsx";
+import FootballTeamsPage from "./pages/FootballTeamsPage.jsx";
+import FootballLeaguesPage from "./pages/FootballLeaguesPage.jsx";
+import FootballPlayersPage from "./pages/FootballPlayersPage.jsx";
+import FootballPlayerDetailsPage from "./pages/FootballPlayerDetailsPage.jsx";
+import FootballStandingsPage from "./pages/FootballStandingsPage.jsx";
+import FootballTeamDetailsPage from "./pages/FootballTeamDetailsPage.jsx";
 import "./App.css";
 
 // Main STRIVORA App component with lightweight path routing
@@ -31,7 +38,23 @@ function App() {
 
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
+    
     if (currentPath === "/countries") return <CountriesPage />;
+    if (currentPath === "/football/countries") return <FootballCountriesPage />;
+    if (currentPath === "/football/leagues") return <FootballLeaguesPage />;
+    if (currentPath === "/football/players") return <FootballPlayersPage />;
+    if (currentPath === "/football/standings") {
+      return <FootballStandingsPage />;
+    }
+    if (/^\/football\/players\/[^/]+$/.test(currentPath)) {
+      return <FootballPlayerDetailsPage />;
+    }
+    if (/^\/football\/team\/\d+$/.test(currentPath)) {
+      return <FootballTeamDetailsPage />;
+    }
+    if (/^\/football\/teams\/[^/]+$/.test(currentPath)) {
+      return <FootballTeamsPage />;
+    }
     if (currentPath === "/leagues") return <LeaguesPage />;
     if (/^\/leagues\/[^/]+$/.test(currentPath)) return <LeagueTeamsPage />;
 

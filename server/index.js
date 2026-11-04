@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = 5000;
 const API_BASE = "https://api.cricketdatabase.com/v1";
+const FOOTBALL_API_BASE = "https://v3.football.api-sports.io";
 
 app.use(cors());
 app.use(express.json());
@@ -56,6 +57,31 @@ async function cricketRequest(endpoint) {
 
   return result;
 }
+
+async function footballRequest(endpoint) {
+  if (!process.env.FOOTBALL_API_KEY) {
+    throw new Error("FOOTBALL_API_KEY is missing from .env");
+  }
+
+  const response = await fetch(`${FOOTBALL_API_BASE}${endpoint}`, {
+    headers: {
+      "x-apisports-key": process.env.FOOTBALL_API_KEY,
+    },
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      `Football API error ${response.status}: ${
+        result.message || response.statusText
+      }`
+    );
+  }
+
+  return result;
+}
+
 
 // Server health check
 app.get("/", (req, res) => {
@@ -200,6 +226,103 @@ app.get("/api/matches/:id/scorecard", async (req, res) => {
 });
 
 
-app.listen(PORT, () => {
+// FOOTBALL COUNTRIES
+app.get("/api/football/countries", async (req, res) => {
+  try {
+    const result = await footballRequest("/countries");
+    res.json(result);
+  } catch (error) {
+    console.error("Football countries error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// FOOTBALL LEAGUES
+app.get("/api/football/leagues", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(`/leagues?${params.toString()}`);
+    res.json(result);
+  } catch (error) {
+    console.error("Football leagues error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// FOOTBALL TEAMS
+app.get("/api/football/teams", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(`/teams?${params.toString()}`);
+    res.json(result);
+  } catch (error) {
+    console.error("Football teams error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+//PLAYERS
+app.get("/api/football/players", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(`/players?${params.toString()}`);
+    res.json(result);
+  } catch (error) {
+    console.error("Football players error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get("/api/football/player-teams", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(
+      `/players/teams?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Football player teams error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Football standings
+app.get("/api/football/standings", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(
+      `/standings?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Football standings error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+// Get team squad
+app.get("/api/football/squads", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await footballRequest(
+      `/players/squads?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Football squads error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+const server = app.listen(PORT, () => {
   console.log(`STRIVORA server running at http://localhost:${PORT}`);
+});
+
+server.on("close", () => {
+  console.log("Express server closed!");
+});
+
+server.on("error", (error) => {
+  console.error("Server error:", error);
 });
