@@ -45,6 +45,47 @@
   margin: 0;
 }
 
+/* Player Stats Summary Bar */
+.arena-stats-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 2rem 0 0;
+}
+
+.arena-stat-box {
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.arena-stat-title {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.arena-stat-num {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.arena-stat-num.xp {
+  color: #B8F36B;
+}
+
+.arena-stat-num.correct {
+  color: #38bdf8;
+}
+
 /* Visual Divider */
 .arena-divider {
   border: none;
@@ -107,7 +148,17 @@
   border-radius: 4px;
   font-size: 0.84rem;
   line-height: 1.45;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1rem 0;
+}
+
+.arena-card-best {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem 0;
+}
+
+.arena-card-best strong {
+  color: #B8F36B;
 }
 
 .arena-card-footer {
@@ -137,8 +188,79 @@
   padding: 3rem 1rem;
 }
 
+/* Recent Game History Section */
+.arena-history-section {
+  margin-top: 3.5rem;
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.arena-history-title {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+}
+
+.arena-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.arena-history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.arena-history-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.arena-history-game {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.arena-history-date {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.arena-history-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.arena-history-score {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.arena-history-xp {
+  color: #B8F36B;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 992px) {
+  .arena-stats-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .arena-games-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
@@ -148,6 +270,10 @@
 @media (max-width: 600px) {
   .arena-page {
     padding: 2rem 1rem 3.5rem;
+  }
+
+  .arena-stats-summary {
+    grid-template-columns: 1fr;
   }
 
   .arena-games-grid {
@@ -161,5 +287,16 @@
 
   .arena-divider {
     margin: 1.75rem 0 2rem;
+  }
+
+  .arena-history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .arena-history-stats {
+    width: 100%;
+    justify-content: space-between;
   }
 }

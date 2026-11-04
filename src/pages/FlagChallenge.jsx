@@ -3,6 +3,7 @@ import { flagQuestions } from "../data/flagQuestions.js";
 import { internationalTeamQuestions } from "../data/internationalTeamQuestions.js";
 import { cricketLeagueQuestions } from "../data/cricketLeagueQuestions.js";
 import { footballLeagueQuestions } from "../data/footballLeagueQuestions.js";
+import { saveGameResult } from "../utils/arenaStorage.js";
 import "../styles/FlagChallenge.css";
 
 // Shuffle array items randomly
@@ -120,6 +121,13 @@ function FlagChallenge() {
       setIsLocked(false);
       setTimeLeft(15);
     } else {
+      saveGameResult({
+        gameName: "Flag Challenge",
+        score,
+        correctCount,
+        wrongCount: incorrectCount + unansweredCount,
+        xpEarned: score * 10
+      });
       setGameState("results");
     }
   };

@@ -1,3 +1,4 @@
 node_modules
+scripts/verifyQuestionsClean.js
+scripts/downloadSportsImages.js
 .env
-

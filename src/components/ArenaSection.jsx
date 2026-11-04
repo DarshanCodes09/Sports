@@ -2,12 +2,10 @@ import React from "react";
 import { games } from "../data/games.js";
 import "../styles/ArenaSection.css";
 
-// Promotional Arena section for the STRIVORA homepage
 function ArenaSection() {
   return (
     <section className="arena-promo-section">
       <div className="arena-promo-container">
-        {/* Section Header */}
         <div className="arena-promo-header">
           <p className="arena-promo-tag">PLAY. COMPETE. LEARN.</p>
           <h2 className="arena-promo-title">STRIVORA ARENA</h2>
@@ -19,7 +17,6 @@ function ArenaSection() {
           </a>
         </div>
 
-        {/* 4 Game Cards Grid generated from games.js */}
         <div className="arena-promo-grid">
           {games.map((game) => (
             <a
@@ -30,7 +27,7 @@ function ArenaSection() {
               <h3 className="arena-promo-card-title">{game.name}</h3>
               <p className="arena-promo-card-desc">{game.description}</p>
               <span className="arena-promo-card-link">
-                {game.buttonText} &rarr;
+                {game.buttonText}
               </span>
             </a>
           ))}

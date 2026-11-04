@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { quizQuestions } from "../data/quizQuestions.js";
+import { saveGameResult } from "../utils/arenaStorage.js";
 import "../styles/Quiz.css";
 
 // Shuffle array items randomly
@@ -102,6 +103,13 @@ function Quiz() {
       setIsLocked(false);
       setTimeLeft(15);
     } else {
+      saveGameResult({
+        gameName: "Sports Quiz",
+        score,
+        correctCount,
+        wrongCount: incorrectCount + unansweredCount,
+        xpEarned: score * 10
+      });
       setGameState("results");
     }
   };

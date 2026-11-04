@@ -59,10 +59,19 @@ function Navbar({ currentPath = "/" }) {
             </a>
           </li>
         </ul>
+
+        {/* Profile button on the right */}
+        <div className="strivora-nav-right">
+          <a
+            href="/profile"
+            className={`strivora-profile-btn ${currentPath === "/profile" ? "active" : ""}`}
+          >
+            Profile
+          </a>
+        </div>
       </div>
     </nav>
   );
 }
 
 export default Navbar;
-

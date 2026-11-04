@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Home from "./pages/home.jsx";
 import Arena from "./pages/Arena.jsx";
+import Profile from "./pages/Profile.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import FlagChallenge from "./pages/FlagChallenge.jsx";
 import GuessPlayer from "./pages/GuessPlayer.jsx";
@@ -82,6 +83,9 @@ function App() {
     if (currentPath.startsWith("/arena")) {
       return <Arena />;
     }
+    if (currentPath === "/profile") {
+      return <Profile />;
+    }
     return <Home />;
   };
 
@@ -95,4 +99,3 @@ function App() {
 }
 
 export default App;
-
