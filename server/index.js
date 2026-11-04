@@ -9,6 +9,7 @@ const app = express();
 const PORT = 5000;
 const API_BASE = "https://api.cricketdatabase.com/v1";
 const FOOTBALL_API_BASE = "https://v3.football.api-sports.io";
+const BASKETBALL_API_BASE = "https://v1.basketball.api-sports.io";
 
 app.use(cors());
 app.use(express.json());
@@ -74,6 +75,30 @@ async function footballRequest(endpoint) {
   if (!response.ok) {
     throw new Error(
       `Football API error ${response.status}: ${
+        result.message || response.statusText
+      }`
+    );
+  }
+
+  return result;
+}
+
+async function basketballRequest(endpoint) {
+  if (!process.env.FOOTBALL_API_KEY) {
+    throw new Error("FOOTBALL_API_KEY is missing from .env");
+  }
+
+  const response = await fetch(`${BASKETBALL_API_BASE}${endpoint}`, {
+    headers: {
+      "x-apisports-key": process.env.FOOTBALL_API_KEY,
+    },
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      `Basketball API error ${response.status}: ${
         result.message || response.statusText
       }`
     );
@@ -314,6 +339,92 @@ app.get("/api/football/squads", async (req, res) => {
   }
 });
 
+//-------------Basketball------//
+//countries//
+
+app.get("/api/basketball/countries", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await basketballRequest(
+      `/countries?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball countries error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get("/api/basketball/teams", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await basketballRequest(
+      `/teams?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball teams error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/basketball/leagues", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await basketballRequest(
+      `/leagues?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball leagues error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/basketball/standings", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await basketballRequest(
+      `/standings?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball standings error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get("/api/basketball/players", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+
+    const result = await basketballRequest(
+      `/players?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball players error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/basketball/player-statistics", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+
+    const result = await basketballRequest(
+      `/games/statistics/players?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Basketball player statistics error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 const server = app.listen(PORT, () => {
   console.log(`STRIVORA server running at http://localhost:${PORT}`);
