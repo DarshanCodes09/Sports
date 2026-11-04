@@ -11,6 +11,8 @@ import PlayerUniverse from "./pages/PlayerUniverse.jsx";
 import CountriesPage from "./pages/CountriesPage.jsx";
 import CountryPlayersPage from "./pages/CountryPlayersPage.jsx";
 import PlayerDetailsPage from "./pages/PlayerDetailsPage.jsx";
+import LeaguesPage from "./pages/LeaguesPage.jsx";
+import LeagueTeamsPage from "./pages/LeagueTeamsPage.jsx";
 import "./App.css";
 
 // Main STRIVORA App component with lightweight path routing
@@ -30,6 +32,8 @@ function App() {
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
     if (currentPath === "/countries") return <CountriesPage />;
+    if (currentPath === "/leagues") return <LeaguesPage />;
+    if (/^\/leagues\/[^/]+$/.test(currentPath)) return <LeagueTeamsPage />;
 
     if (/^\/countries\/[^/]+\/players$/.test(currentPath)) {
       return <CountryPlayersPage />;

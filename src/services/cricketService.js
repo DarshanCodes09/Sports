@@ -75,6 +75,23 @@ export async function getTeamDetails(teamId) {
   return result.data;
 }
 
+//leauges
+export async function getCompetitionSeasons(competitionId) {
+  const result = await apiRequest(
+    `/competitions/${encodeURIComponent(competitionId)}/seasons`
+  );
+
+  return result.data;
+}
+
+export async function getCompetitionSeason(competitionId, season) {
+  const result = await apiRequest(
+    `/competitions/${encodeURIComponent(competitionId)}/seasons/${encodeURIComponent(season)}`
+  );
+
+  return result.data;
+}
+
 // Get all competitions
 export async function getCompetitions() {
   const result = await apiRequest("/competitions");
@@ -91,3 +108,12 @@ export async function getCompetitionDetails(competitionId) {
 
   return result.data;
 }
+//scorecard 
+export async function getMatchScorecard(matchId) {
+  const result = await apiRequest(
+    `/matches/${encodeURIComponent(matchId)}/scorecard`
+  );
+
+  return result.data;
+}
+

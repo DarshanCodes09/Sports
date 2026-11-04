@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Reusable API request function
+
 async function cricketRequest(endpoint) {
   if (!process.env.CRICKET_API_KEY) {
     throw new Error("CRICKET_API_KEY is missing from .env");
@@ -25,13 +26,31 @@ async function cricketRequest(endpoint) {
     },
   });
 
-  const result = await response.json();
+  const responseText = await response.text();
+
+  let result;
+
+  try {
+    result = JSON.parse(responseText);
+  } catch {
+    result = { rawResponse: responseText };
+  }
 
   if (!response.ok) {
+    console.error("Cricket API response:", {
+      endpoint,
+      status: response.status,
+      statusText: response.statusText,
+      body: result,
+    });
+
     throw new Error(
-      result.error?.message ||
-      result.message ||
-      `Cricket API error: ${response.status}`
+      `Cricket API error ${response.status}: ${
+        result.error?.message ||
+        result.message ||
+        result.rawResponse ||
+        response.statusText
+      }`
     );
   }
 
@@ -136,6 +155,50 @@ app.get("/api/competitions/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+app.get("/api/competitions/:id/seasons", async (req, res) => {
+  try {
+    const result = await cricketRequest(
+      `/competitions/${encodeURIComponent(req.params.id)}/seasons`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Seasons API error:", error);
+    res.status(500).json({
+      error: error.message,
+      details: error.response?.data || null,
+      status: error.response?.status || null,
+    });
+  }
+});
+
+app.get("/api/competitions/:id/seasons/:season", async (req, res) => {
+  try {
+    const result = await cricketRequest(
+      `/competitions/${encodeURIComponent(req.params.id)}/seasons/${encodeURIComponent(req.params.season)}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Season details error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/api/matches/:id/scorecard", async (req, res) => {
+  try {
+    const result = await cricketRequest(
+      `/matches/${encodeURIComponent(req.params.id)}/scorecard`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Scorecard error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`STRIVORA server running at http://localhost:${PORT}`);
