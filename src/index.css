@@ -1,7 +1,4 @@
-/* ==========================================================================
-   STRIVORA GLOBAL BASE STYLES
-   File: src/index.css
-   ========================================================================== */
+/* GLOBAL BASE STYLES */
 
 * {
   box-sizing: border-box;
@@ -22,4 +19,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
