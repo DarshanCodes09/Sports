@@ -1,0 +1,270 @@
+/* ==========================================================================
+   SPORTSVERSE — PREMIUM EDITORIAL FOOTER
+   ========================================================================== */
+
+.sportsverse-footer {
+  position: relative;
+  background: linear-gradient(180deg, #062B25 0%, #031F1B 100%);
+  color: var(--color-warm-ivory, #F4EBDD);
+  padding: 5rem 2.5rem 2rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: var(--font-sans, "DM Sans", -apple-system, sans-serif);
+}
+
+.sportsverse-footer-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* 4-Column Grid */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 3.5rem;
+  margin-bottom: 4.5rem;
+}
+
+/* Column 1: Brand & Editorial Statement */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand-logo {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: 1.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-warm-ivory, #F4EBDD);
+  text-decoration: none;
+  line-height: 1.1;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  transition: opacity 0.2s ease;
+}
+
+.footer-brand-logo:hover {
+  opacity: 0.9;
+}
+
+.footer-brand-dot {
+  color: var(--color-crimson-accent, #C9233B);
+}
+
+.footer-brand-tagline {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: var(--color-crimson-accent, #C9233B);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.footer-brand-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #9CAAA1;
+  max-width: 360px;
+  margin: 0 0 1.8rem 0;
+}
+
+.footer-brand-badges {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.footer-badge-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-warm-ivory, #F4EBDD);
+  background: rgba(244, 235, 221, 0.06);
+  border: 1px solid rgba(244, 235, 221, 0.14);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+/* Nav Columns */
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-heading {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-warm-ivory, #F4EBDD);
+  margin: 0 0 1.5rem 0;
+  position: relative;
+  letter-spacing: 0.01em;
+}
+
+.footer-col-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-crimson-accent, #C9233B);
+}
+
+.footer-link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.footer-link {
+  color: #9CAAA1;
+  font-size: 0.95rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: fit-content;
+}
+
+.footer-link:hover {
+  color: var(--color-warm-ivory, #F4EBDD);
+  transform: translateX(4px);
+}
+
+.footer-link:hover::before {
+  content: "→";
+  color: var(--color-crimson-accent, #C9233B);
+  font-size: 0.85rem;
+}
+
+/* Bottom Bar */
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(244, 235, 221, 0.1);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-copyright {
+  font-size: 0.88rem;
+  color: #9CAAA1;
+  margin: 0;
+}
+
+.footer-copyright-highlight {
+  color: var(--color-warm-ivory, #F4EBDD);
+  font-weight: 600;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-sublink {
+  font-size: 0.85rem;
+  color: #9CAAA1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-sublink:hover {
+  color: var(--color-crimson-accent, #C9233B);
+}
+
+/* Scroll to top circle */
+.sportsverse-top-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 235, 221, 0.25);
+  background: rgba(244, 235, 221, 0.06);
+  color: var(--color-warm-ivory, #F4EBDD);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sportsverse-top-circle-btn:hover {
+  background-color: var(--color-crimson-accent, #C9233B);
+  border-color: var(--color-crimson-accent, #C9233B);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px -4px rgba(201, 35, 59, 0.45);
+}
+
+/* Ambient glow & crimson ribbon */
+.footer-ambient-glow {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 600px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(11, 59, 51, 0.5) 0%, rgba(3, 31, 27, 0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.footer-crimson-ribbon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 320px;
+  height: 90px;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.footer-crimson-ribbon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-main-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .sportsverse-footer {
+    padding: 3.5rem 1.5rem 2rem;
+  }
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
