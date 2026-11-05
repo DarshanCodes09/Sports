@@ -134,7 +134,7 @@ function Quiz() {
         {gameState === "setup" && (
           <div className="quiz-setup-card">
             <header className="quiz-setup-header">
-              <p className="quiz-badge">STRIVORA GAMING ZONE</p>
+              <p className="quiz-badge">SPORTSVERSE ARENA</p>
               <h1 className="quiz-title">Sports Quiz Challenge</h1>
               <p className="quiz-subtitle">
                 Select your favorite sport and difficulty level to test your trivia knowledge with randomized questions.

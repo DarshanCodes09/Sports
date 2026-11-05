@@ -172,7 +172,7 @@ function FlagChallenge() {
         {gameState === "setup" && (
           <div className="flag-setup-card">
             <header className="flag-setup-header">
-              <p className="flag-badge">STRIVORA GAMING ZONE</p>
+              <p className="flag-badge">SPORTSVERSE ARENA</p>
               <h1 className="flag-title">FLAG CHALLENGE</h1>
               <p className="flag-subtitle">
                 Test your sports knowledge by identifying national country flags, international sports federation logos, and premier franchise cricket & football club crests.
@@ -333,7 +333,7 @@ function FlagChallenge() {
                 </div>
 
                 {currentQuestion.hint && (
-                  <p className="flag-hint-text" style={{ marginBottom: "0.75rem", color: "#B8F36B" }}>
+                  <p className="flag-hint-text" style={{ marginBottom: "0.75rem", color: "var(--color-crimson-accent, #c9233b)" }}>
                     <strong>Key Fact:</strong> {currentQuestion.hint}
                   </p>
                 )}

@@ -149,7 +149,7 @@ function StatsChallenge() {
         {gameState === "setup" && (
           <div className="stats-setup-card">
             <header className="stats-setup-header">
-              <p className="stats-badge">STRIVORA GAMING ZONE</p>
+              <p className="stats-badge">SPORTSVERSE ARENA</p>
               <h1 className="stats-title">STATS CHALLENGE</h1>
               <p className="stats-subtitle">
                 Test your knowledge of sports milestones, historical records, and world-class statistics across cricket, football, basketball, and volleyball.
