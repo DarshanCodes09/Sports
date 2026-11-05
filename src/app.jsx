@@ -28,6 +28,13 @@ import BasketballStandingsPage from "./pages/BasketballStandingsPage.jsx";
 import BasketballPlayersPage from "./pages/BasketballPlayersPage.jsx";
 import BasketballPlayerDetailsPage from "./pages/BasketballPlayerDetailsPage.jsx";
 import BasketballTeamDetailsPage from "./pages/BasketballTeamDetailsPage.jsx";
+import VolleyballCountriesPage from "./pages/VolleyballCountriesPage.jsx";
+import VolleyballTeamsPage from "./pages/VolleyballTeamsPage.jsx";
+import VolleyballTeamDetailsPage from "./pages/VolleyballTeamDetailsPage.jsx";
+import VolleyballLeaguesPage from "./pages/VolleyballLeaguesPage.jsx";
+import VolleyballLeagueDetailsPage from "./pages/VolleyballLeagueDetailsPage.jsx";
+import VolleyballStandingsPage from "./pages/VolleyballStandingsPage.jsx";
+import VolleyballGamesPage from "./pages/VolleyballGamesPage.jsx";
 import "./App.css";
 
 // Main STRIVORA App component with lightweight path routing
@@ -46,7 +53,43 @@ function App() {
 
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
+    //volleyball //
+    // Volleyball Countries
+if (currentPath === "/volleyball/countries") {
+  return <VolleyballCountriesPage />;
+}
 
+// Volleyball Teams
+if (/^\/volleyball\/teams\/.+/.test(currentPath)) {
+  return <VolleyballTeamsPage />;
+}
+
+// Volleyball Team Details
+if (currentPath.startsWith("/volleyball/team/")) {
+  return <VolleyballTeamDetailsPage />;
+}
+
+// Volleyball Leagues
+if (currentPath === "/volleyball/leagues") {
+  return <VolleyballLeaguesPage />;
+}
+
+// Volleyball League Details
+if (currentPath.startsWith("/volleyball/league/")) {
+  return <VolleyballLeagueDetailsPage />;
+}
+
+// Volleyball Standings
+if (currentPath.startsWith("/volleyball/standings/")) {
+  return <VolleyballStandingsPage />;
+}
+
+// Volleyball Games
+if (currentPath === "/volleyball/games") {
+  return <VolleyballGamesPage />;
+}
+
+// basketball wala render//
     if (currentPath === "/basketball/countries") {
       return <BasketballCountriesPage />;
     }
@@ -74,6 +117,7 @@ function App() {
     if (currentPath.startsWith("/basketball/team/")) {
       return <BasketballTeamDetailsPage />;
     }
+    //football //
     if (currentPath === "/countries") return <CountriesPage />;
     if (currentPath === "/football/countries") return <FootballCountriesPage />;
     if (currentPath === "/football/leagues") return <FootballLeaguesPage />;
@@ -90,6 +134,7 @@ function App() {
     if (/^\/football\/teams\/[^/]+$/.test(currentPath)) {
       return <FootballTeamsPage />;
     }
+    //cricket//
     if (currentPath === "/leagues") return <LeaguesPage />;
     if (/^\/leagues\/[^/]+$/.test(currentPath)) return <LeagueTeamsPage />;
 
