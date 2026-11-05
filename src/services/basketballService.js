@@ -1,6 +1,7 @@
+import { API_BASE_URL } from "./api";
 import { DEFAULT_CACHE_TTL, requestJson } from "./requestManager";
 
-const API_BASE = "http://localhost:5000/api/basketball";
+const API_BASE = `${API_BASE_URL}/basketball`;
 
 async function basketballRequest(endpoint) {
   return requestJson(`${API_BASE}${endpoint}`);

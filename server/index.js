@@ -4,15 +4,43 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const API_BASE = "https://api.cricketdatabase.com/v1";
 const FOOTBALL_API_BASE = "https://v3.football.api-sports.io";
 const BASKETBALL_API_BASE = "https://v1.basketball.api-sports.io";
 const VOLLEYBALL_API_BASE = "https://v1.volleyball.api-sports.io";
 
-app.use(cors());
+// Configure CORS for local development and deployed Netlify/Vercel frontends
+const allowedOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(",").map((url) => url.trim().replace(/\/+$/, ""))
+  : [];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/+$/, "");
+      const isLocalhost =
+        normalizedOrigin.startsWith("http://localhost:") ||
+        normalizedOrigin.startsWith("http://127.0.0.1:");
+
+      if (
+        allowedOrigins.length === 0 ||
+        isLocalhost ||
+        allowedOrigins.includes(normalizedOrigin)
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Origin not allowed by CORS"));
+    },
+    methods: ["GET", "OPTIONS"],
+  })
+);
 app.use(express.json());
 
 // Reusable API request function
@@ -135,6 +163,10 @@ async function volleyballRequest(endpoint) {
 // Server health check
 app.get("/", (req, res) => {
   res.json({ message: "STRIVORA Cricket API is running!" });
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
 });
 
 // SEARCH PLAYERS
