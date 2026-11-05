@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import {
   searchPlayers,
   getPlayerProfile,
   getPlayerStats,
 } from "../services/cricketService";
-import "../styles/PlayerUniverse.css";
+import "../styles/CricketLists.css";
 
 function PlayerUniverse() {
   const [query, setQuery] = useState("");
@@ -14,20 +13,26 @@ function PlayerUniverse() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
   async function handleSearch(e) {
     e.preventDefault();
-    if (!query.trim()) return;
+    if (!query.trim() || loading) return;
 
     setLoading(true);
     setError("");
+    setPlayers([]);
     setProfile(null);
     setStats(null);
+    setHasSearched(true);
 
     try {
       const results = await searchPlayers(query.trim());
-      setPlayers(results);
-      if (results.length === 0) setError("No players found. Try another name.");
+      setPlayers(results || []);
+
+      if (!results || results.length === 0) {
+        setError("No players found. Try searching with another name.");
+      }
     } catch (err) {
       setError(err.message || "Player search failed.");
     } finally {
@@ -36,6 +41,8 @@ function PlayerUniverse() {
   }
 
   async function openPlayer(player) {
+    if (loading) return;
+
     setLoading(true);
     setError("");
     setProfile(null);
@@ -57,149 +64,373 @@ function PlayerUniverse() {
   }
 
   function formatNumber(value) {
-    if (value === null || value === undefined) return "—";
-    return typeof value === "number" ? value.toLocaleString("en-IN") : value;
+    if (value === null || value === undefined || value === "") return "—";
+
+    return typeof value === "number"
+      ? value.toLocaleString("en-IN")
+      : value;
   }
 
+  function goBackToResults() {
+    setProfile(null);
+    setStats(null);
+    setError("");
+  }
+
+  const formats = [
+    { key: "test", label: "Test Cricket" },
+    { key: "odi", label: "One Day International" },
+    { key: "t20i", label: "T20 International" },
+    { key: "t20_leagues", label: "T20 Leagues" },
+  ];
+
   return (
-    <div className="universe-page">
-      <div className="universe-heading">
-        <p className="universe-eyebrow">SPORTSVERSE / PLAYER UNIVERSE</p>
-        <h1>Discover <span>Players.</span></h1>
-        <p>Search cricket players and explore their careers.</p>
-      </div>
+    <main className="universe-page">
+      <div className="universe-container">
+        <section className="universe-hero">
+          <div className="universe-hero-content">
+            <span className="universe-eyebrow">
+              STRIVORA / CRICKET / PLAYER UNIVERSE
+            </span>
 
-      <form className="player-search" onSubmit={handleSearch}>
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search a player, e.g. Virat Kohli"
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Search"}
-        </button>
-      </form>
+            <h1>
+              Every player.
+              <br />
+              <span>Every story.</span>
+            </h1>
 
-      {error && <p className="universe-error">{error}</p>}
+            <p>
+              Explore cricketing careers, discover player profiles and
+              uncover the numbers behind the game.
+            </p>
+          </div>
 
-      {players.length > 0 && !profile && (
-        <section className="player-results">
-          <h2>Search results</h2>
-          <div className="player-grid">
-            {players.map((player) => (
-              <button
-                className="player-card"
-                key={player.player}
-                onClick={() => openPlayer(player)}
-              >
-                <span className="player-card-icon">🏏</span>
-                <span className="player-card-name">{player.name}</span>
-                <span className="player-card-meta">
-                  {formatNumber(player.matches)} matches
-                </span>
-                <span className="player-card-link">View profile →</span>
-              </button>
-            ))}
+          <div className="universe-hero-art" aria-hidden="true">
+            <span>11</span>
+            <div className="universe-hero-ball">🏏</div>
+            <small>THE PLAYER DIRECTORY</small>
           </div>
         </section>
-      )}
 
-      {loading && <p className="universe-loading">Loading player data...</p>}
+        <section className="universe-search-section">
+          <div className="universe-section-intro">
+            <span className="universe-eyebrow">FIND YOUR PLAYER</span>
+            <h2>Who are you looking for?</h2>
+            <p>Search by player name to explore their cricket journey.</p>
+          </div>
 
-      {profile && (
-        <section className="player-profile">
-          <button
-            className="back-button"
-            onClick={() => {
-              setProfile(null);
-              setStats(null);
-            }}
-          >
-            ← Back to results
-          </button>
+          <form className="universe-search" onSubmit={handleSearch}>
+            <span className="universe-search-icon">⌕</span>
 
-          <div className="profile-header">
-            <div className="profile-avatar">🏏</div>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search a player, e.g. Virat Kohli"
+              aria-label="Search cricket players"
+            />
+
+            {query && (
+              <button
+                type="button"
+                className="universe-clear-button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+
+            <button
+              className="universe-search-button"
+              type="submit"
+              disabled={loading || !query.trim()}
+            >
+              {loading ? "Searching..." : "Search players"}
+              <span>→</span>
+            </button>
+          </form>
+        </section>
+
+        {error && !profile && (
+          <div className="universe-message universe-error">
+            <span>!</span>
             <div>
-              <p className="universe-eyebrow">PLAYER PROFILE</p>
-              <h2>{profile.name}</h2>
-              <p>{profile.country || profile.nationality || "Country unavailable"}</p>
+              <strong>Something went wrong</strong>
+              <p>{error}</p>
             </div>
           </div>
+        )}
 
-          <div className="profile-details">
-            <div><span>Born</span><strong>{profile.born || "Not available"}</strong></div>
-            <div><span>Birthplace</span><strong>{profile.birthplace || "Not available"}</strong></div>
-            <div><span>Batting</span><strong>{profile.batting_style || "Not available"}</strong></div>
-            <div><span>Bowling</span><strong>{profile.bowling_style || "Not available"}</strong></div>
-            <div><span>Matches</span><strong>{formatNumber(profile.matches)}</strong></div>
-            <div><span>First match</span><strong>{profile.first_match || "Not available"}</strong></div>
+        {loading && (
+          <div className="universe-loading">
+            <div className="universe-spinner" />
+            <p>Finding the cricket stories...</p>
           </div>
+        )}
 
-          <h3>Teams</h3>
-          <div className="team-list">
-            {(profile.teams || []).map((team) => (
-              <div className="team-chip" key={team.team}>
-                <strong>{team.name}</strong>
-                <span>{formatNumber(team.matches)} matches</span>
+        {players.length > 0 && !profile && !loading && (
+          <section className="universe-results">
+            <div className="universe-results-heading">
+              <div>
+                <span className="universe-eyebrow">PLAYER DIRECTORY</span>
+                <h2>Search results</h2>
               </div>
-            ))}
-            {(!profile.teams || profile.teams.length === 0) && (
-              <p>Team information not available.</p>
-            )}
-          </div>
 
-          <h3>Career statistics</h3>
-          {stats && (
-            <>
-              {["test", "odi", "t20i", "t20_leagues"].map((format) => {
-                const batting = stats.batting?.[format];
-                const bowling = stats.bowling?.[format];
+              <span className="universe-results-count">
+                {players.length} players found
+              </span>
+            </div>
 
-                if (!batting && !bowling) return null;
-
-                const formatName = {
-                  test: "Test",
-                  odi: "ODI",
-                  t20i: "T20 International",
-                  t20_leagues: "T20 Leagues",
-                }[format];
-
-                return (
-                  <div className="stats-card" key={format}>
-                    <h4>{formatName}</h4>
-                    {batting && (
-                      <>
-                        <p className="stats-label">BATTING</p>
-                        <div className="stats-grid">
-                          <div><span>Runs</span><strong>{formatNumber(batting.runs)}</strong></div>
-                          <div><span>Average</span><strong>{formatNumber(batting.average)}</strong></div>
-                          <div><span>Strike rate</span><strong>{formatNumber(batting.strike_rate)}</strong></div>
-                          <div><span>Hundreds</span><strong>{formatNumber(batting.hundreds)}</strong></div>
-                          <div><span>Fifties</span><strong>{formatNumber(batting.fifties)}</strong></div>
-                          <div><span>High score</span><strong>{formatNumber(batting.high_score)}</strong></div>
-                        </div>
-                      </>
-                    )}
-                    {bowling && (
-                      <>
-                        <p className="stats-label">BOWLING</p>
-                        <div className="stats-grid">
-                          <div><span>Wickets</span><strong>{formatNumber(bowling.wickets)}</strong></div>
-                          <div><span>Economy</span><strong>{formatNumber(bowling.economy)}</strong></div>
-                          <div><span>Average</span><strong>{formatNumber(bowling.average)}</strong></div>
-                          <div><span>Best</span><strong>{formatNumber(bowling.best)}</strong></div>
-                        </div>
-                      </>
-                    )}
+            <div className="universe-player-grid">
+              {players.map((player) => (
+                <button
+                  className="universe-player-card"
+                  key={player.player}
+                  onClick={() => openPlayer(player)}
+                  disabled={loading}
+                >
+                  <div className="universe-player-card-top">
+                    <span className="universe-player-avatar">
+                      {player.name?.charAt(0)?.toUpperCase() || "P"}
+                    </span>
+                    <span className="universe-player-arrow">↗</span>
                   </div>
-                );
-              })}
-            </>
-          )}
-        </section>
-      )}
-    </div>
+
+                  <span className="universe-card-label">CRICKET PLAYER</span>
+
+                  <h3>{player.name}</h3>
+
+                  <p>
+                    {formatNumber(player.matches)} matches played
+                  </p>
+
+                  <span className="universe-view-profile">
+                    Explore profile <span>→</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {!hasSearched && !profile && !loading && (
+          <section className="universe-discover">
+            <div className="universe-discover-icon">🏏</div>
+            <span className="universe-eyebrow">THE GAME IS ABOUT PEOPLE</span>
+            <h2>Discover the players behind the numbers.</h2>
+            <p>
+              Search for a cricketer to explore their profile, teams and
+              career statistics.
+            </p>
+          </section>
+        )}
+
+        {profile && (
+          <section className="universe-profile">
+            <button
+              className="universe-back-button"
+              onClick={goBackToResults}
+            >
+              ← Back to search results
+            </button>
+
+            <div className="universe-profile-hero">
+              <div className="universe-profile-avatar">🏏</div>
+
+              <div className="universe-profile-heading">
+                <span className="universe-eyebrow">PLAYER PROFILE</span>
+                <h2>{profile.name}</h2>
+                <p>
+                  {profile.country ||
+                    profile.nationality ||
+                    "Country unavailable"}
+                </p>
+              </div>
+
+              <div className="universe-profile-mark">STRIVORA</div>
+            </div>
+
+            <section className="universe-profile-section">
+              <div className="universe-section-heading">
+                <span className="universe-eyebrow">PLAYER INFORMATION</span>
+                <h3>At a glance</h3>
+              </div>
+
+              <div className="universe-details-grid">
+                <div>
+                  <span>Born</span>
+                  <strong>{profile.born || "Not available"}</strong>
+                </div>
+
+                <div>
+                  <span>Birthplace</span>
+                  <strong>{profile.birthplace || "Not available"}</strong>
+                </div>
+
+                <div>
+                  <span>Batting style</span>
+                  <strong>
+                    {profile.batting_style || "Not available"}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Bowling style</span>
+                  <strong>
+                    {profile.bowling_style || "Not available"}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Matches</span>
+                  <strong>{formatNumber(profile.matches)}</strong>
+                </div>
+
+                <div>
+                  <span>First match</span>
+                  <strong>{profile.first_match || "Not available"}</strong>
+                </div>
+              </div>
+            </section>
+
+            <section className="universe-profile-section">
+              <div className="universe-section-heading">
+                <span className="universe-eyebrow">TEAM HISTORY</span>
+                <h3>Teams represented</h3>
+              </div>
+
+              <div className="universe-team-list">
+                {(profile.teams || []).map((team) => (
+                  <div className="universe-team-card" key={team.team}>
+                    <span className="universe-team-icon">🏏</span>
+                    <div>
+                      <strong>{team.name}</strong>
+                      <span>
+                        {formatNumber(team.matches)} matches
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+                {(!profile.teams || profile.teams.length === 0) && (
+                  <p className="universe-muted-message">
+                    Team information is not available.
+                  </p>
+                )}
+              </div>
+            </section>
+
+            <section className="universe-profile-section">
+              <div className="universe-section-heading">
+                <span className="universe-eyebrow">CAREER BREAKDOWN</span>
+                <h3>Career statistics</h3>
+              </div>
+
+              {!stats ? (
+                <div className="universe-message">
+                  <p>Career statistics are not available.</p>
+                </div>
+              ) : (
+                <div className="universe-stats-list">
+                  {formats.map(({ key, label }) => {
+                    const batting = stats.batting?.[key];
+                    const bowling = stats.bowling?.[key];
+
+                    if (!batting && !bowling) return null;
+
+                    return (
+                      <article className="universe-stats-card" key={key}>
+                        <h4>{label}</h4>
+
+                        {batting && (
+                          <div className="universe-stat-group">
+                            <span className="universe-stats-label">
+                              BATTING
+                            </span>
+
+                            <div className="universe-stats-grid">
+                              <div>
+                                <span>Runs</span>
+                                <strong>{formatNumber(batting.runs)}</strong>
+                              </div>
+                              <div>
+                                <span>Average</span>
+                                <strong>
+                                  {formatNumber(batting.average)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Strike rate</span>
+                                <strong>
+                                  {formatNumber(batting.strike_rate)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Hundreds</span>
+                                <strong>
+                                  {formatNumber(batting.hundreds)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Fifties</span>
+                                <strong>
+                                  {formatNumber(batting.fifties)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>High score</span>
+                                <strong>
+                                  {formatNumber(batting.high_score)}
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {bowling && (
+                          <div className="universe-stat-group">
+                            <span className="universe-stats-label">
+                              BOWLING
+                            </span>
+
+                            <div className="universe-stats-grid">
+                              <div>
+                                <span>Wickets</span>
+                                <strong>
+                                  {formatNumber(bowling.wickets)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Economy</span>
+                                <strong>
+                                  {formatNumber(bowling.economy)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Average</span>
+                                <strong>
+                                  {formatNumber(bowling.average)}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Best</span>
+                                <strong>
+                                  {formatNumber(bowling.best)}
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
+          </section>
+        )}
+      </div>
+    </main>
   );
 }
 

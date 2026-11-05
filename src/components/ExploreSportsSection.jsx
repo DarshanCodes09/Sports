@@ -13,7 +13,7 @@ function ExploreSportsSection() {
       tagline: "Tradition, masterclasses, and electrifying rivalries across the gentleman's game.",
       image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop",
       backupBg: "linear-gradient(135deg, #0b3b33 0%, #031f1b 100%)",
-      destination: "/leagues",
+      destination: "/countries",
       icon: (
         // Cricket Bat line icon
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -30,7 +30,7 @@ function ExploreSportsSection() {
       tagline: "The world's game connecting continents through iconic leagues and derbies.",
       image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop",
       backupBg: "linear-gradient(135deg, #062b25 0%, #031f1b 100%)",
-      destination: "/football/leagues",
+      destination: "/football/countries",
       icon: (
         // Soccer Ball line icon
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -47,7 +47,7 @@ function ExploreSportsSection() {
       tagline: "High-flying rim attacks, court vision, and clutch shooting on hardwood.",
       image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop",
       backupBg: "linear-gradient(135deg, #0b3b33 0%, #172a24 100%)",
-      destination: "/arena/stats-challenge",
+      destination: "/basketball/countries",
       icon: (
         // Basketball minimal line icon
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -66,7 +66,7 @@ function ExploreSportsSection() {
       tagline: "Gravity-defying vertical spikes, lightning digs, and court synergy.",
       image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=1200&auto=format&fit=crop",
       backupBg: "linear-gradient(135deg, #062b25 0%, #0c332b 100%)",
-      destination: "/arena/quiz",
+      destination: "/volleyball/countries",
       icon: (
         // Volleyball minimal line icon
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

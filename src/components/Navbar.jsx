@@ -16,10 +16,10 @@ function Navbar({ currentPath = "/" }) {
   const navLinks = [
     { label: "Home", href: "/", active: currentPath === "/" },
     { label: "Explore", href: "/#find-game", active: currentPath === "/#find-game" },
-    { label: "Cricket", href: "/leagues", active: currentPath.startsWith("/leagues") || currentPath.startsWith("/countries") },
-    { label: "Football", href: "/football/leagues", active: currentPath.startsWith("/football") },
-    { label: "Basketball", href: "/arena/stats-challenge", active: currentPath === "/arena/stats-challenge" },
-    { label: "Volleyball", href: "/arena/quiz", active: currentPath === "/arena/quiz" },
+    { label: "Cricket", href: "/countries", active: currentPath.startsWith("/leagues") || currentPath.startsWith("/countries") },
+    { label: "Football", href: "/football/countries", active: currentPath.startsWith("/football") },
+    { label: "Basketball", href:  "/basketball/countries", active: currentPath === "/arena/stats-challenge" },
+    { label: "Volleyball", href: "/volleyball/countries", active: currentPath === "/arena/quiz" },
   ];
 
   return (

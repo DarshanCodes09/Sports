@@ -55,12 +55,14 @@ export async function getPlayerStats(playerId) {
   return result.data;
 }
 
+
 // for printing  all teams
 export async function getTeams() {
   const result = await requestJson(`${API_BASE}/teams`, {
     cacheTtl: DEFAULT_CACHE_TTL,
   });
-  return result.data?.data || [];
+
+  return result.data || [];
 }
 
 // Get team details
