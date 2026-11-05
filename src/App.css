@@ -21,7 +21,7 @@
 .serif-crimson-italic {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--color-crimson-accent);
   letter-spacing: -0.01em;
   display: inline-block;
@@ -365,7 +365,7 @@
 .hero-title {
   font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
   font-size: clamp(3.2rem, 6.2vw, 5.4rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--color-warm-ivory, #f4ebdd);
@@ -655,23 +655,6 @@
   letter-spacing: -0.01em;
 }
 
-.explore-all-link {
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-dark-editorial, #10231F);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.explore-all-link:hover {
-  opacity: 1;
-  color: var(--color-crimson-accent);
-  transform: translateX(4px);
-}
 
 /* 4 Large Photographic Cards Grid */
 .explore-cards-grid {

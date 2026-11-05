@@ -94,11 +94,6 @@ function ExploreSportsSection() {
               Explore Our <span className="serif-crimson-italic">Sports</span>
             </h2>
           </div>
-          <div className="explore-header-right">
-            <a href="/arena" className="explore-all-link">
-              View All Sports &rarr;
-            </a>
-          </div>
         </div>
 
         {/* 4 Large Photographic Cards Grid (Ref 2 layout in Ref 1 theme) */}

@@ -163,14 +163,6 @@ function FindYourGameSection() {
               Four challenges. Countless stories.<br />
               Compete across the Arena hub.
             </p>
-            <div className="find-game-nav-arrows" aria-label="Arena navigation">
-              <a href="/arena" className="find-arrow-btn prev" aria-label="Arena Hub">
-                &larr;
-              </a>
-              <a href="/arena" className="find-arrow-btn next active" aria-label="Explore Arena">
-                &rarr;
-              </a>
-            </div>
           </div>
         </div>
 

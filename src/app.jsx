@@ -7,7 +7,6 @@ import FlagChallenge from "./pages/FlagChallenge.jsx";
 import GuessPlayer from "./pages/GuessPlayer.jsx";
 import StatsChallenge from "./pages/StatsChallenge.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
 import PlayerUniverse from "./pages/PlayerUniverse.jsx";
 import CountriesPage from "./pages/CountriesPage.jsx";
 import CountryPlayersPage from "./pages/CountryPlayersPage.jsx";
@@ -31,7 +30,7 @@ import BasketballPlayerDetailsPage from "./pages/BasketballPlayerDetailsPage.jsx
 import BasketballTeamDetailsPage from "./pages/BasketballTeamDetailsPage.jsx";
 import "./App.css";
 
-// Main STRIVORA App component with lightweight path routing
+// Main SPORTSVERSE App component with lightweight path routing
 function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
@@ -128,7 +127,6 @@ function App() {
     <div className="strivora-app">
       <Navbar currentPath={currentPath} />
       <main className="strivora-main">{renderCurrentPage()}</main>
-      <Footer />
     </div>
   );
 }

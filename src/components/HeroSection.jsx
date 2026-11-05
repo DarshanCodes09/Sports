@@ -12,6 +12,14 @@ function HeroSection() {
     }
   };
 
+  const handleScrollToFindGame = (e) => {
+    e.preventDefault();
+    const section = document.getElementById("find-game");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="sportsverse-hero" id="hero">
       {/* Background Subtle Gradient & Ambient Glow */}
@@ -58,7 +66,11 @@ function HeroSection() {
             >
               Explore Sports &rarr;
             </a>
-            <a href="/arena" className="btn-secondary-outline">
+            <a
+              href="#find-game"
+              onClick={handleScrollToFindGame}
+              className="btn-secondary-outline"
+            >
               Discover More
             </a>
           </div>
