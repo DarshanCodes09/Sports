@@ -30,9 +30,6 @@ export default function LeagueTeamsPage() {
         const seasonList = seasonResult?.seasons || [];
         setSeasons(seasonList);
 
-        if (seasonList.length > 0) {
-          setSelectedSeason(seasonList[0].season);
-        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -118,6 +115,7 @@ export default function LeagueTeamsPage() {
             value={selectedSeason}
             onChange={(e) => setSelectedSeason(e.target.value)}
           >
+            <option value="">Select a season</option>
             {seasons.map((season) => (
               <option key={season.season} value={season.season}>
                 {season.season}

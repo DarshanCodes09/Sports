@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   getFootballTeamDetails,
-  getFootballSquad
+  getFootballSquad,
 } from "../services/footballService";
 import "../styles/Football.css";
 
@@ -12,13 +12,14 @@ function FootballTeamDetailsPage() {
   const [venue, setVenue] = useState(null);
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [squadLoading, setSquadLoading] = useState(false);
+  const [squadRequested, setSquadRequested] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const getData = async () => {
       try {
         const teamData = await getFootballTeamDetails(id);
-        const squadData = await getFootballSquad(id);
 
         if (teamData.length === 0) {
           setError("Team not found.");
@@ -27,7 +28,6 @@ function FootballTeamDetailsPage() {
 
         setTeam(teamData[0].team);
         setVenue(teamData[0].venue);
-        setPlayers(squadData[0]?.players || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -37,6 +37,21 @@ function FootballTeamDetailsPage() {
 
     getData();
   }, [id]);
+
+  const loadSquad = async () => {
+    try {
+      setSquadLoading(true);
+      setSquadRequested(true);
+      setError("");
+
+      const squadData = await getFootballSquad(id);
+      setPlayers(squadData[0]?.players || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSquadLoading(false);
+    }
+  };
 
   if (loading) return <h2>Loading team profile...</h2>;
   if (error) return <h2>{error}</h2>;
@@ -75,7 +90,13 @@ function FootballTeamDetailsPage() {
 
       <h2>Team Squad ({players.length})</h2>
 
-      {players.length === 0 && <p>No squad information available.</p>}
+      <button onClick={loadSquad} disabled={squadLoading}>
+        {squadLoading ? "Loading squad..." : "Load squad"}
+      </button>
+
+      {squadRequested && players.length === 0 && (
+        <p>No squad information available.</p>
+      )}
 
       <div className="squad-grid">
         {players.map((item) => (

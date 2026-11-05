@@ -12,11 +12,8 @@ function VolleyballLeagueDetailsPage() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getVolleyballLeagues();
-
-        const selectedLeague = data.find(
-          (item) => String(item.id) === String(leagueId)
-        );
+        const data = await getVolleyballLeagues({ id: leagueId });
+        const selectedLeague = data[0];
 
         if (selectedLeague) {
           setLeague(selectedLeague);

@@ -11,6 +11,8 @@ function VolleyballTeamDetailsPage() {
   const [team, setTeam] = useState(null);
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [gamesLoading, setGamesLoading] = useState(false);
+  const [gamesRequested, setGamesRequested] = useState(false);
   const [error, setError] = useState("");
 
   const season = 2024;
@@ -31,12 +33,6 @@ function VolleyballTeamDetailsPage() {
             return;
         }
 
-        const gameData = await getVolleyballGames({
-          team: teamId,
-          season: season,
-        });
-
-        setGames(gameData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -46,6 +42,25 @@ function VolleyballTeamDetailsPage() {
 
     getData();
   }, [teamId]);
+
+  const loadGames = async () => {
+    try {
+      setGamesLoading(true);
+      setGamesRequested(true);
+      setError("");
+
+      const gameData = await getVolleyballGames({
+        team: teamId,
+        season: season,
+      });
+
+      setGames(gameData);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setGamesLoading(false);
+    }
+  };
 
   if (loading) return <h2>Loading team details...</h2>;
   if (error) return <h2>{error}</h2>;
@@ -79,7 +94,11 @@ function VolleyballTeamDetailsPage() {
 
       <h2>Match History - {season}</h2>
 
-      <p>{games.length} matches found</p>
+      <button onClick={loadGames} disabled={gamesLoading}>
+        {gamesLoading ? "Loading match history..." : "Load match history"}
+      </button>
+
+      {gamesRequested && <p>{games.length} matches found</p>}
 
       <div className="volleyball-games-list">
         {games.map((game) => (
@@ -154,7 +173,7 @@ function VolleyballTeamDetailsPage() {
         ))}
       </div>
 
-      {games.length === 0 && (
+      {gamesRequested && games.length === 0 && (
         <p>No matches available for this team and season.</p>
       )}
     </div>

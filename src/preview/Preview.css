@@ -1,0 +1,347 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e8f0fb;
+  background: #07111f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+.preview-shell {
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 4%, rgba(34, 211, 238, 0.12), transparent 30rem),
+    radial-gradient(circle at 5% 90%, rgba(59, 130, 246, 0.11), transparent 28rem),
+    #07111f;
+}
+
+.preview-container {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0;
+}
+
+.preview-brand,
+.workspace-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #f8fbff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.workspace-brand {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.preview-brand-mark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 10px;
+  color: #07111f;
+  background: linear-gradient(135deg, #67e8f9, #38bdf8);
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.preview-badge,
+.sport-status {
+  width: fit-content;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: #8be9f5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.preview-hero {
+  max-width: 760px;
+  padding: 78px 0 52px;
+}
+
+.preview-eyebrow {
+  margin: 0 0 18px;
+  color: #67e8f9;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.preview-hero h1 {
+  max-width: 720px;
+  margin: 0;
+  color: #f8fbff;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.preview-hero p:not(.preview-eyebrow) {
+  max-width: 620px;
+  margin: 24px 0 0;
+  color: #9eb0c7;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.sport-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.sport-card {
+  display: flex;
+  min-height: 420px;
+  flex-direction: column;
+  padding: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  background: rgba(15, 31, 51, 0.78);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.sport-card:hover {
+  border-color: rgba(103, 232, 249, 0.45);
+  transform: translateY(-5px);
+}
+
+.sport-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sport-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 17px;
+  background: rgba(103, 232, 249, 0.12);
+  font-size: 2rem;
+}
+
+.sport-card h2 {
+  margin: 28px 0 10px;
+  color: #f8fbff;
+  font-size: 1.5rem;
+}
+
+.sport-card p {
+  min-height: 76px;
+  margin: 0;
+  color: #9eb0c7;
+  line-height: 1.55;
+}
+
+.sport-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sport-card li {
+  border-radius: 7px;
+  padding: 6px 8px;
+  color: #c8d6e8;
+  background: rgba(148, 163, 184, 0.1);
+  font-size: 0.78rem;
+}
+
+.sport-card button {
+  width: 100%;
+  margin-top: auto;
+  border: 0;
+  border-radius: 11px;
+  padding: 13px 15px;
+  color: #06121e;
+  background: #67e8f9;
+  cursor: pointer;
+  font-weight: 800;
+  text-align: left;
+}
+
+.sport-card button span {
+  float: right;
+  font-size: 1.2rem;
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 28px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  color: #71849c;
+  font-size: 0.78rem;
+}
+
+.preview-workspace {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #07111f;
+}
+
+.workspace-header,
+.workspace-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 68px;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: #0a1728;
+}
+
+.workspace-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-right: auto;
+}
+
+.workspace-title strong {
+  color: #f8fbff;
+}
+
+.dashboard-button,
+.toolbar-control,
+.route-button {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: #c8d6e8;
+  background: rgba(148, 163, 184, 0.08);
+  cursor: pointer;
+}
+
+.dashboard-button:hover,
+.toolbar-control:hover,
+.route-button:hover,
+.route-button.active {
+  border-color: #67e8f9;
+  color: #07111f;
+  background: #67e8f9;
+}
+
+.workspace-toolbar {
+  min-height: 58px;
+  overflow-x: auto;
+  border-bottom-color: rgba(148, 163, 184, 0.1);
+}
+
+.route-list {
+  display: flex;
+  gap: 8px;
+  min-width: max-content;
+}
+
+.frame-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #fff;
+}
+
+.frame-wrap iframe {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 126px);
+  min-height: 620px;
+  border: 0;
+  background: #fff;
+}
+
+.frame-loading {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: #dffbff;
+  background: #0a1728;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 1050px) {
+  .sport-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .preview-container {
+    width: min(100% - 28px, 520px);
+  }
+
+  .preview-header {
+    padding: 18px 0;
+  }
+
+  .preview-hero {
+    padding: 54px 0 34px;
+  }
+
+  .sport-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .workspace-header {
+    flex-wrap: wrap;
+    padding: 12px 14px;
+  }
+
+  .workspace-title {
+    order: 3;
+    width: 100%;
+  }
+
+  .workspace-toolbar {
+    padding: 10px 14px;
+  }
+}
