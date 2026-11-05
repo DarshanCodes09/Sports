@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 // SPORTSVERSE Navigation Bar Component
-// Pixel-perfect match to Reference Image
 function Navbar({ currentPath = "/" }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,7 +12,7 @@ function Navbar({ currentPath = "/" }) {
     }
   };
 
-  // Nav links matching reference image: Home, Explore, Cricket, Football, Basketball, Volleyball
+  // Nav links: Home, Explore, Cricket, Football, Basketball, Volleyball
   const navLinks = [
     { label: "Home", href: "/", active: currentPath === "/" },
     { label: "Explore", href: "/#find-game", active: currentPath === "/#find-game" },
@@ -48,7 +47,7 @@ function Navbar({ currentPath = "/" }) {
           ))}
         </ul>
 
-        {/* Right Utility: Search & Profile Circle */}
+        {/* Right Utility: Search, Profile & Mobile Toggle */}
         <div className="sportsverse-nav-actions">
           <form className="sportsverse-nav-search" onSubmit={handleSearchSubmit}>
             <svg
@@ -74,6 +73,15 @@ function Navbar({ currentPath = "/" }) {
             />
           </form>
 
+          {/* Profile button on the right */}
+          <a
+            href="/profile"
+            className={`strivora-profile-btn ${currentPath === "/profile" ? "active" : ""}`}
+          >
+            Profile
+          </a>
+
+          {/* Arena Hub User Icon */}
           <a
             href="/arena"
             className="sportsverse-user-btn"
@@ -90,19 +98,22 @@ function Navbar({ currentPath = "/" }) {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              Stats
-            </a>
-          </li>
-        </ul>
-
-        {/* Profile button on the right */}
-        <div className="strivora-nav-right">
-          <a
-            href="/profile"
-            className={`strivora-profile-btn ${currentPath === "/profile" ? "active" : ""}`}
-          >
-            Profile
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
           </a>
+
+          {/* Mobile Menu Hamburger Toggle */}
+          <button
+            type="button"
+            className="sportsverse-mobile-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
+            <span className="hamburger-bar"></span>
+          </button>
         </div>
       </div>
 
@@ -121,6 +132,15 @@ function Navbar({ currentPath = "/" }) {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href="/profile"
+                className="sportsverse-mobile-link"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Profile
+              </a>
+            </li>
             <li>
               <a
                 href="/arena"
