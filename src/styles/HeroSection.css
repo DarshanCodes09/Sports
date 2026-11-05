@@ -1,0 +1,373 @@
+/* ==========================================================================
+   SPORTSVERSE — HERO SECTION (Pixel-Perfect Match to Reference Image)
+   ========================================================================== */
+
+.sportsverse-hero {
+  position: relative;
+  background-color: #031F1B;
+  background-image: 
+    radial-gradient(circle at 78% 38%, rgba(11, 59, 51, 0.85) 0%, rgba(6, 43, 37, 0.4) 45%, rgba(3, 31, 27, 0) 70%),
+    radial-gradient(circle at 20% 20%, rgba(11, 59, 51, 0.4) 0%, rgba(3, 31, 27, 0) 50%);
+  padding: 3.5rem 0 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hero-ambient-glow {
+  position: absolute;
+  top: 5%;
+  right: 12%;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(11, 59, 51, 0.55) 0%, rgba(3, 31, 27, 0) 70%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 90px 1.25fr 1fr;
+  align-items: center;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+  min-height: 580px;
+  padding: 0 2.5rem 8rem;
+  box-sizing: border-box;
+}
+
+/* Far Left Vertical Sidebar with Fine Line */
+.hero-sidebar-track {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  height: 260px;
+}
+
+.hero-sidebar-line {
+  width: 1px;
+  height: 100%;
+  background: rgba(244, 235, 221, 0.16);
+}
+
+.hero-sidebar-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.hero-sidebar-words span {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--color-muted-sage, #9caaa1);
+  opacity: 0.65;
+  text-transform: uppercase;
+}
+
+/* Hero Content Column */
+.hero-content {
+  max-width: 650px;
+}
+
+.hero-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-kicker-number {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-muted-sage, #9caaa1);
+}
+
+.hero-kicker-line {
+  width: 34px;
+  height: 1px;
+  background-color: var(--color-crimson-accent, #c9233b);
+}
+
+.hero-kicker-text {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--color-crimson-accent, #c9233b);
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: clamp(3.2rem, 5.8vw, 5.2rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--color-warm-ivory, #f4ebdd);
+  margin: 0 0 1.5rem 0;
+}
+
+.serif-crimson-italic {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--color-crimson-accent, #c9233b);
+  letter-spacing: -0.01em;
+}
+
+.hero-description {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #9CAAA1;
+  margin: 0 0 2.2rem 0;
+  max-width: 520px;
+}
+
+/* Two Pill CTA Buttons */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  margin-bottom: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary-cream {
+  background-color: var(--color-warm-ivory, #f4ebdd);
+  color: #10231f;
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 2.2rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.btn-primary-cream:hover {
+  background-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-secondary-outline {
+  background: transparent;
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 2.2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(244, 235, 221, 0.28);
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn-secondary-outline:hover {
+  background: rgba(244, 235, 221, 0.08);
+  border-color: var(--color-warm-ivory, #f4ebdd);
+  transform: translateY(-2px);
+}
+
+/* Subline under buttons */
+.hero-subline {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-subline-dash {
+  width: 26px;
+  height: 1px;
+  background-color: rgba(156, 170, 161, 0.5);
+}
+
+.hero-subline-text {
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+  font-size: 0.88rem;
+  color: var(--color-muted-sage, #9caaa1);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Hero Right Visual Column */
+.hero-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+}
+
+.hero-counter-badge {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 5;
+}
+
+.counter-numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-warm-ivory, #f4ebdd);
+  letter-spacing: 0.05em;
+  font-family: var(--font-sans, "DM Sans", sans-serif);
+}
+
+.counter-arrows {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  line-height: 0.85;
+  color: var(--color-muted-sage, #9caaa1);
+}
+
+.hero-dot-matrix {
+  position: absolute;
+  top: 25px;
+  right: 65px;
+  display: grid;
+  grid-template-columns: repeat(5, 4px);
+  gap: 12px;
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.dot-node {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-warm-ivory, #f4ebdd);
+}
+
+.hero-orbital-wrapper {
+  position: relative;
+  width: 520px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-orbital-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Airy Editorial Floating Quote */
+.hero-editorial-quote {
+  position: absolute;
+  bottom: 120px;
+  right: 20px;
+  display: flex;
+  align-items: stretch;
+  gap: 0.85rem;
+  z-index: 4;
+}
+
+.quote-crimson-line {
+  width: 2px;
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-radius: 2px;
+}
+
+.quote-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.quote-mark {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-crimson-accent, #c9233b);
+}
+
+.quote-phrase {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--color-warm-ivory, #f4ebdd);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* MOST IMPORTANT — BOTTOM ORGANIC WAVE TRANSITION */
+.hero-bottom-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-bottom-wave svg {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  height: 120px;
+  vertical-align: bottom;
+  border: none;
+}
+
+@media (max-width: 1100px) {
+  .hero-container {
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+  }
+  .hero-visual {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sportsverse-hero {
+    padding: 2.5rem 1.5rem 0;
+  }
+  .hero-container {
+    grid-template-columns: 1fr;
+    padding-bottom: 5rem;
+  }
+  .hero-sidebar-track {
+    display: none;
+  }
+  .hero-bottom-wave svg {
+    height: 70px;
+  }
+}
+

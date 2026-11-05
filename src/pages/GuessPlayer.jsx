@@ -176,7 +176,7 @@ function GuessPlayer() {
         {gameState === "setup" && (
           <div className="player-setup-card">
             <header className="player-setup-header">
-              <p className="player-badge">STRIVORA GAMING ZONE</p>
+              <p className="player-badge">SPORTSVERSE ARENA</p>
               <h1 className="player-title">GUESS THE PLAYER</h1>
               <p className="player-subtitle">
                 Put your sports scouting skills to the test! Read progressive career clues and identify famous athletes before time runs out.
