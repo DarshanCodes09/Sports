@@ -1,25 +1,54 @@
 import React, { useState } from "react";
 
 // SPORTSVERSE Navigation Bar Component
-function Navbar({ currentPath = "/" }) {
+function Navbar({ currentPath = "/", currentHash = "" }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      window.location.href = `/players?q=${encodeURIComponent(searchQuery.trim())}`;
+      const nextUrl = `/players?q=${encodeURIComponent(searchQuery.trim())}`;
+      window.history.pushState({}, "", nextUrl);
+      window.dispatchEvent(new PopStateEvent("popstate"));
     }
   };
 
   // Nav links: Home, Explore, Cricket, Football, Basketball, Volleyball
   const navLinks = [
-    { label: "Home", href: "/", active: currentPath === "/" },
-    { label: "Explore", href: "/#find-game", active: currentPath === "/#find-game" },
-    { label: "Cricket", href: "/countries", active: currentPath.startsWith("/leagues") || currentPath.startsWith("/countries") },
-    { label: "Football", href: "/football/countries", active: currentPath.startsWith("/football") },
-    { label: "Basketball", href:  "/basketball/countries", active: currentPath === "/arena/stats-challenge" },
-    { label: "Volleyball", href: "/volleyball/countries", active: currentPath === "/arena/quiz" },
+    {
+      label: "Home",
+      href: "/",
+      active: currentPath === "/" && currentHash !== "#find-game",
+    },
+    {
+      label: "Explore",
+      href: "/#find-game",
+      active: currentPath === "/" && currentHash === "#find-game",
+    },
+    {
+      label: "Cricket",
+      href: "/countries",
+      active:
+        currentPath.startsWith("/leagues") ||
+        currentPath.startsWith("/countries") ||
+        currentPath.startsWith("/players"),
+    },
+    {
+      label: "Football",
+      href: "/football/countries",
+      active: currentPath.startsWith("/football"),
+    },
+    {
+      label: "Basketball",
+      href: "/basketball/countries",
+      active: currentPath.startsWith("/basketball"),
+    },
+    {
+      label: "Volleyball",
+      href: "/volleyball/countries",
+      active: currentPath.startsWith("/volleyball"),
+    },
   ];
 
   return (

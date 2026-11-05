@@ -46,6 +46,12 @@ async function fetchJson(url) {
     );
   }
 
+  if (result === null) {
+    throw new Error(
+      "Backend API is not connected. Set VITE_API_BASE_URL to your deployed backend server URL.",
+    );
+  }
+
   return result;
 }
 

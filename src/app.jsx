@@ -37,59 +37,142 @@ import VolleyballStandingsPage from "./pages/VolleyballStandingsPage.jsx";
 import VolleyballGamesPage from "./pages/VolleyballGamesPage.jsx";
 import "./App.css";
 
-// Main SPORTSVERSE App component with lightweight path routing
+// Helper to normalize trailing slashes (e.g. "/arena/" -> "/arena")
+function normalizePath(pathname) {
+  if (!pathname || pathname === "/") return "/";
+  return pathname.replace(/\/+$/, "") || "/";
+}
+
+// Main SPORTSVERSE App component with client-side SPA routing
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [locationState, setLocationState] = useState(() => ({
+    pathname: window.location.pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+  }));
+
+  const currentPath = normalizePath(locationState.pathname);
 
   useEffect(() => {
-    // Listen for browser forward/back buttons
+    // Handle browser back and forward buttons
     const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname);
+      setLocationState({
+        pathname: window.location.pathname,
+        search: window.location.search,
+        hash: window.location.hash,
+      });
+    };
+
+    // Intercept normal left-clicks on internal links for smooth SPA navigation
+    const handleLinkClick = (event) => {
+      if (event.defaultPrevented) return;
+      if (event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const anchor = event.target.closest("a[href]");
+      if (!anchor) return;
+      if (anchor.target && anchor.target !== "_self") return;
+      if (anchor.hasAttribute("download")) return;
+
+      const rawHref = anchor.getAttribute("href");
+      if (!rawHref || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) {
+        return;
+      }
+
+      let url;
+      try {
+        url = new URL(anchor.href, window.location.origin);
+      } catch {
+        return;
+      }
+
+      // Only handle internal same-origin page routes (never /api/* or static .html files)
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname.startsWith("/api/")) return;
+      if (url.pathname.endsWith(".html")) return;
+
+      event.preventDefault();
+
+      const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== currentUrl) {
+        window.history.pushState({}, "", nextUrl);
+      }
+
+      setLocationState({
+        pathname: url.pathname,
+        search: url.search,
+        hash: url.hash,
+      });
+
+      if (url.hash) {
+        const targetId = url.hash.slice(1);
+        requestAnimationFrame(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      } else if (normalizePath(url.pathname) !== normalizePath(window.location.pathname) || !url.hash) {
+        window.scrollTo(0, 0);
+      }
     };
 
     window.addEventListener("popstate", handleLocationChange);
-    return () => window.removeEventListener("popstate", handleLocationChange);
+    document.addEventListener("click", handleLinkClick);
+
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      document.removeEventListener("click", handleLinkClick);
+    };
   }, []);
+
+  // Scroll to hash section when loading a URL like /#find-game directly
+  useEffect(() => {
+    if (!locationState.hash) return;
+    const targetId = locationState.hash.slice(1);
+    const timer = setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [currentPath, locationState.hash]);
 
   // Renders the appropriate page based on current URL path
   const renderCurrentPage = () => {
-    //volleyball //
-    // Volleyball Countries
-if (currentPath === "/volleyball/countries") {
-  return <VolleyballCountriesPage />;
-}
+    // Volleyball routes
+    if (currentPath === "/volleyball/countries") {
+      return <VolleyballCountriesPage />;
+    }
+    if (/^\/volleyball\/teams\/.+/.test(currentPath)) {
+      return <VolleyballTeamsPage />;
+    }
+    if (currentPath.startsWith("/volleyball/team/")) {
+      return <VolleyballTeamDetailsPage />;
+    }
+    if (currentPath === "/volleyball/leagues") {
+      return <VolleyballLeaguesPage />;
+    }
+    if (
+      currentPath.startsWith("/volleyball/league/") ||
+      currentPath.startsWith("/volleyball/leagues/")
+    ) {
+      return <VolleyballLeagueDetailsPage />;
+    }
+    if (
+      currentPath === "/volleyball/standings" ||
+      currentPath.startsWith("/volleyball/standings/")
+    ) {
+      return <VolleyballStandingsPage />;
+    }
+    if (currentPath === "/volleyball/games") {
+      return <VolleyballGamesPage />;
+    }
 
-// Volleyball Teams
-if (/^\/volleyball\/teams\/.+/.test(currentPath)) {
-  return <VolleyballTeamsPage />;
-}
-
-// Volleyball Team Details
-if (currentPath.startsWith("/volleyball/team/")) {
-  return <VolleyballTeamDetailsPage />;
-}
-
-// Volleyball Leagues
-if (currentPath === "/volleyball/leagues") {
-  return <VolleyballLeaguesPage />;
-}
-
-// Volleyball League Details
-if (currentPath.startsWith("/volleyball/league/")) {
-  return <VolleyballLeagueDetailsPage />;
-}
-
-// Volleyball Standings
-if (currentPath.startsWith("/volleyball/standings/")) {
-  return <VolleyballStandingsPage />;
-}
-
-// Volleyball Games
-if (currentPath === "/volleyball/games") {
-  return <VolleyballGamesPage />;
-}
-
-// basketball wala render//
+    // Basketball routes
     if (currentPath === "/basketball/countries") {
       return <BasketballCountriesPage />;
     }
@@ -97,56 +180,77 @@ if (currentPath === "/volleyball/games") {
       return <BasketballTeamsPage />;
     }
     if (currentPath === "/basketball/leagues") {
-        return <BasketballLeaguesPage />;
+      return <BasketballLeaguesPage />;
     }
-    if (currentPath.startsWith("/basketball/leagues/")) {
+    if (
+      currentPath.startsWith("/basketball/leagues/") ||
+      currentPath.startsWith("/basketball/league/")
+    ) {
       return <BasketballLeagueDetailsPage />;
     }
-    if (currentPath.startsWith("/basketball/standings/")) {
+    if (
+      currentPath === "/basketball/standings" ||
+      currentPath.startsWith("/basketball/standings/")
+    ) {
       return <BasketballStandingsPage />;
     }
     if (currentPath === "/basketball/players") {
       return <BasketballPlayersPage />;
     }
-    if (currentPath.startsWith("/basketball/player/")) {
+    if (
+      currentPath.startsWith("/basketball/player/") ||
+      currentPath.startsWith("/basketball/players/")
+    ) {
       return <BasketballPlayerDetailsPage />;
-    }
-    if (currentPath.startsWith("/basketball/league/")) {
-      return <BasketballLeagueDetailsPage />;
     }
     if (currentPath.startsWith("/basketball/team/")) {
       return <BasketballTeamDetailsPage />;
     }
-    //football //
-    if (currentPath === "/countries") return <CountriesPage />;
-    if (currentPath === "/football/countries") return <FootballCountriesPage />;
-    if (currentPath === "/football/leagues") return <FootballLeaguesPage />;
-    if (currentPath === "/football/players") return <FootballPlayersPage />;
+
+    // Football routes
+    if (currentPath === "/football/countries") {
+      return <FootballCountriesPage />;
+    }
+    if (currentPath === "/football/leagues") {
+      return <FootballLeaguesPage />;
+    }
+    if (currentPath === "/football/players") {
+      return <FootballPlayersPage />;
+    }
     if (currentPath === "/football/standings") {
       return <FootballStandingsPage />;
     }
     if (/^\/football\/players\/[^/]+$/.test(currentPath)) {
       return <FootballPlayerDetailsPage />;
     }
-    if (/^\/football\/team\/\d+$/.test(currentPath)) {
+    if (/^\/football\/team\/[^/]+$/.test(currentPath)) {
       return <FootballTeamDetailsPage />;
     }
     if (/^\/football\/teams\/[^/]+$/.test(currentPath)) {
       return <FootballTeamsPage />;
     }
-    //cricket//
-    if (currentPath === "/leagues") return <LeaguesPage />;
-    if (/^\/leagues\/[^/]+$/.test(currentPath)) return <LeagueTeamsPage />;
 
+    // Cricket routes
+    if (currentPath === "/countries") {
+      return <CountriesPage />;
+    }
     if (/^\/countries\/[^/]+\/players$/.test(currentPath)) {
       return <CountryPlayersPage />;
     }
-
-    if (currentPath === "/players") return <PlayerUniverse />;
-
+    if (currentPath === "/leagues") {
+      return <LeaguesPage />;
+    }
+    if (/^\/leagues\/[^/]+$/.test(currentPath)) {
+      return <LeagueTeamsPage />;
+    }
+    if (currentPath === "/players") {
+      return <PlayerUniverse />;
+    }
     if (/^\/players\/[^/]+$/.test(currentPath)) {
       return <PlayerDetailsPage />;
     }
+
+    // Sports Arena & Games routes
     if (currentPath === "/arena/quiz") {
       return <Quiz />;
     }
@@ -159,19 +263,28 @@ if (currentPath === "/volleyball/games") {
     if (currentPath === "/arena/stats-challenge") {
       return <StatsChallenge />;
     }
-    if (currentPath.startsWith("/arena")) {
+    if (currentPath === "/arena" || currentPath.startsWith("/arena/")) {
       return <Arena />;
     }
+
+    // Profile route
     if (currentPath === "/profile") {
       return <Profile />;
     }
+
+    // Default Homepage (also handles /#hero, /#explore-sports, /#find-game)
     return <Home />;
   };
 
   return (
     <div className="strivora-app">
-      <Navbar currentPath={currentPath} />
-      <main className="strivora-main">{renderCurrentPage()}</main>
+      <Navbar currentPath={currentPath} currentHash={locationState.hash} />
+      <main
+        className="strivora-main"
+        key={`${currentPath}${locationState.search}`}
+      >
+        {renderCurrentPage()}
+      </main>
     </div>
   );
 }

@@ -1,6 +1,7 @@
+import { API_BASE_URL } from "./api";
 import { DEFAULT_CACHE_TTL, requestJson } from "./requestManager";
 
-const API_URL = "http://localhost:5000/api/volleyball";
+const API_URL = `${API_BASE_URL}/volleyball`;
 
 export async function getVolleyballCountries() {
   const data = await requestJson(`${API_URL}/countries`, {

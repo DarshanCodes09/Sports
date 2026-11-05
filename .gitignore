@@ -3,3 +3,5 @@ node_modules
 scripts/verifyQuestionsClean.js
 scripts/downloadSportsImages.js
 .env
+.env.local
+.env.*.local
