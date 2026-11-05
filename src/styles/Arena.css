@@ -1,48 +1,92 @@
-/* Sports Arena Hub (src/pages/Arena.jsx) */
+/* Sports Arena Hub (src/pages/Arena.jsx) — SPORTSVERSE Design System
+   Matches Reference Image 1 warm ivory editorial luxury aesthetic */
 
 .arena-page {
   min-height: 100vh;
-  background-color: #0b1120;
-  color: #f8fafc;
-  padding: 3.5rem 1.5rem 5rem;
+  background-color: var(--color-warm-ivory, #f4ebdd);
+  color: var(--color-dark-editorial, #10231f);
+  padding: 5rem 2rem 6.5rem;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, -apple-system, sans-serif);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background delicate orbital geometry inspired by Ref 1 */
+.arena-orbits {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.arena-orbit-svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .arena-page-container {
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* Header Section */
 .arena-page-header {
   text-align: center;
-  max-width: 700px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
-.arena-page-label {
-  color: #B8F36B;
+.arena-kicker-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.arena-kicker-num {
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  color: var(--color-crimson-accent, #c9233b);
+  letter-spacing: 0.1em;
+}
+
+.arena-kicker-dash {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background-color: var(--color-crimson-accent, #c9233b);
+}
+
+.arena-kicker-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-crimson-accent, #c9233b);
   text-transform: uppercase;
-  margin: 0 0 0.5rem 0;
 }
 
 .arena-page-title {
-  color: #ffffff;
-  font-size: clamp(2rem, 3.8vw, 2.85rem);
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-dark-editorial, #10231f);
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   font-weight: 800;
   letter-spacing: -0.01em;
-  margin: 0 0 0.75rem 0;
+  line-height: 1.15;
+  margin: 0 0 1.15rem 0;
 }
 
 .arena-page-description {
-  color: #94a3b8;
+  color: rgba(16, 35, 31, 0.7);
   font-size: 1.05rem;
-  line-height: 1.6;
-  margin: 0;
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 680px;
 }
 
 /* Player Stats Summary Bar */
@@ -89,64 +133,143 @@
 /* Visual Divider */
 .arena-divider {
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin: 2.5rem 0 3rem;
+  border-top: 1px solid rgba(16, 35, 31, 0.12);
+  margin: 2.8rem 0 3.5rem;
 }
 
-/* Game Cards Grid */
+/* 4 Game Cards Grid matching Reference Image 1 */
 .arena-games-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 1.8rem;
+  margin-bottom: 4rem;
 }
 
 .arena-game-card {
-  background-color: #131b2e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1.75rem;
+  background: rgba(238, 230, 213, 0.4);
+  border: 1px solid rgba(16, 35, 31, 0.12);
+  border-radius: var(--radius-lg, 20px);
+  padding: 2.2rem 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-decoration: none;
-  color: inherit;
+  color: #10231f;
   cursor: pointer;
   box-sizing: border-box;
-  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.35s ease;
 }
 
 .arena-game-card:hover {
-  border-color: #B8F36B;
-  background-color: #18233c;
-  transform: translateY(-4px);
+  border-color: var(--color-crimson-accent, #c9233b);
+  background: rgba(238, 230, 213, 0.85);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 38px -10px rgba(16, 35, 31, 0.15),
+              0 0 20px -4px var(--color-crimson-glow, rgba(201, 35, 59, 0.2));
 }
 
 .arena-game-card:focus-visible {
-  outline: 2px solid #B8F36B;
+  outline: 2px solid var(--color-crimson-accent, #c9233b);
   outline-offset: 3px;
 }
 
-.arena-card-title {
-  color: #ffffff;
-  font-size: 1.25rem;
+/* Organic Aura Wrapper & Icon matching Reference 1 */
+.arena-card-aura-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arena-card-aura-shape {
+  position: absolute;
+  width: 96px;
+  height: 84px;
+  border-radius: 62% 38% 70% 30% / 45% 65% 35% 55%;
+  filter: blur(8px);
+  transition: transform 0.4s ease;
+}
+
+.arena-game-card:hover .arena-card-aura-shape {
+  transform: scale(1.15) rotate(12deg);
+}
+
+.arena-card-icon {
+  position: relative;
+  z-index: 2;
+  color: #10231f;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arena-game-card:hover .arena-card-icon {
+  transform: scale(1.08);
+}
+
+.arena-card-orbital-arc {
+  position: absolute;
+  inset: -4px;
+  border: 1px dashed rgba(16, 35, 31, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Card Content */
+.arena-card-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.arena-card-badge {
+  font-size: 0.72rem;
   font-weight: 700;
-  margin: 0 0 0.65rem 0;
+  letter-spacing: 0.18em;
+  color: var(--color-crimson-accent, #c9233b);
+  margin-bottom: 0.45rem;
+  display: block;
+}
+
+.arena-card-title {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-dark-editorial, #10231f);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 0.35rem 0;
+}
+
+.arena-card-tagline {
+  color: rgba(16, 35, 31, 0.65);
+  font-size: 0.86rem;
+  font-style: italic;
+  margin: 0 0 0.85rem 0;
 }
 
 .arena-card-description {
-  color: #cbd5e1;
-  font-size: 0.92rem;
+  color: rgba(16, 35, 31, 0.8);
+  font-size: 0.9rem;
   line-height: 1.5;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.15rem 0;
 }
 
 .arena-card-instructions {
-  color: #94a3b8;
-  background-color: rgba(0, 0, 0, 0.25);
-  border-left: 3px solid #B8F36B;
-  padding: 0.65rem 0.85rem;
-  border-radius: 4px;
-  font-size: 0.84rem;
+  color: rgba(16, 35, 31, 0.7);
+  background-color: rgba(244, 235, 221, 0.8);
+  border-left: 2px solid var(--color-crimson-accent, #c9233b);
+  padding: 0.75rem 0.95rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
   line-height: 1.45;
   margin: 0 0 1rem 0;
 }
@@ -161,29 +284,54 @@
   color: #B8F36B;
 }
 
+/* Card Footer with Minimalist Circular Arrow Button (Reference 1) */
 .arena-card-footer {
-  margin-top: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(16, 35, 31, 0.1);
 }
 
-.arena-card-btn {
-  color: #B8F36B;
-  font-size: 0.92rem;
+.arena-card-btn-label {
+  font-size: 0.88rem;
   font-weight: 700;
+  color: var(--color-dark-editorial, #10231f);
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.arena-game-card:hover .arena-card-btn-label {
+  color: var(--color-crimson-accent, #c9233b);
+}
+
+.arena-card-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 35, 31, 0.35);
+  background-color: transparent;
+  color: #10231f;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  transition: gap 0.2s ease;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
 }
 
-.arena-game-card:hover .arena-card-btn {
-  gap: 0.6rem;
+.arena-game-card:hover .arena-card-circle-btn {
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
+  transform: translateX(3px) scale(1.05);
 }
 
+/* Empty Message */
 .arena-empty-message {
   text-align: center;
-  color: #94a3b8;
+  color: rgba(16, 35, 31, 0.6);
   font-size: 1.1rem;
   padding: 3rem 1rem;
 }
@@ -263,13 +411,13 @@
 
   .arena-games-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .arena-page {
-    padding: 2rem 1rem 3.5rem;
+    padding: 3.5rem 1.25rem 4.5rem;
   }
 
   .arena-stats-summary {
@@ -278,15 +426,15 @@
 
   .arena-games-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .arena-page-title {
-    font-size: 1.75rem;
+    font-size: 2.1rem;
   }
 
   .arena-divider {
-    margin: 1.75rem 0 2rem;
+    margin: 2rem 0 2.5rem;
   }
 
   .arena-history-item {

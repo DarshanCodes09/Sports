@@ -64,7 +64,7 @@ function PlayerUniverse() {
   return (
     <div className="universe-page">
       <div className="universe-heading">
-        <p className="universe-eyebrow">STRIVORA / PLAYER UNIVERSE</p>
+        <p className="universe-eyebrow">SPORTSVERSE / PLAYER UNIVERSE</p>
         <h1>Discover <span>Players.</span></h1>
         <p>Search cricket players and explore their careers.</p>
       </div>
