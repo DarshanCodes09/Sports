@@ -1,18 +1,15 @@
+import { DEFAULT_CACHE_TTL, requestJson } from "./requestManager";
+
 const API_BASE = "http://localhost:5000/api/basketball";
 
 async function basketballRequest(endpoint) {
-  const response = await fetch(`${API_BASE}${endpoint}`);
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error || "Basketball API request failed");
-  }
-
-  return result;
+  return requestJson(`${API_BASE}${endpoint}`);
 }
 
 export async function getBasketballCountries() {
-  const result = await basketballRequest("/countries");
+  const result = await requestJson(`${API_BASE}/countries`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
   return result.response || [];
 }
 
@@ -24,7 +21,9 @@ export async function getBasketballTeams(params = {}) {
 
 export async function getBasketballLeagues(params = {}) {
   const query = new URLSearchParams(params);
-  const result = await basketballRequest(`/leagues?${query.toString()}`);
+  const result = await requestJson(`${API_BASE}/leagues?${query.toString()}`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
   return result.response || [];
 }
 export async function getBasketballStandings(params = {}) {

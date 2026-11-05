@@ -1,15 +1,10 @@
 
+import { DEFAULT_CACHE_TTL, requestJson } from "./requestManager";
+
 const API_BASE = "http://localhost:5000/api";
 
 async function apiRequest(endpoint) {
-  const response = await fetch(`${API_BASE}${endpoint}`);
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error || "Something went wrong");
-  }
-
-  return result;
+  return requestJson(`${API_BASE}${endpoint}`);
 }
 
 // Search players by name
@@ -60,10 +55,14 @@ export async function getPlayerStats(playerId) {
   return result.data;
 }
 
+
 // for printing  all teams
 export async function getTeams() {
-  const result = await apiRequest("/teams");
-  return result.data?.data || [];
+  const result = await requestJson(`${API_BASE}/teams`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
+
+  return result.data || [];
 }
 
 // Get team details
@@ -94,7 +93,9 @@ export async function getCompetitionSeason(competitionId, season) {
 
 // Get all competitions
 export async function getCompetitions() {
-  const result = await apiRequest("/competitions");
+  const result = await requestJson(`${API_BASE}/competitions`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
 
   // Your actual competitions response has data.data as an array
   return result.data?.data || [];
@@ -116,4 +117,3 @@ export async function getMatchScorecard(matchId) {
 
   return result.data;
 }
-

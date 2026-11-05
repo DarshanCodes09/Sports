@@ -10,6 +10,7 @@ const PORT = 5000;
 const API_BASE = "https://api.cricketdatabase.com/v1";
 const FOOTBALL_API_BASE = "https://v3.football.api-sports.io";
 const BASKETBALL_API_BASE = "https://v1.basketball.api-sports.io";
+const VOLLEYBALL_API_BASE = "https://v1.volleyball.api-sports.io";
 
 app.use(cors());
 app.use(express.json());
@@ -107,6 +108,29 @@ async function basketballRequest(endpoint) {
   return result;
 }
 
+async function volleyballRequest(endpoint) {
+  if (!process.env.FOOTBALL_API_KEY) {
+    throw new Error("FOOTBALL_API_KEY is missing from .env");
+  }
+
+  const response = await fetch(`${VOLLEYBALL_API_BASE}${endpoint}`, {
+    headers: {
+      "x-apisports-key": process.env.FOOTBALL_API_KEY,
+    },
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      `Volleyball API error ${response.status}: ${
+        result.message || response.statusText
+      }`
+    );
+  }
+
+  return result;
+}
 
 // Server health check
 app.get("/", (req, res) => {
@@ -426,6 +450,83 @@ app.get("/api/basketball/player-statistics", async (req, res) => {
   }
 });
 
+//----VolleYball----//
+
+
+//  COUNTRIES
+app.get("/api/volleyball/countries", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await volleyballRequest(
+      `/countries?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Volleyball countries error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// LEAGUES
+app.get("/api/volleyball/leagues", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await volleyballRequest(
+      `/leagues?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Volleyball leagues error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// TEAMS
+app.get("/api/volleyball/teams", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await volleyballRequest(
+      `/teams?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Volleyball teams error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//  GAMES
+app.get("/api/volleyball/games", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await volleyballRequest(
+      `/games?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Volleyball games error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//  STANDINGS
+app.get("/api/volleyball/standings", async (req, res) => {
+  try {
+    const params = new URLSearchParams(req.query);
+    const result = await volleyballRequest(
+      `/standings?${params.toString()}`
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error("Volleyball standings error:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
 const server = app.listen(PORT, () => {
   console.log(`STRIVORA server running at http://localhost:${PORT}`);
 });

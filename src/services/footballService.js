@@ -1,27 +1,26 @@
+import { DEFAULT_CACHE_TTL, requestJson } from "./requestManager";
+
 const API_BASE = "http://localhost:5000/api/football";
 
 // Reusable function to communicate with the backend
 async function footballRequest(endpoint) {
-  const response = await fetch(`${API_BASE}${endpoint}`);
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error || "Football API request failed");
-  }
-
-  return result;
+  return requestJson(`${API_BASE}${endpoint}`);
 }
 
 // Get all football countries
 export async function getFootballCountries() {
-  const result = await footballRequest("/countries");
+  const result = await requestJson(`${API_BASE}/countries`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
   return result.response || [];
 }
 
 // Get football leagues
 export async function getFootballLeagues(params = {}) {
   const query = new URLSearchParams(params);
-  const result = await footballRequest(`/leagues?${query.toString()}`);
+  const result = await requestJson(`${API_BASE}/leagues?${query.toString()}`, {
+    cacheTtl: DEFAULT_CACHE_TTL,
+  });
   return result.response || [];
 }
 
