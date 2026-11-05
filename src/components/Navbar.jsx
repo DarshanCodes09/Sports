@@ -90,23 +90,19 @@ function Navbar({ currentPath = "/" }) {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </a>
+              Stats
+            </a>
+          </li>
+        </ul>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            type="button"
-            className="sportsverse-mobile-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
+        {/* Profile button on the right */}
+        <div className="strivora-nav-right">
+          <a
+            href="/profile"
+            className={`strivora-profile-btn ${currentPath === "/profile" ? "active" : ""}`}
           >
-            <span className="hamburger-bar"></span>
-            <span className="hamburger-bar"></span>
-            <span className="hamburger-bar"></span>
-          </button>
+            Profile
+          </a>
         </div>
       </div>
 

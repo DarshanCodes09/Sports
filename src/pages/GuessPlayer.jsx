@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { players } from "../data/players.js";
+import { saveGameResult } from "../utils/arenaStorage.js";
 import "../styles/GuessPlayer.css";
 
 // Shuffle array items randomly
@@ -129,6 +130,13 @@ function GuessPlayer() {
       setTimeLeft(20);
       setRevealedClueCount(1);
     } else {
+      saveGameResult({
+        gameName: "Guess the Player",
+        score,
+        correctCount,
+        wrongCount: incorrectCount + unansweredCount,
+        xpEarned: score
+      });
       setGameState("results");
     }
   };
