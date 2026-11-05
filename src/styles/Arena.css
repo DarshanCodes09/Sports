@@ -159,9 +159,9 @@
   box-sizing: border-box;
   position: relative;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              background-color 0.3s ease,
-              box-shadow 0.35s ease;
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.35s ease;
 }
 
 .arena-game-card:hover {
@@ -169,7 +169,7 @@
   background: rgba(238, 230, 213, 0.85);
   transform: translateY(-8px);
   box-shadow: 0 20px 38px -10px rgba(16, 35, 31, 0.15),
-              0 0 20px -4px var(--color-crimson-glow, rgba(201, 35, 59, 0.2));
+    0 0 20px -4px var(--color-crimson-glow, rgba(201, 35, 59, 0.2));
 }
 
 .arena-game-card:focus-visible {
@@ -275,13 +275,13 @@
 }
 
 .arena-card-best {
-  color: #e2e8f0;
+  color: #131921;
   font-size: 0.85rem;
   margin: 0 0 1.25rem 0;
 }
 
 .arena-card-best strong {
-  color: #B8F36B;
+  color: #030202;
 }
 
 /* Card Footer with Minimalist Circular Arrow Button (Reference 1) */

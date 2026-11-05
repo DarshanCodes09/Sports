@@ -67,26 +67,6 @@
   margin: 0;
 }
 
-.explore-all-link {
-  font-family: var(--font-sans, "DM Sans", sans-serif);
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--color-dark-editorial, #10231f);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  opacity: 0.85;
-  text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
-}
-
-.explore-all-link:hover {
-  opacity: 1;
-  color: var(--color-crimson-accent, #c9233b);
-  transform: translateX(4px);
-}
-
 /* 4 Large Photographic Cards Grid (Ref 2 in Editorial Ivory) */
 .explore-cards-grid {
   display: grid;

@@ -109,17 +109,18 @@
 .hero-title {
   font-family: var(--font-serif, "Playfair Display", Georgia, serif);
   font-size: clamp(3.2rem, 5.8vw, 5.2rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.06;
   letter-spacing: -0.02em;
   color: var(--color-warm-ivory, #f4ebdd);
   margin: 0 0 1.5rem 0;
 }
 
+.hero-title .serif-crimson-italic,
 .serif-crimson-italic {
   font-family: var(--font-serif, "Playfair Display", Georgia, serif);
   font-style: italic;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-crimson-accent, #c9233b);
   letter-spacing: -0.01em;
 }
