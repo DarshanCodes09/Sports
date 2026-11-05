@@ -1,0 +1,381 @@
+/* Section 02 — THE GAMES WE LOVE / Find Your Game (SPORTSVERSE Arena)
+   Pixel-perfect implementation of Reference Image 1 */
+
+.sportsverse-find-game {
+  background-color: var(--color-warm-ivory, #f4ebdd);
+  color: var(--color-dark-editorial, #10231f);
+  padding: 5rem 2rem 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Background delicate orbital geometry across the ivory canvas (Ref 1) */
+.find-game-orbits {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.find-game-orbit-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.find-game-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Editorial Section Header */
+.find-game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.find-game-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.find-game-kicker-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.find-kicker-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-crimson-accent, #c9233b);
+  letter-spacing: 0.1em;
+}
+
+.find-kicker-dash {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background-color: var(--color-crimson-accent, #c9233b);
+}
+
+.find-kicker-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-crimson-accent, #c9233b);
+  text-transform: uppercase;
+}
+
+.find-game-heading {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-dark-editorial, #10231f);
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* Seamless Mode Switcher */
+.find-game-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(16, 35, 31, 0.06);
+  border: 1px solid rgba(16, 35, 31, 0.12);
+  border-radius: var(--radius-full, 9999px);
+  padding: 4px;
+  gap: 4px;
+  width: fit-content;
+  margin-top: 1.15rem;
+}
+
+.mode-toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-dark-editorial, #10231f);
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mode-toggle-btn:hover:not(.active) {
+  background-color: rgba(16, 35, 31, 0.05);
+}
+
+.mode-toggle-btn.active {
+  background-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(201, 35, 59, 0.35);
+}
+
+.find-card-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--color-crimson-accent, #c9233b);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.find-game-header-aside {
+  display: flex;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.find-game-aside-text {
+  color: rgba(16, 35, 31, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  text-align: right;
+  font-family: var(--font-sans, sans-serif);
+}
+
+.find-game-nav-arrows {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.find-arrow-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 35, 31, 0.25);
+  background: transparent;
+  color: #10231f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.find-arrow-btn.active {
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
+}
+
+.find-arrow-btn:hover:not(.active) {
+  border-color: #10231f;
+  background-color: rgba(16, 35, 31, 0.05);
+}
+
+/* 4 Cards Grid exactly like Ref 1 */
+.find-game-cards-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.find-game-card {
+  background: transparent;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  color: #10231f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 1.75rem 1rem 1.5rem;
+  border-radius: 20px;
+  box-sizing: border-box;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.find-game-card:hover {
+  transform: translateY(-8px);
+  background-color: rgba(238, 230, 213, 0.55);
+}
+
+/* Organic Aura Wrapper & Icon */
+.find-card-aura-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.find-card-aura-shape {
+  position: absolute;
+  width: 110px;
+  height: 95px;
+  border-radius: 65% 35% 70% 30% / 45% 65% 35% 55%;
+  filter: blur(8px);
+  transition: transform 0.4s ease;
+}
+
+.find-game-card:hover .find-card-aura-shape {
+  transform: scale(1.15) rotate(12deg);
+}
+
+.find-card-icon {
+  position: relative;
+  z-index: 2;
+  color: #10231f;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.find-game-card:hover .find-card-icon {
+  transform: scale(1.08);
+}
+
+.find-card-orbital-arc {
+  position: absolute;
+  inset: -4px;
+  border: 1px dashed rgba(16, 35, 31, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Card Typography */
+.find-card-title {
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-dark-editorial, #10231f);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin: 0 0 0.45rem 0;
+  line-height: 1.25;
+}
+
+.find-card-tagline {
+  color: rgba(16, 35, 31, 0.65);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0 0 1.5rem 0;
+  max-width: 220px;
+  font-family: var(--font-sans, sans-serif);
+}
+
+/* Circular Arrow Button (Ref 1) */
+.find-card-action {
+  margin-top: auto;
+}
+
+.find-card-circle-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 35, 31, 0.35);
+  background: transparent;
+  color: #10231f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: all 0.25s ease;
+}
+
+.find-game-card:hover .find-card-circle-btn {
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
+  transform: translateX(2px) scale(1.05);
+}
+
+/* Bottom Watermark */
+.find-game-watermark {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  padding-right: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.find-game-watermark .watermark-line {
+  display: inline-block;
+  width: 44px;
+  height: 1px;
+  background-color: rgba(16, 35, 31, 0.35);
+}
+
+.find-game-watermark .watermark-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(16, 35, 31, 0.45);
+}
+
+/* Organic Curved Wave Transition into Deep Forest Green (Ref 1) */
+.ivory-to-live-wave {
+  width: 100%;
+  line-height: 0;
+  margin-top: 1rem;
+}
+
+.ivory-to-live-wave svg {
+  width: 100%;
+  height: 140px;
+  display: block;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .find-game-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .sportsverse-find-game {
+    padding: 3.5rem 1.25rem 0;
+  }
+
+  .find-game-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .find-game-header-aside {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .find-game-aside-text {
+    text-align: left;
+  }
+
+  .find-game-cards-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .find-game-heading {
+    font-size: 2.2rem;
+  }
+}
+
