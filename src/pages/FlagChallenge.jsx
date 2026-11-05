@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { flagQuestions } from "../data/questions.js";
+import { flagQuestions } from "../data/flagQuestions.js";
+import { internationalTeamQuestions } from "../data/internationalTeamQuestions.js";
+import { cricketLeagueQuestions } from "../data/cricketLeagueQuestions.js";
+import { footballLeagueQuestions } from "../data/footballLeagueQuestions.js";
+import { saveGameResult } from "../utils/arenaStorage.js";
 import "../styles/FlagChallenge.css";
 
-// Reusable Fisher-Yates algorithm for unbiased array shuffling
+// Shuffle array items randomly
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -14,56 +18,57 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Option letters (A, B, C, D)
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
-// Validates that each question contains a flag, answer, and 4 options including the answer
-const isValidFlagQuestion = (q) =>
-  Boolean(
-    q &&
-    typeof q.flag === "string" &&
-    q.flag.trim() !== "" &&
-    typeof q.answer === "string" &&
-    Array.isArray(q.options) &&
-    q.options.length === 4 &&
-    q.options.includes(q.answer)
-  );
+const CATEGORIES = [
+  { id: "All", label: "All Categories", badge: "120 Questions" },
+  { id: "Country Flags", label: "Country Flags", badge: "30 Questions" },
+  { id: "International Team Logos", label: "International Logos", badge: "30 Questions" },
+  { id: "Cricket Leagues and Teams", label: "Cricket Leagues & Teams", badge: "30 Questions" },
+  { id: "Football Leagues and Clubs", label: "Football Leagues & Clubs", badge: "30 Questions" }
+];
+
+// Combine all 4 datasets into one list of 120 questions
+const ALL_CHALLENGES = [
+  ...flagQuestions,
+  ...internationalTeamQuestions,
+  ...cricketLeagueQuestions,
+  ...footballLeagueQuestions
+];
 
 function FlagChallenge() {
-  // Game lifecycle state: "setup" | "playing" | "results"
   const [gameState, setGameState] = useState("setup");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Gameplay state
   const [gameQuestions, setGameQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
 
-  // Score tracking state
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [unansweredCount, setUnansweredCount] = useState(0);
 
-  // Filter only verified questions that pass structural validation
-  const validFlagQuestions = (flagQuestions || []).filter(isValidFlagQuestion);
+  // Filter questions based on selected category
+  const availableQuestions =
+    selectedCategory === "All"
+      ? ALL_CHALLENGES
+      : ALL_CHALLENGES.filter((q) => q.category === selectedCategory);
 
-  // Starts a fresh randomized Flag Challenge session
+  // Start a new 10-question game
   const handleStartChallenge = () => {
-    if (validFlagQuestions.length === 0) return;
+    if (availableQuestions.length === 0) return;
 
-    // 1. Randomly shuffle the validated flag questions pool using Fisher-Yates
-    const shuffledPool = shuffleArray(validFlagQuestions);
-
-    // 2. Take up to 10 questions and shuffle their 4 country choices individually
-    const preparedQuestions = shuffledPool.slice(0, 10).map((question) => ({
+    const shuffledPool = shuffleArray(availableQuestions);
+    const selectedQuestions = shuffledPool.slice(0, 10).map((question) => ({
       ...question,
       shuffledOptions: shuffleArray(question.options)
     }));
 
-    // Reset gameplay and score states
-    setGameQuestions(preparedQuestions);
+    setGameQuestions(selectedQuestions);
     setCurrentIndex(0);
     setSelectedAnswer(null);
     setIsLocked(false);
@@ -75,12 +80,10 @@ function FlagChallenge() {
     setGameState("playing");
   };
 
-  // 15-second countdown timer effect
+  // 15-second countdown timer
   useEffect(() => {
-    // Only tick when actively playing and current question is not locked
     if (gameState !== "playing" || isLocked) return;
 
-    // If time expires, lock the question and record as unanswered
     if (timeLeft === 0) {
       setIsLocked(true);
       setUnansweredCount((prev) => prev + 1);
@@ -91,11 +94,10 @@ function FlagChallenge() {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
 
-    // Cleanup timer on tick, question change, or component unmount
     return () => clearInterval(timerId);
   }, [gameState, isLocked, timeLeft]);
 
-  // Handles user clicking an answer option
+  // Handle answer selection
   const handleSelectOption = (option) => {
     if (isLocked) return;
 
@@ -111,7 +113,7 @@ function FlagChallenge() {
     }
   };
 
-  // Move to next question or show final results
+  // Move to next question or finish game
   const handleNextQuestion = () => {
     if (currentIndex + 1 < gameQuestions.length) {
       setCurrentIndex((prev) => prev + 1);
@@ -119,104 +121,154 @@ function FlagChallenge() {
       setIsLocked(false);
       setTimeLeft(15);
     } else {
+      saveGameResult({
+        gameName: "Flag Challenge",
+        score,
+        correctCount,
+        wrongCount: incorrectCount + unansweredCount,
+        xpEarned: score * 10
+      });
       setGameState("results");
     }
   };
 
-  // Reset back to setup screen
   const handlePlayAgain = () => {
     setGameState("setup");
   };
 
-  // Current active question
+  const getQuestionHeading = (question) => {
+    if (!question) return "Identify the sports symbol";
+    if (question.category === "Country Flags") {
+      return "Which sporting nation does this flag belong to?";
+    }
+    if (question.category === "Cricket Leagues and Teams") {
+      return "Which cricket tournament or franchise team does this emblem belong to?";
+    }
+    if (question.category === "Football Leagues and Clubs") {
+      return "Which football league or club does this crest belong to?";
+    }
+    return "Which international sports federation or national team does this emblem belong to?";
+  };
+
   const currentQuestion = gameQuestions[currentIndex];
+  const imageSrc = currentQuestion ? (currentQuestion.image || currentQuestion.flag) : "";
+
+  const accuracy =
+    gameQuestions.length > 0
+      ? Math.round((correctCount / gameQuestions.length) * 100)
+      : 0;
+
+  let feedbackTitle = "";
+  let feedbackType = "";
+  if (currentQuestion && isLocked) {
+    if (selectedAnswer === currentQuestion.answer) {
+      feedbackTitle = `Correct! It is ${currentQuestion.answer}.`;
+      feedbackType = "correct";
+    } else if (selectedAnswer === null) {
+      feedbackTitle = `Time's up! The correct answer is: ${currentQuestion.answer}`;
+      feedbackType = "timeout";
+    } else {
+      feedbackTitle = `Incorrect! The correct answer is: ${currentQuestion.answer}`;
+      feedbackType = "incorrect";
+    }
+  }
 
   return (
     <div className="flag-wrapper">
       <div className="flag-container">
-        {/* ================================================================
-            1. SETUP SCREEN
-            ================================================================ */}
+        {/* Setup Screen */}
         {gameState === "setup" && (
           <div className="flag-setup-card">
             <header className="flag-setup-header">
-              <p className="flag-badge">STRIVORA GAMING ZONE</p>
+              <p className="flag-badge">SPORTSVERSE ARENA</p>
               <h1 className="flag-title">FLAG CHALLENGE</h1>
               <p className="flag-subtitle">
-                Test your sports knowledge by identifying the national flags of world-famous sporting nations.
+                Test your sports knowledge by identifying national country flags, international sports federation logos, and premier franchise cricket & football club crests.
               </p>
             </header>
 
-            {/* Game Rules Card */}
+            <div className="flag-section-label">Select Game Category</div>
+            <div className="flag-category-grid">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  className={`flag-category-btn ${selectedCategory === cat.id ? "active" : ""}`}
+                  onClick={() => setSelectedCategory(cat.id)}
+                >
+                  <span className="flag-category-name">{cat.label}</span>
+                  <span className="flag-category-count">{cat.badge}</span>
+                </button>
+              ))}
+            </div>
+
             <div className="flag-rules-card">
-              <h2 className="flag-rules-heading">📋 Challenge Rules</h2>
+              <h2 className="flag-rules-heading">Challenge Rules</h2>
               <ul className="flag-rules-list">
                 <li className="flag-rules-item">
-                  <span className="flag-rule-bullet">&#9679;</span>
-                  <span>Look at the national flag displayed on screen.</span>
+                  <span className="flag-rule-bullet">-</span>
+                  <span>Inspect the high-resolution flag, federation emblem, or club crest on screen.</span>
                 </li>
                 <li className="flag-rules-item">
-                  <span className="flag-rule-bullet">&#9679;</span>
-                  <span>Use the sports hint to recall famous tournaments, players, or achievements.</span>
+                  <span className="flag-rule-bullet">-</span>
+                  <span>Pick the correct identity from 4 randomized options before the 15-second timer expires.</span>
                 </li>
                 <li className="flag-rules-item">
-                  <span className="flag-rule-bullet">&#9679;</span>
-                  <span>Pick the correct country name from 4 randomized options before the 15-second timer ends.</span>
+                  <span className="flag-rule-bullet">-</span>
+                  <span>Every playthrough randomizes the sequence of questions and answer choices with no repeats.</span>
                 </li>
                 <li className="flag-rules-item">
-                  <span className="flag-rule-bullet">&#9679;</span>
-                  <span>Every playthrough randomizes the sequence of flags and answer choices.</span>
+                  <span className="flag-rule-bullet">-</span>
+                  <span>Test your knowledge across country flags, international teams, cricket franchises, and football clubs.</span>
                 </li>
               </ul>
             </div>
 
-            {/* Availability Banner */}
-            {validFlagQuestions.length > 0 ? (
+            {availableQuestions.length > 0 ? (
               <div className="flag-info-banner">
-                Ready! <strong>{validFlagQuestions.length} flag challenges</strong> are loaded and ready to play.
+                Ready! <strong>{availableQuestions.length} verified challenges</strong> loaded for{" "}
+                <strong>{selectedCategory === "All" ? "All Categories" : selectedCategory}</strong>.
               </div>
             ) : (
               <div className="flag-info-banner warning">
-                No valid flag questions found in the dataset. Please check back later.
+                No questions found for this category. Please select another option.
               </div>
             )}
 
-            {/* Setup Actions */}
             <div className="flag-setup-actions">
               <a href="/arena" className="flag-btn-secondary">
-                &larr; Back to Arena
+                Back to Arena
               </a>
               <button
                 type="button"
                 className="flag-btn-primary"
                 onClick={handleStartChallenge}
-                disabled={validFlagQuestions.length === 0}
+                disabled={availableQuestions.length === 0}
               >
-                Start Challenge &rarr;
+                Start Challenge
               </button>
             </div>
           </div>
         )}
 
-        {/* ================================================================
-            2. GAMEPLAY SCREEN
-            ================================================================ */}
+        {/* Playing Screen */}
         {gameState === "playing" && currentQuestion && (
           <div className="flag-play-card">
-            {/* Top Bar: Progress and Timer */}
             <div className="flag-top-bar">
               <div className="flag-meta-info">
-                <span className="flag-tag">Flag Challenge</span>
+                <span className="flag-tag">{currentQuestion.category}</span>
+                {currentQuestion.sport && (
+                  <span className="flag-tag">{currentQuestion.sport}</span>
+                )}
                 <span className="flag-tag">
                   Question {currentIndex + 1} of {gameQuestions.length}
                 </span>
               </div>
               <div className={`flag-timer-pill ${timeLeft <= 5 ? "urgent" : ""}`}>
-                ⏱ {timeLeft}s
+                {timeLeft}s
               </div>
             </div>
 
-            {/* Progress Bar */}
             <div className="flag-progress-bar-bg">
               <span
                 className="flag-progress-bar-fill"
@@ -226,24 +278,25 @@ function FlagChallenge() {
               ></span>
             </div>
 
-            {/* Flag Visual Card & Clue */}
             <div className="flag-display-box">
               <div
                 className="flag-symbol"
                 role="img"
-                aria-label={`Flag for Question ${currentIndex + 1}`}
+                aria-label={`Emblem for ${currentQuestion.answer}`}
               >
-                {currentQuestion.flag}
+                {imageSrc ? (
+                  <img
+                    src={imageSrc}
+                    alt={currentQuestion.answer}
+                    className="flag-image"
+                  />
+                ) : (
+                  <span className="flag-fallback-icon">No Image</span>
+                )}
               </div>
-              <h2 className="flag-prompt-title">Which sporting nation does this flag belong to?</h2>
-              {currentQuestion.hint && (
-                <p className="flag-hint-text">
-                  <strong>Sports Clue:</strong> {currentQuestion.hint}
-                </p>
-              )}
+              <h2 className="flag-prompt-title">{getQuestionHeading(currentQuestion)}</h2>
             </div>
 
-            {/* 4 Options Grid */}
             <div className="flag-options-grid">
               {currentQuestion.shuffledOptions.map((option, index) => {
                 let statusClass = "";
@@ -272,38 +325,39 @@ function FlagChallenge() {
               })}
             </div>
 
-            {/* Answer Feedback */}
             {isLocked && (
-              <div
-                className={`flag-feedback-box ${
-                  selectedAnswer === currentQuestion.answer
-                    ? "correct"
-                    : selectedAnswer === null
-                    ? "timeout"
-                    : "incorrect"
-                }`}
-              >
-                <div className="flag-feedback-title">
-                  {selectedAnswer === currentQuestion.answer && "✓ Correct Country!"}
-                  {selectedAnswer !== null &&
-                    selectedAnswer !== currentQuestion.answer &&
-                    `✗ Incorrect! The correct country is: ${currentQuestion.answer}`}
-                  {selectedAnswer === null &&
-                    `⏰ Time's up! The correct country is: ${currentQuestion.answer}`}
+              <div className={`flag-feedback-box ${feedbackType}`}>
+                <div className="flag-feedback-title">{feedbackTitle}</div>
+
+                <div className="flag-reveal-card">
+                  <img
+                    src={imageSrc}
+                    alt={currentQuestion.answer}
+                    className="flag-reveal-thumb"
+                  />
+                  <div className="flag-reveal-info">
+                    <h3 className="flag-reveal-name">{currentQuestion.answer}</h3>
+                  </div>
                 </div>
-                {currentQuestion.explanation ? (
+
+                {currentQuestion.hint && (
+                  <p className="flag-hint-text" style={{ marginBottom: "0.75rem", color: "var(--color-crimson-accent, #c9233b)" }}>
+                    <strong>Key Fact:</strong> {currentQuestion.hint}
+                  </p>
+                )}
+                {currentQuestion.explanation && (
                   <p className="flag-feedback-text">
                     {currentQuestion.explanation}
                   </p>
-                ) : currentQuestion.hint ? (
-                  <p className="flag-feedback-text">
-                    <strong>Sports Clue:</strong> {currentQuestion.hint}
+                )}
+                {currentQuestion.source && (
+                  <p className="flag-source-text">
+                    <em>Source: {currentQuestion.source}</em>
                   </p>
-                ) : null}
+                )}
               </div>
             )}
 
-            {/* Next Question / View Results Button */}
             {isLocked && (
               <div className="flag-bottom-actions">
                 <button
@@ -312,31 +366,27 @@ function FlagChallenge() {
                   onClick={handleNextQuestion}
                 >
                   {currentIndex + 1 < gameQuestions.length
-                    ? "Next Question →"
-                    : "View Results →"}
+                    ? "Next Question"
+                    : "View Results"}
                 </button>
               </div>
             )}
           </div>
         )}
 
-        {/* ================================================================
-            3. RESULTS SCREEN
-            ================================================================ */}
+        {/* Results Screen */}
         {gameState === "results" && (
           <div className="flag-results-card">
             <h1 className="flag-results-title">Challenge Completed!</h1>
             <p className="flag-results-meta">
-              Great effort! Here is your performance in the Flag Challenge:
+              Category: <strong>{selectedCategory === "All" ? "All Categories" : selectedCategory}</strong>
             </p>
 
-            {/* Final Score Circle */}
             <div className="flag-score-circle">
               <span className="flag-score-number">{score}</span>
               <span className="flag-score-label">out of {gameQuestions.length}</span>
             </div>
 
-            {/* Detailed Stats Grid */}
             <div className="flag-stats-grid">
               <div className="flag-stat-card">
                 <div className="flag-stat-label">Correct</div>
@@ -350,19 +400,22 @@ function FlagChallenge() {
                 <div className="flag-stat-label">Unanswered</div>
                 <div className="flag-stat-value unanswered">{unansweredCount}</div>
               </div>
+              <div className="flag-stat-card">
+                <div className="flag-stat-label">Accuracy</div>
+                <div className="flag-stat-value accuracy">{accuracy}%</div>
+              </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flag-results-actions">
               <button
                 type="button"
                 className="flag-btn-primary"
                 onClick={handlePlayAgain}
               >
-                Play Again &#8635;
+                Play Again
               </button>
               <a href="/arena" className="flag-btn-secondary">
-                Back to Arena &rarr;
+                Back to Arena
               </a>
             </div>
           </div>

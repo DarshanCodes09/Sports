@@ -1,10 +1,9 @@
-// STRIVORA Sports Arena - Statistics Challenge Dataset
-// Verified, real-world sports records, milestones, and statistical achievements
+// Stats Challenge questions
 
 export const statistics = [
-  // ------------------------------------------------------------------------
+
   // CRICKET
-  // ------------------------------------------------------------------------
+
   {
     id: 1,
     sport: "Cricket",
@@ -66,9 +65,9 @@ export const statistics = [
     source: "ICC Hall of Fame & Test Match Records"
   },
 
-  // ------------------------------------------------------------------------
+
   // FOOTBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 7,
     sport: "Football",
@@ -130,9 +129,9 @@ export const statistics = [
     source: "Premier League Official Historical Milestones"
   },
 
-  // ------------------------------------------------------------------------
+
   // BASKETBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 13,
     sport: "Basketball",
@@ -194,9 +193,9 @@ export const statistics = [
     source: "Naismith Memorial Basketball Hall of Fame"
   },
 
-  // ------------------------------------------------------------------------
+
   // VOLLEYBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 19,
     sport: "Volleyball",

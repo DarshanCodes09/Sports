@@ -1,222 +1,850 @@
 /* ==========================================================================
-   STRIVORA APP & CORE LAYOUT STYLES
-   File: src/App.css
+   SPORTSVERSE — PREMIUM EDITORIAL DESIGN SYSTEM & HOMEPAGE STYLES
    ========================================================================== */
 
+/* 1. APP SHELL LAYOUT */
 .strivora-app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #0b1120;
+  background-color: var(--color-primary-forest);
+  color: var(--color-warm-ivory);
+  position: relative;
+  overflow-x: hidden;
 }
 
 .strivora-main {
   flex: 1;
 }
 
-/* --------------------------------------------------------------------------
-   NAVBAR
-   -------------------------------------------------------------------------- */
-.strivora-navbar {
-  background-color: #0d1322;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(8px);
+/* Serif Italic Crimson Highlight Utility */
+.serif-crimson-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-crimson-accent);
+  letter-spacing: -0.01em;
+  display: inline-block;
 }
 
-.strivora-nav-container {
-  max-width: 1200px;
+/* ==========================================================================
+   2. NAVBAR
+   ========================================================================== */
+.sportsverse-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(3, 31, 27, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(244, 235, 221, 0.08);
+  transition: all 0.3s ease;
+}
+
+.sportsverse-nav-container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem;
 }
 
-.strivora-logo {
+/* Brand Group */
+.sportsverse-brand-group {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.4rem;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.sportsverse-logo {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
-  color: #ffffff;
+  letter-spacing: 0.04em;
+  color: var(--color-warm-ivory);
+  display: flex;
+  align-items: baseline;
 }
 
-.strivora-logo-badge {
-  color: #B8F36B;
+.sportsverse-logo-dot {
+  color: var(--color-crimson-accent);
+  margin-left: 1px;
 }
 
-.strivora-nav-links {
+.sportsverse-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-muted-sage);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Navigation Links */
+.sportsverse-nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2.2rem;
   list-style: none;
 }
 
-.strivora-nav-link {
-  color: #94a3b8;
+.sportsverse-nav-link {
+  color: var(--color-warm-ivory);
   font-size: 0.95rem;
-  font-weight: 600;
-  transition: color 0.2s ease;
-  padding: 0.4rem 0.2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0;
   position: relative;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.strivora-nav-link:hover,
-.strivora-nav-link.active {
-  color: #B8F36B;
+.sportsverse-nav-link:hover,
+.sportsverse-nav-link.active {
+  opacity: 1;
+  color: var(--color-warm-ivory);
 }
 
-.strivora-nav-link:focus-visible {
-  outline: 2px solid #B8F36B;
-  outline-offset: 4px;
-  border-radius: 4px;
+.sportsverse-nav-link.active::after,
+.sportsverse-nav-link:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-crimson-accent);
+  border-radius: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   HOMEPAGE HERO SECTION
-   -------------------------------------------------------------------------- */
-.home-page {
+/* Right Nav Actions */
+.sportsverse-nav-actions {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-.home-hero {
-  padding: 4.5rem 1.5rem 3.5rem;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+.sportsverse-nav-search {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.home-hero-tag {
-  color: #B8F36B;
+.sportsverse-search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--color-muted-sage);
+  pointer-events: none;
+}
+
+.sportsverse-nav-search input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  border-radius: var(--radius-full);
+  padding: 0.55rem 1.2rem 0.55rem 2.4rem;
   font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  color: var(--color-warm-ivory);
+  font-family: var(--font-sans);
+  outline: none;
+  width: 210px;
+  transition: all 0.25s ease;
 }
 
-.home-hero-title {
-  color: #ffffff;
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+.sportsverse-nav-search input::placeholder {
+  color: rgba(156, 170, 161, 0.65);
 }
 
-.home-hero-desc {
-  color: #94a3b8;
-  font-size: 1.15rem;
-  line-height: 1.6;
-  max-width: 650px;
-  margin: 0 auto 2rem;
+.sportsverse-nav-search input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-crimson-accent);
+  width: 250px;
+  box-shadow: 0 0 0 3px var(--color-crimson-glow);
 }
 
-.home-hero-actions {
+/* Profile Button in Navbar */
+.strivora-nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.strivora-profile-btn {
+  color: #B8F36B;
+  border: 1px solid rgba(184, 243, 107, 0.4);
+  background-color: rgba(184, 243, 107, 0.08);
+  padding: 0.45rem 1.15rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.strivora-profile-btn:hover,
+.strivora-profile-btn.active {
+  background-color: #B8F36B;
+  color: #0b1120;
+  border-color: #B8F36B;
+}
+
+.strivora-profile-btn:focus-visible {
+  outline: 2px solid #B8F36B;
+  outline-offset: 3px;
+}
+
+/* Homepage Hero */
+.home-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(244, 235, 221, 0.08);
+  border: 1px solid rgba(244, 235, 221, 0.15);
+  color: var(--color-warm-ivory);
+  transition: all 0.2s ease;
+}
+
+.sportsverse-user-btn:hover {
+  background: var(--color-crimson-accent);
+  border-color: var(--color-crimson-accent);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.sportsverse-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-warm-ivory);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Mobile Menu */
+.sportsverse-mobile-menu {
+  display: none;
+  background: var(--color-deep-forest);
+  border-bottom: 1px solid rgba(244, 235, 221, 0.1);
+  padding: 1.5rem 2rem;
+}
+
+.sportsverse-mobile-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.sportsverse-mobile-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-warm-ivory);
+  display: block;
+  padding: 0.3rem 0;
+}
+
+.sportsverse-mobile-link.highlight {
+  color: var(--color-crimson-accent);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   3. SECTION 01 — HERO (Reference Image 1 Pixel-Perfect)
+   ========================================================================== */
+.sportsverse-hero {
+  position: relative;
+  background: radial-gradient(circle at 75% 35%, #0B3B33 0%, #062B25 45%, #031F1B 100%);
+  padding: 3.5rem 0 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-ambient-glow {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(11, 59, 51, 0.6) 0%, rgba(6, 43, 37, 0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 110px 1.25fr 1fr;
+  align-items: center;
+  gap: 2.2rem;
+  position: relative;
+  z-index: 2;
+  min-height: 580px;
+}
+
+/* Far Left Vertical Sidebar with Fine Line */
+.hero-sidebar-track {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  height: 250px;
+}
+
+.hero-sidebar-line {
+  width: 1px;
+  height: 100%;
+  background: rgba(244, 235, 221, 0.16);
+}
+
+.hero-sidebar-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.hero-sidebar-words span {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--color-muted-sage, #9caaa1);
+  opacity: 0.6;
+}
+
+/* Hero Content Column */
+.hero-content {
+  max-width: 680px;
+}
+
+.hero-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.4rem;
+}
+
+.hero-kicker-number {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-muted-sage, #9caaa1);
+}
+
+.hero-kicker-line {
+  width: 38px;
+  height: 1px;
+  background-color: var(--color-crimson-accent, #c9233b);
+}
+
+.hero-kicker-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-crimson-accent, #c9233b);
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(3.2rem, 6.2vw, 5.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-warm-ivory, #f4ebdd);
+  margin: 0 0 1.5rem 0;
+}
+
+.hero-description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #cbd5d1;
+  max-width: 480px;
+  margin: 0 0 2.2rem 0;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
   flex-wrap: wrap;
 }
 
-.home-btn-primary {
-  background-color: #B8F36B;
-  color: #0b1120;
-  padding: 0.85rem 1.8rem;
-  border-radius: 8px;
+/* Primary Button: Warm Cream */
+.btn-primary-cream {
+  background-color: var(--color-warm-ivory, #f4ebdd);
+  color: #10231f;
   font-size: 0.95rem;
   font-weight: 700;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  display: inline-block;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-full, 9999px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  text-decoration: none;
 }
 
-.home-btn-primary:hover {
-  background-color: #a4e852;
+.btn-primary-cream:hover {
+  background-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.45);
+}
+
+/* Secondary Button: Fine Outline */
+.btn-secondary-outline {
+  background: transparent;
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(244, 235, 221, 0.28);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.btn-secondary-outline:hover {
+  background: rgba(244, 235, 221, 0.08);
+  border-color: var(--color-warm-ivory);
   transform: translateY(-2px);
 }
 
-.home-btn-primary:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
-}
-
-.home-btn-secondary {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
-  padding: 0.85rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-  display: inline-block;
-}
-
-.home-btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.home-btn-secondary:focus-visible {
-  outline: 2px solid #B8F36B;
-  outline-offset: 3px;
-}
-
-/* --------------------------------------------------------------------------
-   FOOTER
-   -------------------------------------------------------------------------- */
-.strivora-footer {
-  background-color: #0d1322;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 2.5rem 1.5rem;
-  margin-top: auto;
-}
-
-.strivora-footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Subline under buttons */
+.hero-subline {
   display: flex;
   align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-subline-dash {
+  width: 28px;
+  height: 1px;
+  background-color: rgba(156, 170, 161, 0.5);
+}
+
+.hero-subline-text {
+  font-size: 0.88rem;
+  color: var(--color-muted-sage, #9caaa1);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Hero Right Visual Column */
+.hero-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.counter-numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-warm-ivory, #f4ebdd);
+  letter-spacing: 0.05em;
+}
+
+.counter-arrows {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  line-height: 0.85;
+  color: var(--color-muted-sage, #9caaa1);
+}
+
+.hero-orbital-wrapper {
+  position: relative;
+  width: 480px;
+  height: 480px;
+}
+
+.hero-orbital-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-dot-matrix {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 5px);
+  gap: 12px;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.dot-node {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-warm-ivory, #f4ebdd);
+}
+
+/* Airy Editorial Floating Quote (No card border) */
+.hero-editorial-quote {
+  position: absolute;
+  bottom: 110px;
+  right: 35px;
+  display: flex;
+  align-items: stretch;
+  gap: 0.85rem;
+  z-index: 3;
+}
+
+.quote-crimson-line {
+  width: 2px;
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-radius: 2px;
+}
+
+.quote-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.quote-mark {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-crimson-accent, #c9233b);
+}
+
+.quote-phrase {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-warm-ivory, #f4ebdd);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Hero to Ivory Wave Transition */
+.hero-bottom-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-bottom-wave svg {
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  height: 120px;
+  vertical-align: bottom;
+  border: none;
+}
+
+.hero-to-ivory-wave,
+.hero-to-explore-wave {
+  width: 100%;
+  line-height: 0;
+  margin-top: 1rem;
+}
+
+.hero-to-ivory-wave svg,
+.hero-to-explore-wave svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+}
+
+/* ==========================================================================
+   4. SECTION 02 — EXPLORE OUR SPORTS (Reference Image 2 layout in Ref 1 theme)
+   ========================================================================== */
+.sportsverse-explore-sports {
+  position: relative;
+  background-color: var(--color-warm-ivory, #F4EBDD);
+  padding: 4rem 2.5rem 2rem;
+  color: var(--color-dark-editorial, #10231F);
+}
+
+.explore-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.explore-header {
+  display: flex;
+  align-items: flex-end;
   justify-content: space-between;
+  margin-bottom: 2.8rem;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
 
-.strivora-footer-text {
-  color: #64748b;
-  font-size: 0.88rem;
-}
-
-.strivora-footer-links {
+.explore-kicker-row {
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
 }
 
-.strivora-footer-link {
-  color: #94a3b8;
+.explore-kicker-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-muted-sage);
+}
+
+.explore-kicker-dash {
+  width: 32px;
+  height: 1px;
+  background-color: var(--color-crimson-accent);
+}
+
+.explore-kicker {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--color-crimson-accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.explore-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  color: var(--color-dark-editorial, #10231F);
+  letter-spacing: -0.01em;
+}
+
+.explore-all-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-dark-editorial, #10231F);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.explore-all-link:hover {
+  opacity: 1;
+  color: var(--color-crimson-accent);
+  transform: translateX(4px);
+}
+
+/* 4 Large Photographic Cards Grid */
+.explore-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+}
+
+.explore-photo-card {
+  position: relative;
+  height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.6rem;
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  text-decoration: none;
+  color: var(--color-warm-ivory);
+}
+
+.explore-photo-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-crimson-accent);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 30px -5px var(--color-crimson-glow);
+}
+
+.photo-card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.photo-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.explore-photo-card:hover .photo-card-img {
+  transform: scale(1.08);
+}
+
+.photo-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(3, 31, 27, 0.96) 0%,
+    rgba(6, 43, 37, 0.72) 45%,
+    rgba(3, 31, 27, 0.25) 100%
+  );
+  transition: background 0.3s ease;
+}
+
+.explore-photo-card:hover .photo-card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(3, 31, 27, 0.98) 0%,
+    rgba(6, 43, 37, 0.6) 50%,
+    rgba(3, 31, 27, 0.15) 100%
+  );
+}
+
+.photo-card-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sport-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(3, 31, 27, 0.75);
+  border: 1px solid rgba(244, 235, 221, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-warm-ivory);
+  transition: all 0.3s ease;
+}
+
+.explore-photo-card:hover .sport-badge-icon {
+  background: var(--color-crimson-accent);
+  border-color: var(--color-crimson-accent);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+.photo-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(244, 235, 221, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--color-warm-ivory);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.3s ease;
+}
+
+.explore-photo-card:hover .photo-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.photo-card-bottom {
+  position: relative;
+  z-index: 2;
+}
+
+.photo-card-name {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-warm-ivory);
+  margin-bottom: 0.25rem;
+}
+
+.photo-card-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-crimson-accent);
+  margin-bottom: 0.65rem;
+}
+
+.photo-card-desc {
   font-size: 0.88rem;
-  transition: color 0.2s ease;
+  line-height: 1.5;
+  color: #cbd5d1;
+  opacity: 0.9;
 }
 
-.strivora-footer-link:hover {
-  color: #B8F36B;
+/* Explore to Ivory SVG Wave Transition */
+.explore-to-ivory-wave {
+  margin-top: 4rem;
+  width: 100%;
+  line-height: 0;
 }
 
 @media (max-width: 600px) {
   .strivora-nav-container {
     padding: 0.85rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
+
   .strivora-nav-links {
-    gap: 1rem;
+    gap: 0.85rem;
+    flex-wrap: wrap;
   }
-  .strivora-footer-container {
+
+  .strivora-profile-btn {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .sportsverse-footer-bottom-inner {
     flex-direction: column;
     text-align: center;
+    gap: 0.75rem;
   }
 }
-

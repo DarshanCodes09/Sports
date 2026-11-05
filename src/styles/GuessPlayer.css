@@ -1,16 +1,12 @@
-/* ==========================================================================
-   STRIVORA GUESS THE PLAYER STYLES
-   File: src/styles/GuessPlayer.css
-   Clean, modern, responsive styling with dark navy and lime-green palette
-   ========================================================================== */
+/* Guess the Player Styles — SPORTSVERSE Design System */
 
 .player-wrapper {
   min-height: 100vh;
-  background-color: #0b1120;
-  color: #f8fafc;
-  padding: 3rem 1.5rem 5rem;
+  background-color: var(--color-primary-forest, #062b25);
+  color: var(--color-warm-ivory, #f4ebdd);
+  padding: 4rem 1.5rem 6rem;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, -apple-system, sans-serif);
 }
 
 .player-container {
@@ -18,15 +14,15 @@
   margin: 0 auto;
 }
 
-/* --------------------------------------------------------------------------
-   1. SETUP SCREEN
-   -------------------------------------------------------------------------- */
+/* 1. SETUP SCREEN */
 .player-setup-card {
-  background-color: #131b2e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 2.5rem;
+  background: rgba(11, 59, 51, 0.45);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  border-radius: var(--radius-lg, 20px);
+  padding: 3rem 2.5rem;
   box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-editorial);
 }
 
 .player-setup-header {
@@ -35,35 +31,37 @@
 }
 
 .player-badge {
-  color: #B8F36B;
-  font-size: 0.82rem;
+  color: var(--color-crimson-accent, #c9233b);
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .player-title {
-  color: #ffffff;
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 800;
-  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.85rem 0;
 }
 
 .player-subtitle {
-  color: #94a3b8;
-  font-size: 1rem;
-  line-height: 1.5;
+  color: var(--color-muted-sage, #9caaa1);
+  font-size: 1.05rem;
+  line-height: 1.6;
   margin: 0 auto;
   max-width: 580px;
 }
 
 .player-section-label {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #cbd5e1;
+  letter-spacing: 0.12em;
+  color: var(--color-warm-ivory, #f4ebdd);
   margin-bottom: 0.85rem;
 }
 
@@ -75,15 +73,15 @@
 }
 
 .player-category-btn {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #f8fafc;
+  background-color: rgba(244, 235, 221, 0.04);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  color: var(--color-warm-ivory, #f4ebdd);
   padding: 0.85rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 12px);
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,33 +89,34 @@
 }
 
 .player-category-btn:hover {
-  border-color: rgba(184, 243, 107, 0.4);
-  background-color: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-crimson-accent, #c9233b);
+  background-color: rgba(244, 235, 221, 0.08);
 }
 
 .player-category-btn:focus-visible {
-  outline: 2px solid #B8F36B;
+  outline: 2px solid var(--color-crimson-accent, #c9233b);
   outline-offset: 2px;
 }
 
 .player-category-btn.active {
-  border-color: #B8F36B;
-  background-color: rgba(184, 243, 107, 0.12);
-  color: #B8F36B;
+  border-color: var(--color-crimson-accent, #c9233b);
+  background-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
   font-weight: 700;
 }
 
 .player-rules-card {
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  background-color: rgba(3, 31, 27, 0.5);
+  border: 1px solid rgba(244, 235, 221, 0.08);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.75rem;
+  margin-bottom: 2.2rem;
 }
 
 .player-rules-heading {
-  color: #ffffff;
-  font-size: 1rem;
+  font-family: var(--font-serif, "Playfair Display", serif);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: 1.15rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
   display: flex;
@@ -131,36 +130,36 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .player-rules-item {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  color: #cbd5e1;
-  font-size: 0.92rem;
-  line-height: 1.45;
+  color: #cbd5d1;
+  font-size: 0.94rem;
+  line-height: 1.5;
 }
 
 .player-rule-bullet {
-  color: #B8F36B;
+  color: var(--color-crimson-accent, #c9233b);
   font-weight: 700;
 }
 
 .player-info-banner {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-left: 3px solid #B8F36B;
-  padding: 0.85rem 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  color: #94a3b8;
-  margin-bottom: 2rem;
+  background-color: rgba(3, 31, 27, 0.5);
+  border-left: 3px solid var(--color-crimson-accent, #c9233b);
+  padding: 0.95rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  color: #cbd5d1;
+  margin-bottom: 2.2rem;
 }
 
 .player-info-banner.warning {
   border-left-color: #ef4444;
-  color: #f87171;
+  color: #fca5a5;
 }
 
 .player-setup-actions {
@@ -171,15 +170,15 @@
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   2. GAMEPLAY SCREEN
-   -------------------------------------------------------------------------- */
+/* 2. GAMEPLAY SCREEN */
 .player-play-card {
-  background-color: #131b2e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  background: rgba(11, 59, 51, 0.45);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  border-radius: var(--radius-lg, 20px);
   padding: 2.5rem;
   box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-editorial);
 }
 
 .player-top-bar {
@@ -198,23 +197,23 @@
 }
 
 .player-tag {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
-  font-size: 0.8rem;
+  background-color: rgba(244, 235, 221, 0.08);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
   text-transform: uppercase;
 }
 
 .player-timer-pill {
   font-size: 0.92rem;
   font-weight: 700;
-  padding: 0.35rem 0.95rem;
-  border-radius: 999px;
-  background-color: rgba(184, 243, 107, 0.12);
-  color: #B8F36B;
-  border: 1px solid rgba(184, 243, 107, 0.3);
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full, 9999px);
+  background-color: rgba(201, 35, 59, 0.12);
+  color: var(--color-crimson-accent, #c9233b);
+  border: 1px solid rgba(201, 35, 59, 0.3);
   font-variant-numeric: tabular-nums;
   display: inline-flex;
   align-items: center;
@@ -222,33 +221,34 @@
 }
 
 .player-timer-pill.urgent {
-  background-color: rgba(239, 68, 68, 0.15);
+  background-color: rgba(239, 68, 68, 0.2);
   border-color: #ef4444;
   color: #ef4444;
+  animation: livePulse 1s infinite;
 }
 
 .player-progress-bar-bg {
   width: 100%;
   height: 6px;
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
+  background-color: rgba(244, 235, 221, 0.1);
+  border-radius: var(--radius-full, 9999px);
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
 }
 
 .player-progress-bar-fill {
   display: block;
   height: 100%;
-  background-color: #B8F36B;
+  background: linear-gradient(90deg, var(--color-crimson-accent, #c9233b), #e84d63);
   transition: width 0.3s ease;
 }
 
 /* Clues Container */
 .player-clues-section {
-  background-color: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1.75rem;
+  background-color: rgba(3, 31, 27, 0.5);
+  border: 1px solid rgba(244, 235, 221, 0.1);
+  border-radius: 14px;
+  padding: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -262,19 +262,21 @@
 }
 
 .player-clues-title {
-  color: #ffffff;
-  font-size: 1.15rem;
+  font-family: var(--font-serif, "Playfair Display", serif);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
 }
 
 .player-points-tag {
-  color: #B8F36B;
-  background-color: rgba(184, 243, 107, 0.12);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
+  color: var(--color-crimson-accent, #c9233b);
+  background-color: rgba(201, 35, 59, 0.12);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full, 9999px);
   font-size: 0.82rem;
   font-weight: 700;
+  border: 1px solid rgba(201, 35, 59, 0.25);
 }
 
 .player-clues-list {
@@ -285,25 +287,25 @@
 }
 
 .player-clue-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 3px solid #B8F36B;
+  background-color: rgba(244, 235, 221, 0.04);
+  border: 1px solid rgba(244, 235, 221, 0.08);
+  border-left: 3px solid var(--color-crimson-accent, #c9233b);
   border-radius: 8px;
-  padding: 0.85rem 1rem;
+  padding: 0.95rem 1.15rem;
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 0.85rem;
   font-size: 0.95rem;
   line-height: 1.5;
-  color: #f8fafc;
+  color: var(--color-warm-ivory, #f4ebdd);
 }
 
 .player-clue-num {
-  background-color: rgba(184, 243, 107, 0.2);
-  color: #B8F36B;
+  background-color: rgba(201, 35, 59, 0.2);
+  color: var(--color-crimson-accent, #c9233b);
   font-size: 0.75rem;
   font-weight: 800;
-  padding: 0.2rem 0.5rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 4px;
   flex-shrink: 0;
   margin-top: 0.1rem;
@@ -311,11 +313,11 @@
 
 .player-reveal-btn {
   background-color: transparent;
-  color: #94a3b8;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  color: var(--color-muted-sage, #9caaa1);
+  border: 1px dashed rgba(244, 235, 221, 0.2);
   border-radius: 8px;
-  padding: 0.65rem 1rem;
-  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
   width: 100%;
@@ -323,17 +325,17 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .player-reveal-btn:hover:not(:disabled) {
-  border-color: #B8F36B;
-  color: #B8F36B;
-  background-color: rgba(184, 243, 107, 0.04);
+  border-color: var(--color-crimson-accent, #c9233b);
+  color: var(--color-crimson-accent, #c9233b);
+  background-color: rgba(201, 35, 59, 0.05);
 }
 
 .player-reveal-btn:focus-visible {
-  outline: 2px solid #B8F36B;
+  outline: 2px solid var(--color-crimson-accent, #c9233b);
   outline-offset: 2px;
 }
 
@@ -351,11 +353,11 @@
 }
 
 .player-option-btn {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  background-color: rgba(244, 235, 221, 0.04);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  border-radius: var(--radius-md, 12px);
   padding: 1.15rem 1.25rem;
-  color: #f8fafc;
+  color: var(--color-warm-ivory, #f4ebdd);
   font-size: 0.98rem;
   font-weight: 600;
   text-align: left;
@@ -363,17 +365,17 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .player-option-btn:hover:not(:disabled) {
-  border-color: #B8F36B;
-  background-color: rgba(184, 243, 107, 0.05);
+  border-color: var(--color-crimson-accent, #c9233b);
+  background-color: rgba(201, 35, 59, 0.08);
 }
 
 .player-option-btn:focus-visible {
-  outline: 2px solid #B8F36B;
+  outline: 2px solid var(--color-crimson-accent, #c9233b);
   outline-offset: 2px;
 }
 
@@ -386,8 +388,8 @@
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
+  background-color: rgba(244, 235, 221, 0.1);
+  color: var(--color-muted-sage, #9caaa1);
   font-size: 0.82rem;
   font-weight: 700;
   display: inline-flex;
@@ -409,13 +411,13 @@
 }
 
 .player-option-btn.incorrect {
-  background-color: rgba(239, 68, 68, 0.15) !important;
-  border-color: #ef4444 !important;
-  color: #f87171 !important;
+  background-color: rgba(201, 35, 59, 0.18) !important;
+  border-color: var(--color-crimson-accent, #c9233b) !important;
+  color: #fca5a5 !important;
 }
 
 .player-option-btn.incorrect .player-option-letter {
-  background-color: #ef4444;
+  background-color: var(--color-crimson-accent, #c9233b);
   color: #ffffff;
 }
 
@@ -433,8 +435,8 @@
 }
 
 .player-feedback-box.incorrect {
-  background-color: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.3);
+  background-color: rgba(201, 35, 59, 0.12);
+  border-color: rgba(201, 35, 59, 0.35);
 }
 
 .player-feedback-box.timeout {
@@ -443,7 +445,8 @@
 }
 
 .player-feedback-title {
-  font-size: 1rem;
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.1rem;
   font-weight: 700;
   margin: 0 0 0.35rem 0;
 }
@@ -453,7 +456,7 @@
 }
 
 .player-feedback-box.incorrect .player-feedback-title {
-  color: #f87171;
+  color: #fca5a5;
 }
 
 .player-feedback-box.timeout .player-feedback-title {
@@ -461,15 +464,15 @@
 }
 
 .player-feedback-text {
-  font-size: 0.92rem;
-  color: #cbd5e1;
+  font-size: 0.94rem;
+  color: #cbd5d1;
   margin: 0 0 0.5rem 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .player-source-text {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--color-muted-sage, #9caaa1);
   margin: 0;
 }
 
@@ -478,29 +481,30 @@
   justify-content: flex-end;
 }
 
-/* --------------------------------------------------------------------------
-   3. RESULTS SCREEN
-   -------------------------------------------------------------------------- */
+/* 3. RESULTS SCREEN */
 .player-results-card {
-  background-color: #131b2e;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 3rem 2rem;
+  background: rgba(11, 59, 51, 0.45);
+  border: 1px solid rgba(244, 235, 221, 0.12);
+  border-radius: var(--radius-lg, 20px);
+  padding: 3.5rem 2rem;
   text-align: center;
   box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-editorial);
 }
 
 .player-results-title {
-  color: #ffffff;
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-family: var(--font-serif, "Playfair Display", serif);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: clamp(2rem, 3.8vw, 2.6rem);
   font-weight: 800;
   margin: 0 0 0.5rem 0;
 }
 
 .player-results-meta {
-  color: #94a3b8;
+  color: var(--color-muted-sage, #9caaa1);
   font-size: 0.95rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .player-score-circle {
@@ -508,24 +512,24 @@
   height: 140px;
   margin: 0 auto 2.5rem;
   border-radius: 50%;
-  border: 3px solid #B8F36B;
+  border: 3px solid var(--color-crimson-accent, #c9233b);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(184, 243, 107, 0.05);
+  background-color: rgba(201, 35, 59, 0.08);
 }
 
 .player-score-number {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 800;
-  color: #B8F36B;
+  color: var(--color-warm-ivory, #f4ebdd);
   line-height: 1;
 }
 
 .player-score-label {
-  font-size: 0.82rem;
-  color: #94a3b8;
+  font-size: 0.85rem;
+  color: var(--color-muted-sage, #9caaa1);
   margin-top: 0.35rem;
   font-weight: 600;
 }
@@ -539,8 +543,8 @@
 }
 
 .player-stat-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(244, 235, 221, 0.04);
+  border: 1px solid rgba(244, 235, 221, 0.1);
   border-radius: 10px;
   padding: 1rem;
 }
@@ -549,7 +553,7 @@
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #94a3b8;
+  color: var(--color-muted-sage, #9caaa1);
   margin-bottom: 0.35rem;
 }
 
@@ -563,43 +567,29 @@
 }
 
 .player-stat-value.incorrect {
-  color: #f87171;
+  color: #fca5a5;
 }
 
 .player-stat-value.unanswered {
   color: #fbbf24;
 }
 
-.player-performance-badge {
-  display: inline-block;
-  background-color: rgba(184, 243, 107, 0.12);
-  color: #B8F36B;
-  border: 1px solid rgba(184, 243, 107, 0.3);
-  padding: 0.5rem 1.25rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
 .player-results-actions {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.25rem;
   flex-wrap: wrap;
 }
 
-/* --------------------------------------------------------------------------
-   4. BUTTONS
-   -------------------------------------------------------------------------- */
+/* 4. BUTTONS & SHARED CONTROLS */
 .player-btn-primary {
-  background-color: #B8F36B;
-  color: #0b1120;
+  background-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
   border: none;
   font-size: 0.95rem;
   font-weight: 700;
-  padding: 0.85rem 1.8rem;
-  border-radius: 8px;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-full, 9999px);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -610,7 +600,7 @@
 }
 
 .player-btn-primary:hover:not(:disabled) {
-  background-color: #a4e852;
+  background-color: var(--color-crimson-hover, #b01c31);
   transform: translateY(-2px);
 }
 
@@ -625,44 +615,42 @@
 }
 
 .player-btn-secondary {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(244, 235, 221, 0.05);
+  color: var(--color-warm-ivory, #f4ebdd);
+  border: 1px solid rgba(244, 235, 221, 0.2);
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 0.85rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.85rem 1.8rem;
+  border-radius: var(--radius-full, 9999px);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .player-btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(244, 235, 221, 0.12);
+  border-color: var(--color-warm-ivory, #f4ebdd);
 }
 
 .player-btn-secondary:focus-visible {
-  outline: 2px solid #B8F36B;
+  outline: 2px solid var(--color-crimson-accent, #c9233b);
   outline-offset: 2px;
 }
 
-/* --------------------------------------------------------------------------
-   5. RESPONSIVE BREAKPOINTS
-   -------------------------------------------------------------------------- */
+/* 5. RESPONSIVE BREAKPOINTS */
 @media (max-width: 768px) {
   .player-wrapper {
-    padding: 2rem 1rem 3.5rem;
+    padding: 2.5rem 1rem 4rem;
   }
 
   .player-setup-card,
   .player-play-card,
   .player-results-card {
-    padding: 1.75rem 1.25rem;
+    padding: 1.85rem 1.25rem;
   }
 
   .player-options-grid {
@@ -684,4 +672,3 @@
     width: 100%;
   }
 }
-

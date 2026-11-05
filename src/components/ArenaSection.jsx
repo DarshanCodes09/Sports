@@ -2,24 +2,27 @@ import React from "react";
 import { games } from "../data/games.js";
 import "../styles/ArenaSection.css";
 
-// Promotional Arena section for the STRIVORA homepage
 function ArenaSection() {
   return (
-    <section className="arena-promo-section">
+    <section className="arena-promo-section" id="arena-games">
       <div className="arena-promo-container">
-        {/* Section Header */}
         <div className="arena-promo-header">
-          <p className="arena-promo-tag">PLAY. COMPETE. LEARN.</p>
-          <h2 className="arena-promo-title">STRIVORA ARENA</h2>
+          <div className="arena-promo-kicker-row">
+            <span className="arena-promo-kicker-num">02</span>
+            <span className="arena-promo-kicker-dash"></span>
+            <span className="arena-promo-tag">PLAY. COMPETE. LEARN.</span>
+          </div>
+          <h2 className="arena-promo-title">
+            SPORTSVERSE <span className="serif-crimson-italic">ARENA</span>
+          </h2>
           <p className="arena-promo-description">
-            Test your sports knowledge, challenge yourself and earn points through exciting games.
+            Four interactive sports games connecting fans worldwide. Challenge your knowledge with trivia, national flags, player clues, and record statistics.
           </p>
           <a href="/arena" className="arena-promo-btn">
-            Enter Arena
+            Enter Arena Hub &rarr;
           </a>
         </div>
 
-        {/* 4 Game Cards Grid generated from games.js */}
         <div className="arena-promo-grid">
           {games.map((game) => (
             <a
@@ -30,7 +33,7 @@ function ArenaSection() {
               <h3 className="arena-promo-card-title">{game.name}</h3>
               <p className="arena-promo-card-desc">{game.description}</p>
               <span className="arena-promo-card-link">
-                {game.buttonText} &rarr;
+                {game.buttonText}
               </span>
             </a>
           ))}

@@ -1,159 +1,273 @@
-/* ==========================================================================
-   STRIVORA ARENA HOMEPAGE PROMOTIONAL SECTION
-   File: src/styles/ArenaSection.css
-   Responsive, clean layout with dark navy background and lime green highlights
-   ========================================================================== */
+/* Homepage Arena Promotional Section — SPORTSVERSE Design System */
 
 .arena-promo-section {
-  background-color: #0d1322;
-  color: #ffffff;
-  padding: 3.5rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--color-deep-forest, #031f1b);
+  color: var(--color-warm-ivory, #f4ebdd);
+  padding: 5rem 2rem 5.5rem;
+  border-top: 1px solid rgba(244, 235, 221, 0.08);
+  border-bottom: 1px solid rgba(244, 235, 221, 0.08);
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
 .arena-promo-container {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* Header Content */
 .arena-promo-header {
   text-align: center;
-  max-width: 650px;
-  margin: 0 auto 2.5rem;
+  max-width: 760px;
+  margin: 0 auto 3.5rem;
+}
+
+.arena-promo-kicker-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.arena-promo-kicker-num {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-crimson-accent, #c9233b);
+  letter-spacing: 0.1em;
+}
+
+.arena-promo-kicker-dash {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--color-crimson-accent, #c9233b);
 }
 
 .arena-promo-tag {
-  color: #B8F36B;
-  font-size: 0.85rem;
+  color: var(--color-crimson-accent, #c9233b);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
 .arena-promo-title {
-  color: #ffffff;
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  color: var(--color-warm-ivory, #f4ebdd);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.01em;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
 }
 
 .arena-promo-description {
-  color: #9ca3af;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
+  color: var(--color-muted-sage, #9caaa1);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0 auto 2rem;
+  max-width: 640px;
 }
 
 .arena-promo-btn {
-  background-color: #B8F36B;
-  color: #0d1322;
+  background-color: var(--color-warm-ivory, #f4ebdd);
+  color: var(--color-dark-editorial, #10231f);
   border: none;
   font-size: 0.95rem;
   font-weight: 700;
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
+  padding: 0.85rem 2.2rem;
+  border-radius: var(--radius-full, 9999px);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
+  transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
 }
 
 .arena-promo-btn:hover {
-  background-color: #a4e852;
+  background-color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(184, 243, 107, 0.3);
-}
-
-.arena-promo-btn:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.45);
 }
 
 /* 4 Game Cards Grid */
 .arena-promo-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  gap: 1.6rem;
 }
 
 .arena-promo-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
+  background-color: rgba(11, 59, 51, 0.4);
+  border: 1px solid rgba(244, 235, 221, 0.1);
+  border-radius: var(--radius-lg, 18px);
+  padding: 2rem 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
+  backdrop-filter: blur(8px);
 }
 
 .arena-promo-card:hover {
-  border-color: #B8F36B;
-  background-color: rgba(184, 243, 107, 0.04);
-  transform: translateY(-4px);
+  border-color: var(--color-crimson-accent, #c9233b);
+  background-color: rgba(11, 59, 51, 0.7);
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px -10px rgba(0, 0, 0, 0.5),
+              0 0 20px -4px var(--color-crimson-glow, rgba(201, 35, 59, 0.25));
 }
 
-.arena-promo-card:focus-visible {
-  outline: 2px solid #B8F36B;
-  outline-offset: 3px;
+/* Organic Aura Wrapper & Icon */
+.arena-promo-aura-wrapper {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arena-promo-aura-shape {
+  position: absolute;
+  width: 76px;
+  height: 68px;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  filter: blur(7px);
+  transition: transform 0.35s ease;
+}
+
+.arena-promo-card:hover .arena-promo-aura-shape {
+  transform: scale(1.15) rotate(10deg);
+}
+
+.arena-promo-icon {
+  position: relative;
+  z-index: 2;
+  color: var(--color-warm-ivory, #f4ebdd);
+  transition: transform 0.25s ease;
+}
+
+.arena-promo-card:hover .arena-promo-icon {
+  transform: scale(1.08);
+}
+
+.arena-promo-orbital-arc {
+  position: absolute;
+  inset: -4px;
+  border: 1px dashed rgba(244, 235, 221, 0.16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Card Content */
+.arena-promo-content {
+  text-align: center;
+  flex: 1;
+}
+
+.arena-promo-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-crimson-accent, #c9233b);
+  margin-bottom: 0.45rem;
+  display: block;
 }
 
 .arena-promo-card-title {
-  color: #ffffff;
-  font-size: 1.2rem;
+  font-family: var(--font-serif, "Playfair Display", Georgia, serif);
+  font-size: 1.35rem;
   font-weight: 700;
-  margin: 0 0 0.5rem 0;
+  color: var(--color-warm-ivory, #f4ebdd);
+  margin: 0 0 0.35rem 0;
+  line-height: 1.25;
+}
+
+.arena-promo-tagline {
+  color: var(--color-muted-sage, #9caaa1);
+  font-size: 0.84rem;
+  font-style: italic;
+  margin: 0 0 0.85rem 0;
 }
 
 .arena-promo-card-desc {
-  color: #9ca3af;
-  font-size: 0.88rem;
-  line-height: 1.5;
-  margin: 0 0 1.25rem 0;
-  flex-grow: 1;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #cbd5d1;
+  margin: 0 0 1.5rem 0;
 }
 
-.arena-promo-card-link {
-  color: #B8F36B;
+/* Card Footer */
+.arena-promo-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(244, 235, 221, 0.08);
+}
+
+.arena-promo-card-btn-text {
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--color-warm-ivory, #f4ebdd);
+  transition: color 0.2s ease;
+}
+
+.arena-promo-card:hover .arena-promo-card-btn-text {
+  color: #ffffff;
+}
+
+.arena-promo-circle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 235, 221, 0.3);
+  background-color: rgba(244, 235, 221, 0.06);
+  color: var(--color-warm-ivory, #f4ebdd);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  transition: gap 0.2s ease;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
 }
 
-.arena-promo-card:hover .arena-promo-card-link {
-  gap: 0.45rem;
+.arena-promo-card:hover .arena-promo-circle-btn {
+  background-color: var(--color-crimson-accent, #c9233b);
+  border-color: var(--color-crimson-accent, #c9233b);
+  color: #ffffff;
+  transform: translateX(3px);
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1024px) {
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
   .arena-promo-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .arena-promo-section {
-    padding: 2.5rem 1rem;
+    padding: 3.5rem 1.25rem 4rem;
   }
 
   .arena-promo-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
-  .arena-promo-btn {
-    width: 100%;
+  .arena-promo-title {
+    font-size: 2rem;
   }
 }

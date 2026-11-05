@@ -1,10 +1,9 @@
-// STRIVORA Sports Arena - Guess the Player Dataset
-// Verified, real-world athlete facts across Cricket, Football, Basketball, and Volleyball
+// Guess the Player dataset
 
 export const players = [
-  // ------------------------------------------------------------------------
+
   // CRICKET
-  // ------------------------------------------------------------------------
+
   {
     id: 1,
     name: "Virat Kohli",
@@ -78,9 +77,9 @@ export const players = [
     source: "ECB & ESPNcricinfo"
   },
 
-  // ------------------------------------------------------------------------
+
   // FOOTBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 5,
     name: "Lionel Messi",
@@ -154,9 +153,9 @@ export const players = [
     source: "Premier League & UEFA Official Stats"
   },
 
-  // ------------------------------------------------------------------------
+
   // BASKETBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 9,
     name: "LeBron James",
@@ -230,9 +229,9 @@ export const players = [
     source: "NBA Official Statistics"
   },
 
-  // ------------------------------------------------------------------------
+
   // VOLLEYBALL
-  // ------------------------------------------------------------------------
+
   {
     id: 13,
     name: "Earvin N'Gapeth",
